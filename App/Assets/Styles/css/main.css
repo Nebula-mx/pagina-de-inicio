@@ -1,0 +1,198 @@
+body {
+    /* reset styles */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    /* background styles */
+    font-family: "Montserrat", sans-serif;
+    background-image: url("../../Images/iOS13_BlueDark_FlareZephyr.jpeg");
+    background-size: auto cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    /* formating grid */
+    display: grid;
+    grid-template-rows: 45vh 55vh;
+}
+.top-bg {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.50);
+    -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+    z-index: 10;
+}
+button,
+input[type="button"]{
+    font-family: "Montserrat", sans-serif;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 1px rgba(0, 0, 0, .10);
+    border-radius: 8px;
+    padding: 0.5em .8em;
+    width: fit-content;
+    height: fit-content;
+    color: rgba(0, 0, 0, .75);
+}
+button:hover,
+input[type="button"]:hover {
+    background-color: rgb(243, 243, 243);
+}
+button:active,
+input[type="button"]:active {
+    background-color: rgb(235, 235, 235);
+}
+#top-content {
+    grid-row: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    text-align: center;
+}
+.top-content_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 33px 33px 0 33px;
+}
+.top-content_top > div {
+    display: flex;
+    align-items: center;
+    width: max-content;
+}
+.top-content_top > div > img {
+    width: 33px;
+    height: 33px;
+    padding: 0 10px 0 10px;
+}
+.top-content_top #weather {
+    width: -moz-available;
+}
+#top-content #date h2 {
+    font-size: 4rem;
+    margin: 1rem 0 10px 0;
+}
+#top-content #date p {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+#main-content {
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    grid-row: 2;
+    width: 100%;
+    height: 55vh;
+    padding-top: 48px;
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, .60);
+    -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+}
+#main-content .search-form {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    width: 60%;
+}
+#main-content .search-form :first-child {
+    padding: 21px;
+    height: 53px;
+    width: 100%;
+    max-width: 500px;
+    /* -webkit-backdrop-filter: blur(28px);
+        backdrop-filter: blur(28px); */
+    border-radius: 6px 0px 0px 6px;
+    border: none;
+    outline: 0;
+    font-family: "Montserrat", sans-serif;
+}
+#main-content .search-form :last-child {
+    padding: 5px 5px 5px 10px;
+    background: #FFFFFF;
+    border-radius: 0px 6px 6px 0px;
+}
+#main-content .favourites {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    width: 80%;
+    height: max-content;
+    padding: 40px 0 60px 0;
+    overflow-y: auto;
+}
+#main-content .favourites .shortcut {
+    position: relative;
+}
+#main-content .favourites .shortcut .shortcut_main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    margin: 10px 1.3rem;
+    z-index: 1;
+}
+#main-content .favourites > .shortcut .shortcut_main-content [data-AppImg],
+#add-btnIMg {
+    background-color: rgba(255, 255, 255, 0.50);
+    padding: 1rem;
+    border-radius: 5px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 4px;
+}
+#main-content .favourites > .shortcut .shortcut_context {
+    display: flex;
+}
+#main-content .favourites > .shortcut .shortcut_context #edit-btn {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    width: 4px;
+    height: 18px;
+    padding: 20px 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+#main-content .favourites > .shortcut:hover > .shortcut_context #edit-btn{
+    display: block;
+    filter: invert(100%);
+}
+.context-menu {
+    position: absolute;
+    display: block;
+    background-color: rgb(255, 255, 255);
+    width: max-content;
+    padding: 0 15px;
+    margin: 30px 60px;
+    border-radius: 5px;
+    color: #000;
+    z-index: 20;
+}
+.context-menu ul{
+    list-style: none;
+    padding: 0;
+}
+.context-menu li {
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.context-menu li:hover {
+    background-color: rgba(0, 0, 0, 0.10);
+}
+.context-menu hr {
+    width: 80%;
+    opacity: 40%;
+}

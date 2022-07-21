@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./App/Assets/Styles/css/main.css">
+    <style id="dynamic-style"></style>
+</head>
+<body id="root">
+    <div class="top-bg"></div>
+    <main>
+        <div id="top-content">
+            <div class="top-content_top">
+                <div id="weather">
+                    <img src="./App/Assets/Images/weather 1.svg" alt="weather-img">
+                    <p data-weatherState>Loading weather...</p>
+                </div>
+                <div id="settings">
+                    <p>Settings</p>
+                    <img src="./App/Assets/Images/options 1.svg" alt="" srcset="">
+                </div>
+            </div>
+            <div id="date">
+                <h2 data-hour>00:00</h2>
+                <p data-date>00/00/00</p>
+            </div>
+        </div>
+        <div id="main-content">
+            <form class="search-form">
+                <input type="search" name="search" placeholder="Type to search">
+                <input type="image" src="./App/Assets/Images/Search 2.svg" alt="Seach btn" width="43px" height="43px">
+            </form>
+            <div class="favourites">
+                <div class="shortcut" id="add-shortcut">
+                    <div class="shortcut_main-content">
+                        <img id="add-btnIMg" src="./App/Assets/Images/addBtn.svg" >
+                        <legend>Add shortcut</legend>
+                    </div>
+                </div>
+                <template id="shotcuts-template">
+                    <div class="shortcut">
+                        <div class="shortcut_context">
+                            <img id="edit-btn" src="./App/Assets/Images/editBtn.svg" alt="Edit shortcut" title="Edit shortcut">
+                        </div>
+                        <div data-URl class="shortcut_main-content">
+                            <img data-AppImg alt="">
+                            <legend data-AppName ></legend>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </main>
+    <script src="./App/Index.js" type="module"></script>
+</body>
+</html>
