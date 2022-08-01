@@ -1,3 +1,5 @@
+import { config } from "./loadSettings.js";
+
 export default function() {
     const  $favourites = document.querySelector(".favourites"),
         $template = document.getElementById("shotcuts-template").content,
@@ -21,4 +23,5 @@ export default function() {
         $fragment.append($clone)
     })
     $favourites.append($fragment)
+    if(shortcuts.length === config.general.shortcuts_limit) document.getElementById("add-shortcut").style.display = "none"
 }

@@ -1,5 +1,6 @@
 import { errorAnimShake } from "../Helpers/Animations.js";
 import { getContent } from "../Helpers/Loader.js";
+import { config } from "./loadSettings.js";
 
 const $root = document.getElementById("root"),
     $dynamicStyle = document.getElementById("dynamic-style"),
@@ -30,7 +31,7 @@ export function closeShortcutForm(){
     $dynamicStyle.innerHTML = null
 }
 export async function saveForm(mode) {
-    //mode and editTarget are only for edit shortcut mode
+    //mode and editTarget are only for edit-shortcut mode
 
     //form validations
     if(!$form.url.value) {
@@ -50,6 +51,7 @@ export async function saveForm(mode) {
     const shortcuts = JSON.parse(localStorage.getItem("shortcuts")),
         prevPosition = shortcuts.length,
         $template = document.getElementById("shotcuts-template").content;
+
     //if mode value is equal to "edit" edit mode is started
     if(mode === "edit") {
         let position = parseInt($editTarget.getAttribute("data-id"))
@@ -69,6 +71,7 @@ export async function saveForm(mode) {
         return
     }
 
+    //create shortcut mode
     shortcuts[prevPosition] = {
         id: prevPosition,
         title: $form.title.value,
@@ -86,5 +89,8 @@ export async function saveForm(mode) {
 
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts))
     localStorage.setItem("shortcutsNumber", shortcuts.length)
+    if(shortcuts.length === config.general.shortcuts_limit) {
+        document.getElementById("add-shortcut").style.display = "none"
+    }
     return
 }

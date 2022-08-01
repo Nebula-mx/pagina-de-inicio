@@ -1,3 +1,48 @@
+:root {
+    --light-button-theme: rgb(255, 255, 255); 
+    --light-button-border: rgba(0, 0, 0, 0.15);
+    --light-button-fontColor: rgba(0, 0, 0, .75);
+    --light-button-hover: rgb(243, 243, 243);
+    --light-button-active: rgb(235, 235, 235);
+
+    --top-content-light-fontColor: #000;
+    --main-content-light-font: #000;
+    --main-content-light-bg: rgba(255, 255, 255, .60);
+
+    --main-content-light-searchBox: #ffffffd6; 
+    --main-content-light-seatchBtn: #FFFFFF;
+    --main-content-light-icon-bg: rgba(255, 255, 255, 0.50);
+
+    --light-button-theme: rgb(255, 255, 255); 
+    --light-button-border: rgba(0, 0, 0, 0.15);
+    --light-button-fontColor: rgba(0, 0, 0, .75); 
+    --light-button-hover: ■rgb(243, 243, 243);
+    --light-button-active: rgb(235, 235, 235);
+
+    --context-menu-light: ■ rgb(255, 255, 255); 
+    --context-menu-light-li-hover: rgba(0, 0, 0, 0.10);
+
+    --settings-menu-light-list: ■#F7F7F7;
+    --settings-menu-light-list-items: ■#fff;
+    --settings-menu-light-content: #fff;
+    --settings-menu-light-options:#F7F7F7;
+    --settings-menu-light-selects:#F7F7F7;
+    --settings-menu-light-option-toggleBg:#D9D9D9;
+    --settings-menu-light-option-toggleCircle:#fff;
+
+    /* Dark theme */
+    --top-content-dark-fontColor: #fff;
+    --main-content-dark-font: #fff;
+    --main-content-dark-bg: rgba(0, 0, 0, 0.65); 
+    --main-content-dark-searchBox: rgba(21, 21, 21, 0.8);
+
+    --settings-menu-dark-list: #070707;
+    --settings-menu-dark-items: #0E0E0E; 
+    --settings-menu-dark-content: #000;
+    --settings-menu-dark-options: #0E0E0E;
+    --settings-menu-dark-selects: #0E0E0E; 
+    --settings-menu-dark-toggleBg: rgba(39, 39, 39, 1);
+}
 body {
     /* reset styles */
     margin: 0;
@@ -7,8 +52,8 @@ body {
 
     /* background styles */
     font-family: "Montserrat", sans-serif;
-    background-image: url("../../Images/iOS13_BlueDark_FlareZephyr.jpeg");
-    background-size: auto cover;
+    background-image: url("https://cdn.discordapp.com/attachments/635625973764849684/998853812120989736/f5d73ce04a86f9264c8ca3e2d1a56069.jpg");
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 
@@ -29,22 +74,22 @@ body {
 button,
 input[type="button"]{
     font-family: "Montserrat", sans-serif;
-    background-color: rgb(255, 255, 255);
-    border: solid 1px rgba(0, 0, 0, 0.15);
+    background-color: var(--light-button-theme);
+    border: solid 1px var(--light-button-border);
     box-shadow: 0px 1px rgba(0, 0, 0, .10);
     border-radius: 8px;
     padding: 0.5em .8em;
     width: fit-content;
     height: fit-content;
-    color: rgba(0, 0, 0, .75);
+    color: var(--light-button-fontColor);
 }
 button:hover,
 input[type="button"]:hover {
-    background-color: rgb(243, 243, 243);
+    background-color: var(--light-button-hover);
 }
 button:active,
 input[type="button"]:active {
-    background-color: rgb(235, 235, 235);
+    background-color: var(--light-button-active);
 }
 #top-content {
     grid-row: 0;
@@ -93,7 +138,7 @@ input[type="button"]:active {
     height: 55vh;
     padding-top: 48px;
     color: #FFFFFF;
-    background-color: rgba(255, 255, 255, .60);
+    background-color: var(--main-content-light-bg);
     -webkit-backdrop-filter: blur(6px);
         backdrop-filter: blur(6px);
 }
@@ -104,6 +149,7 @@ input[type="button"]:active {
     width: 60%;
 }
 #main-content .search-form :first-child {
+    background-color: var(--main-content-light-searchBox);
     padding: 21px;
     height: 53px;
     width: 100%;
@@ -117,7 +163,7 @@ input[type="button"]:active {
 }
 #main-content .search-form :last-child {
     padding: 5px 5px 5px 10px;
-    background: #FFFFFF;
+    background: var(--main-content-light-seatchBtn);
     border-radius: 0px 6px 6px 0px;
 }
 #main-content .favourites {
@@ -144,7 +190,7 @@ input[type="button"]:active {
 }
 #main-content .favourites > .shortcut .shortcut_main-content [data-AppImg],
 #add-btnIMg {
-    background-color: rgba(255, 255, 255, 0.50);
+    background-color: var(--main-content-light-icon-bg);
     padding: 1rem;
     border-radius: 5px;
     width: 64px;
@@ -171,7 +217,7 @@ input[type="button"]:active {
 .context-menu {
     position: absolute;
     display: block;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--context-menu-light);
     width: max-content;
     padding: 0 15px;
     margin: 30px 60px;
@@ -190,7 +236,7 @@ input[type="button"]:active {
     cursor: pointer;
 }
 .context-menu li:hover {
-    background-color: rgba(0, 0, 0, 0.10);
+    background-color: var(--context-menu-light-li-hover);
 }
 .context-menu hr {
     width: 80%;

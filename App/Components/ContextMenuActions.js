@@ -1,11 +1,11 @@
+import { config } from "./loadSettings.js";
+
 export function deleteShortcut(target){
     const $favourites = document.querySelector(".favourites"),
         shortcutData = JSON.parse(localStorage.getItem("shortcuts"));
 
     let position = parseInt(target.getAttribute("data-id")),
         $element = $favourites.children[position+2];
-
-    console.log($element.parentNode)
     
     shortcutData.splice(position, 1 )
     $favourites.removeChild($element)
@@ -32,4 +32,8 @@ export function deleteShortcut(target){
     
     localStorage.setItem("shortcuts", JSON.stringify(shortcutData))
     localStorage.setItem("shortcutsNumber", shortcutData.length)
+
+    if(shortcutData.length < config.general.shortcuts_limit && document.getElementById("add-shortcut").getAttribute("style") === "display: none;") {
+        document.getElementById("add-shortcut").style.display = "block"
+    }
 }

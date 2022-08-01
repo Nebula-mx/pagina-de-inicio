@@ -2,6 +2,7 @@ import { Clock } from "./Clock.js";
 import { deleteShortcut } from "./ContextMenuActions.js";
 import LoadShortcuts from "./LoadShortcuts.js";
 import { Search } from "./Search.js";
+import { closeSettingsMenu } from "./SettingsMenu.js";
 import { showActions } from "./ShortcutActions.js";
 import { ShortcutForm ,closeShortcutForm, saveForm} from "./ShortcutForm.js";
 import { getWeather } from "./Weather.js";
@@ -17,7 +18,7 @@ document.addEventListener("submit", e => {
     if (e.target.matches("#main-content .search-form")) Search()
 })
 document.addEventListener("click", async(e) => {
-    //console.log(e.target)
+    console.log(e.target)
 
     if(e.target.matches("[data-AppImg]")){
         window.open(`${e.target.parentNode.getAttribute("data-url")}`)
@@ -32,4 +33,12 @@ document.addEventListener("click", async(e) => {
     if(e.target.matches("#context-menu_editBtn")) await ShortcutForm("editSaveBtn", e.target.parentNode.parentNode.parentNode.parentNode)
     if(e.target.matches("#editSaveBtn")) saveForm("edit")
 
+    if(e.target.parentNode.matches("#settings")) location.hash = "#/settings/general"
+    if(e.target.matches("#closeSettingsBtn")) {
+        closeSettingsMenu()
+    }
+
+    if(e.target.parentNode.matches("#settings-list")) {
+        location.hash = `#/settings/${e.target.dataset.category}`
+    }
 })

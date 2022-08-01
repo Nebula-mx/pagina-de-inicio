@@ -5,6 +5,7 @@ const status = {
     aplied: false,
     target: null
 }
+
 export function closeMenu(listener){
     if(listener) {
         if(listener.target.matches(".context-menu") || listener.target.matches("#context-menu_deleteBtn")) return
@@ -13,6 +14,7 @@ export function closeMenu(listener){
     status.aplied = false
     status.target.children[0].removeChild(status.target.children[0].querySelector(".context-menu"))
 }
+
 export function showActions(e){
     getContent({
         url: "App/Views/contextMenu.html",
