@@ -18,6 +18,7 @@ export default function() {
         $template.querySelector(".shortcut_main-content").setAttribute("data-url", el.url)
         $template.querySelector("[data-AppImg]").src = `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${el.url}`
         $template.querySelector("[data-AppName]").textContent = el.title
+        if(config.appereance.theme === "dark") $template.querySelector("[data-AppImg]").setAttribute("style", $template.querySelector("[data-AppImg]").dataset.theme)
     
         let $clone = document.importNode($template, true)
         $fragment.append($clone)

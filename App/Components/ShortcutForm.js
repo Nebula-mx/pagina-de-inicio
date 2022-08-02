@@ -38,7 +38,7 @@ export async function saveForm(mode) {
         errorAnimShake($form.url, ['5px', '-5px', '5px', '-5px', '5px', '0'], 15)
         return
     }
-    if(!/^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$/.test($form.url.value)) {
+    if(!/^(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g.test($form.url.value)) {
         errorAnimShake($form.url, ['5px', '-5px', '5px', '-5px', '5px', '0'], 15)
         return
     }
@@ -82,6 +82,8 @@ export async function saveForm(mode) {
     $template.querySelector(".shortcut_main-content").setAttribute("data-url", shortcuts[prevPosition].url)
     $template.querySelector("[data-AppImg]").src = `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${shortcuts[prevPosition].url}`
     $template.querySelector("[data-AppName]").textContent = shortcuts[prevPosition].title
+
+    if(config.appereance.theme === "dark") $template.querySelector("[data-AppImg]").setAttribute("style", $template.querySelector("[data-AppImg]").dataset.theme)
 
     let $clone = document.importNode($template, true)
     $favourites.append($clone)

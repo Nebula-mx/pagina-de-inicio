@@ -1,48 +1,3 @@
-:root {
-    --light-button-theme: rgb(255, 255, 255); 
-    --light-button-border: rgba(0, 0, 0, 0.15);
-    --light-button-fontColor: rgba(0, 0, 0, .75);
-    --light-button-hover: rgb(243, 243, 243);
-    --light-button-active: rgb(235, 235, 235);
-
-    --top-content-light-fontColor: #000;
-    --main-content-light-font: #000;
-    --main-content-light-bg: rgba(255, 255, 255, .60);
-
-    --main-content-light-searchBox: #ffffffd6; 
-    --main-content-light-seatchBtn: #FFFFFF;
-    --main-content-light-icon-bg: rgba(255, 255, 255, 0.50);
-
-    --light-button-theme: rgb(255, 255, 255); 
-    --light-button-border: rgba(0, 0, 0, 0.15);
-    --light-button-fontColor: rgba(0, 0, 0, .75); 
-    --light-button-hover: ■rgb(243, 243, 243);
-    --light-button-active: rgb(235, 235, 235);
-
-    --context-menu-light: ■ rgb(255, 255, 255); 
-    --context-menu-light-li-hover: rgba(0, 0, 0, 0.10);
-
-    --settings-menu-light-list: ■#F7F7F7;
-    --settings-menu-light-list-items: ■#fff;
-    --settings-menu-light-content: #fff;
-    --settings-menu-light-options:#F7F7F7;
-    --settings-menu-light-selects:#F7F7F7;
-    --settings-menu-light-option-toggleBg:#D9D9D9;
-    --settings-menu-light-option-toggleCircle:#fff;
-
-    /* Dark theme */
-    --top-content-dark-fontColor: #fff;
-    --main-content-dark-font: #fff;
-    --main-content-dark-bg: rgba(0, 0, 0, 0.65); 
-    --main-content-dark-searchBox: rgba(21, 21, 21, 0.8);
-
-    --settings-menu-dark-list: #070707;
-    --settings-menu-dark-items: #0E0E0E; 
-    --settings-menu-dark-content: #000;
-    --settings-menu-dark-options: #0E0E0E;
-    --settings-menu-dark-selects: #0E0E0E; 
-    --settings-menu-dark-toggleBg: rgba(39, 39, 39, 1);
-}
 body {
     /* reset styles */
     margin: 0;
@@ -52,7 +7,7 @@ body {
 
     /* background styles */
     font-family: "Montserrat", sans-serif;
-    background-image: url("https://cdn.discordapp.com/attachments/635625973764849684/998853812120989736/f5d73ce04a86f9264c8ca3e2d1a56069.jpg");
+    background-image: url("../../Images/iOS13_BlueDark_FlareZephyr.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -160,10 +115,11 @@ input[type="button"]:active {
     border: none;
     outline: 0;
     font-family: "Montserrat", sans-serif;
+    color: var(--main-content-light-font);
 }
 #main-content .search-form :last-child {
     padding: 5px 5px 5px 10px;
-    background: var(--main-content-light-seatchBtn);
+    background: var(--main-content-light-searchBtn);
     border-radius: 0px 6px 6px 0px;
 }
 #main-content .favourites {
@@ -234,6 +190,7 @@ input[type="button"]:active {
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
+    color: var(--main-content-light-font);
 }
 .context-menu li:hover {
     background-color: var(--context-menu-light-li-hover);
