@@ -96,3 +96,28 @@ export async function saveForm(mode) {
     }
     return
 }
+export function ajustShortcutsLenght() {
+    const shortcuts = JSON.parse(localStorage.getItem("shortcuts"))
+
+    let shortcutsLenght = $favourites.childElementCount -2,
+        shortcutsLimit = config.general.shortcuts_limit,
+        diference =  shortcutsLenght - shortcutsLimit;
+
+    if(shortcutsLenght > shortcutsLimit) {
+        while(diference !== 0 && diference >= 0) {
+            $favourites.removeChild($favourites.lastElementChild)
+            document.getElementById("add-shortcut").style.display = "none"
+            shortcuts.pop()
+            diference--
+            console.log(shortcuts)
+        }
+        localStorage.setItem("shortcuts", JSON.stringify(shortcuts))
+        localStorage.setItem("shortcutsNumber", shortcuts.length)
+    }
+    if(shortcutsLenght < shortcutsLimit && document.getElementById("add-shortcut").getAttribute("style") === "display: none;") {
+        document.getElementById("add-shortcut").style.display = "block"
+    }
+    if(shortcutsLenght === shortcutsLimit && document.getElementById("add-shortcut").getAttribute("style") === "display: block;") {
+        document.getElementById("add-shortcut").style.display = "none"
+    }
+}

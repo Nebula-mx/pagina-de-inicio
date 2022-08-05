@@ -1,3 +1,23 @@
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--settings-menu-light-selects); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--settings-menu-light-selects); 
+  }
 body {
     /* reset styles */
     margin: 0;
@@ -7,7 +27,7 @@ body {
 
     /* background styles */
     font-family: "Montserrat", sans-serif;
-    background-image: url("../../Images/iOS13_BlueDark_FlareZephyr.jpeg");
+    background-image: url("App/Assets/Images/Backgrounds/3.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -22,8 +42,8 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.50);
-    -webkit-backdrop-filter: blur(5px);
-        backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(var(--blur-strenght));
+        backdrop-filter: blur(var(--blur-strenght));
     z-index: 10;
 }
 button,
@@ -37,6 +57,7 @@ input[type="button"]{
     width: fit-content;
     height: fit-content;
     color: var(--light-button-fontColor);
+    font-weight: 600;
 }
 button:hover,
 input[type="button"]:hover {
@@ -92,10 +113,10 @@ input[type="button"]:active {
     width: 100%;
     height: 55vh;
     padding-top: 48px;
-    color: #FFFFFF;
+    color: var(--main-content-font);
     background-color: var(--main-content-light-bg);
-    -webkit-backdrop-filter: blur(6px);
-        backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(var(--blur-strenght));
+        backdrop-filter: blur(var(--blur-strenght));
 }
 #main-content .search-form {
     display: flex;
@@ -109,8 +130,6 @@ input[type="button"]:active {
     height: 53px;
     width: 100%;
     max-width: 500px;
-    /* -webkit-backdrop-filter: blur(28px);
-        backdrop-filter: blur(28px); */
     border-radius: 6px 0px 0px 6px;
     border: none;
     outline: 0;
@@ -165,10 +184,10 @@ input[type="button"]:active {
     padding: 20px 10px;
     cursor: pointer;
     z-index: 10;
+    filter: invert(var(--context-menu-open-btn-invert));
 }
 #main-content .favourites > .shortcut:hover > .shortcut_context #edit-btn{
     display: block;
-    filter: invert(100%);
 }
 .context-menu {
     position: absolute;
