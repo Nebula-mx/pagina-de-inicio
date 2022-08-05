@@ -18,6 +18,7 @@ export function ShortcutForm(saveBtnID, editTarget){
             $dynamicStyle.innerHTML = await formStyle.text()
             $root.insertAdjacentHTML("afterbegin", html)
             $form = document.getElementById("shortcut-form")
+            document.querySelector(".top-bg").style.display ="block"
 
             $form.querySelector("#saveBtn").setAttribute("id", saveBtnID)
             $editTarget = editTarget
@@ -29,6 +30,7 @@ export function ShortcutForm(saveBtnID, editTarget){
 export function closeShortcutForm(){
     $root.removeChild($form)
     $dynamicStyle.innerHTML = null
+    document.querySelector(".top-bg").style.display ="none"
 }
 export async function saveForm(mode) {
     //mode and editTarget are only for edit-shortcut mode

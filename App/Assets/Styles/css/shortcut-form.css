@@ -21,7 +21,7 @@
     outline: none;
     border-radius: 8px;
     font-family: "Montserrat", sans-serif;
-    color: var(--main-content-light-font);
+    color: var(--main-content-font);
 }
 #shortcut-form input[type="text"]:focus {
     border: solid 2px rgb(157, 219, 255);
@@ -39,7 +39,7 @@
     border-radius: 8px;
     padding: 0.5em .8em;
     width: 48%;
-    color: var(--main-content-light-font);
+    color: var(--main-content-font);
 }
 #shortcut-form .shortcut-form_btns > input[type="button"]:hover {
     background-color: var(--shortcut-form-btn-hover);

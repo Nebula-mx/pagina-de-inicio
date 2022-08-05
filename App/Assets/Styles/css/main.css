@@ -134,7 +134,7 @@ input[type="button"]:active {
     border: none;
     outline: 0;
     font-family: "Montserrat", sans-serif;
-    color: var(--main-content-light-font);
+    color: var(--main-content-font);
 }
 #main-content .search-form :last-child {
     padding: 5px 5px 5px 10px;
@@ -209,7 +209,7 @@ input[type="button"]:active {
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
-    color: var(--main-content-light-font);
+    color: var(--main-content-font);
 }
 .context-menu li:hover {
     background-color: var(--context-menu-light-li-hover);
