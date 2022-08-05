@@ -9,7 +9,7 @@ const defaultSettings = {
     },
     "appereance": {
         "theme": "light",
-        "background": "App/Assets/Images/Backgrounds/3.jpg",
+        "background": "App/Assets/Images/Backgrounds/1.jpg",
         "blur": 8
     }
 }

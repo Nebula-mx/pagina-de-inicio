@@ -8,7 +8,7 @@ const status = {
 
 export function closeMenu(listener){
     if(listener) {
-        if(listener.target.matches(".context-menu") || listener.target.matches("#context-menu_deleteBtn")) return
+        if(listener.target.matches(".context-menu")) return
         document.removeEventListener("click", closeMenu)
     }
     status.aplied = false

@@ -8,9 +8,9 @@ export async function Router() {
         openSettingsMenu()
         if(hash.includes("#/settings/general")) loadSettingsContent(settingsContent.general)
         if(hash.includes("#/settings/appereance")) loadSettingsContent(settingsContent.appereance)
+        if(hash.includes("#/settings/about")) loadSettingsContent(settingsContent.about)
         
         document.addEventListener("change", e => {
-            console.log("from change" ,e.target)
             if(e.target.matches(".option-select")) setSetting(e.target.children[e.target.selectedIndex])
             if(e.target.matches("#blur-range")) setSetting(e.target)
         })

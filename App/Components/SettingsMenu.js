@@ -171,6 +171,7 @@ export const settingsContent = {
             <ul id="settings-list" >
                 <li data-category="general" id="settings_general">General</li>
                 <li data-category="appereance" id="settings_appereance">Appereance</li>
+                <li data-category="about" id="settings_about">About</li>
             </ul>
         </div>
         <div class="settings-menu_content">
@@ -220,7 +221,7 @@ export const settingsContent = {
     </div>
     `,
     appereance: `
-        <div>
+    <div>
         <div class="settings-menu_content-top">
             <h5 id="category-name">Appereance</h5>
             <hr>
@@ -257,7 +258,25 @@ export const settingsContent = {
             </div>
         </div>
     </div>
+    `,
+    about: `
+    <div>
+        <div class="settings-menu_content-top">
+            <h5 id="category-name">About</h5>
+            <hr>
+        </div>
+        <div class="settings-menu_category-content">
+        <div class="option">
+            <legend>Missing features</legend>
+            <p>This app still in development so features like <u><b>lang selection, shortcuts import, custom style import and another features are not avalilable</u></b></p>
+        </div>
+        <div class="option">
+            <legend>Designed for desktop</legend>
+            <p>The app is not designed to use it on mobile devices, full mobile suppor will be available in next versions</p>
+        </div>
+    </div>
     `
+
 }
 
 let apliedMenuStatus = {
@@ -290,9 +309,7 @@ export function loadSettingsContent(content) {
 }
 
 export function setSetting(target) {
-    console.log(target)
-
-    if(target.dataset.category === "general") {
+     if(target.dataset.category === "general") {
         if(target.dataset.preference === "shortcuts_limit") {
             config.general.shortcuts_limit = parseInt(target.dataset.value)
             ajustShortcutsLenght()
