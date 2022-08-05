@@ -11,6 +11,7 @@ export async function getWeather(){
             $weather.textContent = `${res.current.temp_c}° At ${res.location.name}`
         },
         errorFn: (err) => {
+            $weather.textContent = "weather is not availabe :("
             console.log(err)
         }
     })
