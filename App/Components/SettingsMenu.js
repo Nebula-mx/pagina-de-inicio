@@ -300,7 +300,7 @@ export const settingsContent = {
         <div class="settings-menu_category-content">
         <div class="option">
             <legend>Missing features</legend>
-            <p>This app still in development so features like <u><b>lang selection, custom style import and another features are not avalilable</u></b></p>
+            <p>This app still in development so features like <u><b>lang selection, custom style import and another features are not avalilable yet</u></b></p>
         </div>
         <div class="option">
             <legend>Designed for desktop</legend>
