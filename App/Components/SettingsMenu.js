@@ -11,7 +11,7 @@ export const settingsContent = {
     style: `
     .settings-menu {
         display: flex;
-        /*justify-content: center;*/
+        justify-content: center;
         position: absolute;
         place-self: center;
         width: 80%;
@@ -19,15 +19,6 @@ export const settingsContent = {
         z-index: 500;
         filter: drop-shadow(6px 6px 5px rgba(0, 0, 0, 0.2));
         color: var(--main-content-font);
-    }
-    .settings-menu #closeSettingsBtn {
-        display: flex;
-        position: absolute;
-        place-self: baseline;
-        width: 25px;
-        height: 25px;
-        padding: 1rem;
-        filter: invert(var(--settings-menu-invert));
     }
     .settings-menu .settings-menu_list {
         background-color: var(--settings-menu-light-list);
@@ -38,6 +29,14 @@ export const settingsContent = {
         min-width: 163px;
         max-width: 238px;
         height: 100%;
+    }
+    .settings-menu .settings-menu_list #closeSettingsBtn {
+        display: flex;
+        position: absolute;
+        place-self: baseline;
+        width: 25px;
+        height: 25px;
+        filter: invert(var(--settings-menu-invert));
     }
     .settings-menu .settings-menu_list h4{
         font-size: 1.5rem;
@@ -86,7 +85,7 @@ export const settingsContent = {
         flex-flow: column;
         justify-content: center;
         padding: .6em;
-        margin-bottom: 1rem;
+        margin: 1rem 0;
         border-radius: 5px;
     }
     .settings-menu .settings-menu_content .settings-menu_category-content .option-select {
@@ -165,16 +164,16 @@ export const settingsContent = {
     `,
     main: `
     <div class="settings-menu">
-    <img id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" alt="close menu" title="Close menu" width="25px" height="25px">
         <div class="settings-menu_list">
+            <img id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" alt="close menu" title="Close menu" width="25px" height="25px">
             <h4>Settings</h4>
-            <ul id="settings-list" >
-                <li data-category="general" id="settings_general">General</li>
-                <li data-category="appereance" id="settings_appereance">Appereance</li>
-                <li data-category="about" id="settings_about">About</li>
-            </ul>
-        </div>
-        <div class="settings-menu_content">
+                <ul id="settings-list" >
+                    <li data-category="general" id="settings_general">General</li>
+                    <li data-category="appereance" id="settings_appereance">Appereance</li>
+                    <li data-category="about" id="settings_about">About</li>
+                </ul>
+            </div>
+            <div class="settings-menu_content">
         </div>
     </div>
     `,
@@ -216,6 +215,39 @@ export const settingsContent = {
                     <option>--</option>
                     <option data-category="general" data-preference="lang" data-value="en">Default (English)</option>
                 </select>
+            </div>
+            <legend class="subtitle">Extra</legend>
+            <hr>
+            <div class="option">
+                <legend>Export settings</legend>
+                <p>Export your settings to use them in another browser</p>
+                <button id="importExportConfig" data-mode="export settings">Export</button>
+            </div>
+            <div class="option">
+                <legend>Import settings</legend>
+                <p>Import your custom settings to use</p>
+                <button id="importExportConfig" data-mode="import settings">Import</button>
+            </div>
+            <hr>
+            <div class="option">
+                <legend>Export shortcuts</legend>
+                <p>Export all your shortcuts</p>
+                <button id="importExportConfig" data-mode="export shortcuts">Export</button>
+            </div>
+            <div class="option">
+                <legend>Import shortcuts</legend>
+                <p>Import shortcuts from other place</p>
+                <button id="importExportConfig" data-mode="import shortcuts">Import</button>
+            </div>
+            <legend class="subtitle">Reset app values</legend>
+            <hr>
+            <div class="option">
+                <legend>Reset settings</legend>
+                <button data-action="reset" >Reset</button>
+            </div>
+            <div class="option">
+                <legend>Delete all shortcuts</legend>
+                <button data-action="delete shortcuts" >Delete all</button>
             </div>
         </div>
     </div>
@@ -268,11 +300,11 @@ export const settingsContent = {
         <div class="settings-menu_category-content">
         <div class="option">
             <legend>Missing features</legend>
-            <p>This app still in development so features like <u><b>lang selection, shortcuts import, custom style import and another features are not avalilable</u></b></p>
+            <p>This app still in development so features like <u><b>lang selection, custom style import and another features are not avalilable</u></b></p>
         </div>
         <div class="option">
             <legend>Designed for desktop</legend>
-            <p>The app is not designed to use it on mobile devices, full mobile suppor will be available in next versions</p>
+            <p>The app is not designed to use it on mobile devices, full mobile support will be available in next versions</p>
         </div>
     </div>
     `
@@ -323,6 +355,7 @@ export function setSetting(target) {
             config.general.weather_city = city
             getWeather()
         }
+        
     }
     if(target.dataset.category === "appereance") {
         if(target.dataset.preference === "theme") {

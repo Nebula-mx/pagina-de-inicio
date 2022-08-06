@@ -2,6 +2,7 @@ import { Clock } from "./Clock.js";
 import { deleteShortcut } from "./ContextMenuActions.js";
 import LoadShortcuts from "./LoadShortcuts.js";
 import { Search } from "./Search.js";
+import { importExportSetting } from "./Settings/ImportExportSettings.js";
 import { closeSettingsMenu, setSetting } from "./SettingsMenu.js";
 import { showActions } from "./ShortcutActions.js";
 import { ShortcutForm ,closeShortcutForm, saveForm} from "./ShortcutForm.js";
@@ -14,7 +15,7 @@ export async function App(){
     LoadShortcuts()
 }
 document.addEventListener("click", async(e) => {
-    //console.log(e.target)
+    console.log(e.target)
 
     if(e.target.matches("[data-AppImg]")){
         window.open(`${e.target.parentNode.getAttribute("data-url")}`)
@@ -40,6 +41,17 @@ document.addEventListener("click", async(e) => {
     if(e.target.tagName === "BUTTON" && e.target.dataset.preference === "weather_city") setSetting(e.target)
     if(e.target.matches(".settings_background-img"))setSetting(e.target)
     if(e.target.tagName === "INPUT" && e.target.dataset.preference === "background") setSetting(e.target)
+
+    if(e.target.matches("#importExportConfig")) importExportSetting(e.target.dataset.mode)
+
+    if(e.target.dataset.action === "reset") {
+        localStorage.removeItem("settings")
+        location.reload()
+    }
+    if(e.target.dataset.action === "delete shortcuts") {
+        localStorage.removeItem("shortcuts")
+        location.reload()
+    }
 })
 document.addEventListener("submit", e => {
     e.preventDefault()

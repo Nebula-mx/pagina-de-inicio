@@ -5,6 +5,11 @@ export async function Router() {
     const { hash } = location
 
     if(hash.includes("#/settings")) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const { latitude, longitude } = position.coords;
+            console.log(latitude, longitude)
+          });
+
         openSettingsMenu()
         if(hash.includes("#/settings/general")) loadSettingsContent(settingsContent.general)
         if(hash.includes("#/settings/appereance")) loadSettingsContent(settingsContent.appereance)

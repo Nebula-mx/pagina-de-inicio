@@ -36,6 +36,26 @@ body {
     display: grid;
     grid-template-rows: 45vh 55vh;
 }
+.notification {
+    display: flex;
+    position: absolute;
+    flex-flow: column;
+    place-self: baseline;
+    background-color: var(--settings-menu-light-options);
+    color: var(--main-content-font);
+    margin: 2rem;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px #000;
+    z-index: 1000;
+}
+.notification #notification-title {
+    margin: 0;
+}
+.notification #notification-desc {
+    margin: 0;
+    opacity: 60%;
+}
 .top-bg {
     display: none;
     position: fixed;
