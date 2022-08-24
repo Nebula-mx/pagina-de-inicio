@@ -20,7 +20,7 @@ export function ShortcutForm(saveBtnID, editTarget){
             $form = document.getElementById("shortcut-form")
             document.querySelector(".top-bg").style.display ="block"
 
-            $form.querySelector("#saveBtn").setAttribute("id", saveBtnID)
+            $form.querySelector("#saveSFBtn").setAttribute("id", saveBtnID)
             $editTarget = editTarget
         },
         errorFn: (err) => console.log(err)
@@ -85,17 +85,15 @@ export async function saveForm(mode) {
     $template.querySelector("[data-AppImg]").src = `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${shortcuts[prevPosition].url}`
     $template.querySelector("[data-AppName]").textContent = shortcuts[prevPosition].title
 
-    if(config.appereance.theme === "dark") $template.querySelector("[data-AppImg]").setAttribute("style", $template.querySelector("[data-AppImg]").dataset.theme)
-
     let $clone = document.importNode($template, true)
     $favourites.append($clone)
-    closeShortcutForm()
-
+    
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts))
     localStorage.setItem("shortcutsNumber", shortcuts.length)
     if(shortcuts.length === config.general.shortcuts_limit) {
         document.getElementById("add-shortcut").style.display = "none"
     }
+    closeShortcutForm()
     return
 }
 export function ajustShortcutsLenght() {
@@ -111,7 +109,6 @@ export function ajustShortcutsLenght() {
             document.getElementById("add-shortcut").style.display = "none"
             shortcuts.pop()
             diference--
-            console.log(shortcuts)
         }
         localStorage.setItem("shortcuts", JSON.stringify(shortcuts))
         localStorage.setItem("shortcutsNumber", shortcuts.length)

@@ -5,8 +5,8 @@ import { Router } from "./Components/Router.js"
 
 document.addEventListener("DOMContentLoaded", async (e) => {
     if(!location.hash.includes("#/settings")) location.hash = "#/"
-    await loadSettings()
     App()
     Router()
+    await loadSettings()
 })
 window.addEventListener("hashchange", Router)

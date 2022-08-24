@@ -1,4 +1,6 @@
 import { loadTheme } from "./Settings/loadTheme.js"
+import { ajustShortcutsLenght } from "./ShortcutForm.js"
+import { getWeather } from "./Weather.js"
 
 const defaultSettings = {
     "general": {
@@ -20,4 +22,6 @@ export async function loadSettings(){
         config = defaultSettings
     }
     loadTheme()
+    getWeather()
+    ajustShortcutsLenght()
 }

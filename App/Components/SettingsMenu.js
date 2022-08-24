@@ -1,4 +1,6 @@
-import { config } from "./loadSettings.js";
+import { showNotification } from "../Helpers/showNotification.js";
+import { showPromt } from "../Helpers/showPrompt.js";
+import { config, loadSettings } from "./loadSettings.js";
 import { loadTheme } from "./Settings/loadTheme.js";
 import { ajustShortcutsLenght } from "./ShortcutForm.js";
 import { getWeather } from "./Weather.js";
@@ -19,6 +21,7 @@ export const settingsContent = {
         z-index: 500;
         filter: drop-shadow(6px 6px 5px rgba(0, 0, 0, 0.2));
         color: var(--main-content-font);
+        z-index: 11;
     }
     .settings-menu .settings-menu_list {
         background-color: var(--settings-menu-light-list);
@@ -99,6 +102,7 @@ export const settingsContent = {
         font-family: "Montserrat", sans-serif;
         font-weight: 600;
         color: var(--main-content-light-font);
+        cursor: pointer;
     }
     .settings-menu .settings-menu_content .settings-menu_category-content .option legend{
         font-size: 1.2rem;
@@ -139,6 +143,22 @@ export const settingsContent = {
     .settings-menu .settings-menu_content .settings-menu_category-content .option button {
         position: absolute;
         place-self: end;
+        cursor: pointer;
+    }
+    .settings-menu .settings-menu_content .settings-menu_category-content .option code {
+        background-color: var(--settings-menu-light-option-toggleBg);
+        padding: 1em;
+        border-radius: 5px;
+        overflow: auto;
+    }
+    .settings-menu .settings-menu_content .settings-menu_category-content .option .option-buttons {
+        display: flex;
+        justify-content: end;
+        margin: 0 1rem;
+    }
+    .settings-menu .settings-menu_content .settings-menu_category-content .option .option-buttons > input[type="button"] {
+        margin: 0 0 0 5px;
+        cursor: pointer;
     }
     .settings-menu .settings-menu_content .settings-menu_category-content .option button:hover {
         background-color: var(--light-button-hover);
@@ -160,6 +180,7 @@ export const settingsContent = {
         border-radius: 5px;
         width: 45%;
         margin: 5px;
+        cursor: pointer;
     }
     `,
     main: `
@@ -168,9 +189,9 @@ export const settingsContent = {
             <img id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" alt="close menu" title="Close menu" width="25px" height="25px">
             <h4>Settings</h4>
                 <ul id="settings-list" >
-                    <li data-category="general" id="settings_general">General</li>
-                    <li data-category="appereance" id="settings_appereance">Appereance</li>
-                    <li data-category="about" id="settings_about">About</li>
+                    <li data-mode="change-menu" data-category="general" id="settings_general">General</li>
+                    <li data-mode="change-menu" data-category="appereance" id="settings_appereance">Appereance</li>
+                    <li data-mode="change-menu" data-category="about" id="settings_about">About</li>
                 </ul>
             </div>
             <div class="settings-menu_content">
@@ -199,14 +220,14 @@ export const settingsContent = {
                 <select class="option-select" name="search-engine" id="">
                     <option>--</option>
                     <option data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q">Default (Google)</option>
-                    <option data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q">Bing</option>}
+                    <option data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q">Bing</option>
                     <option data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q">Duck Duck Go</option>
                 </select>
             </div>
             <div class="option">
                 <legend>Set weather city</legend>
                 <p>Change your preferred city to display the weather</p>
-                <button data-category="general" data-preference="weather_city">Set</button>
+                <button data-mode="set" data-promt="true" data-promtTitle="Write the name of your city" data-promtDesc=" " data-category="general" data-preference="weather_city">Manual set</button>
             </div>
             <div class="option">
                 <legend>Change app language</legend>
@@ -221,33 +242,33 @@ export const settingsContent = {
             <div class="option">
                 <legend>Export settings</legend>
                 <p>Export your settings to use them in another browser</p>
-                <button id="importExportConfig" data-mode="export settings">Export</button>
+                <button id="importExportConfig" data-mode="copySettings" data-setting="settings">Export</button>
             </div>
             <div class="option">
                 <legend>Import settings</legend>
                 <p>Import your custom settings to use</p>
-                <button id="importExportConfig" data-mode="import settings">Import</button>
+                <button id="importExportConfig" data-mode="save" data-promtTitle="Import settings" data-promtDesc="insert your settings string" data-obj="settings">Import</button>
             </div>
             <hr>
             <div class="option">
                 <legend>Export shortcuts</legend>
                 <p>Export all your shortcuts</p>
-                <button id="importExportConfig" data-mode="export shortcuts">Export</button>
+                <button id="importExportConfig" data-mode="copySettings" data-setting="shortcuts">Export</button>
             </div>
             <div class="option">
                 <legend>Import shortcuts</legend>
                 <p>Import shortcuts from other place</p>
-                <button id="importExportConfig" data-mode="import shortcuts">Import</button>
+                <button id="importExportConfig" data-mode="save" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-obj="shortcuts">Import</button>
             </div>
             <legend class="subtitle">Reset app values</legend>
             <hr>
             <div class="option">
                 <legend>Reset settings</legend>
-                <button data-action="reset" >Reset</button>
+                <button data-mode="reset" data-option="settings">Reset</button>
             </div>
             <div class="option">
                 <legend>Delete all shortcuts</legend>
-                <button data-action="delete shortcuts" >Delete all</button>
+                <button data-mode="reset" data-option="shortcuts" >Delete all</button>
             </div>
         </div>
     </div>
@@ -264,28 +285,29 @@ export const settingsContent = {
                 <p>Select your favourite theme for the app</p>
                 <select class="option-select">
                     <option>--</option>
-                    <option data-category="appereance" data-preference="theme" data-value="light" >Light</option>
-                    <option data-category="appereance" data-preference="theme" data-value="dark" >Dark</option>
+                    <option data-category="appereance" data-preference="theme" data-value="light">Light</option>
+                    <option data-category="appereance" data-preference="theme" data-value="dark">Dark</option>
                 </select>
             </div>
             <div class="option">
                 <legend>Select background</legend>
                 <div class="backgrounds-container">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.jpg">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.jpeg">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/3.jpg">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/4.png">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/5.jpg">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/6.jpg">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/7.jpg">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/8.jpg">
-                    <img data-category="appereance" data-preference="background" class="settings_background-img" src="App/Assets/Images/Backgrounds/9.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/2.jpeg" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.jpeg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/1.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/3.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/3.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/4.png" class="settings_background-img" src="App/Assets/Images/Backgrounds/4.png">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/5.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/5.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/6.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/6.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/7.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/7.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/8.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/8.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/9.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/9.jpg">
+                    <img data-mode="set" data-category="appereance" data-preference="background" data-value="App/Assets/Images/Backgrounds/10.jpg" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.jpg">
                 </div>
-                <input data-category="appereance" data-preference="background" type="button" value="Set custom background url">
+                <input data-mode="set" data-promt="true" data-promtTitle="Set custom background URL" data-promtDesc="Paste the url of your background" data-category="appereance" data-preference="background" type="button" value="Set custom background url">
             </div>
             <div class="option">
                 <legend>Set blur strength</legend>
-                <p>Adjust the blur to your liking <br> <u><b>This effect isn't supported on Firefox</b></u></p>
+                <p>Adjust the blur to your liking</p>
                 <input data-category="appereance" data-preference="blur" id="blur-range" type="range" min="0" max="32" value="${config.appereance.blur}">
             </div>
         </div>
@@ -306,6 +328,14 @@ export const settingsContent = {
             <legend>Designed for desktop</legend>
             <p>The app is not designed to use it on mobile devices, full mobile support will be available in next versions</p>
         </div>
+        <div class="option">
+            <legend>Your current settings</legend>
+            <code class="settingsMenu_code" >${JSON.stringify(config)}</code>
+        </div>
+        <div class="option">
+            <legend>App info</legend>
+            <p>Version: 0.9 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+        </div>
     </div>
     `
 
@@ -315,6 +345,52 @@ let apliedMenuStatus = {
     aplied: false
 }
 
+const saveSettings = () => localStorage.setItem("settings", JSON.stringify(config))
+
+const settingsMenuActions = {
+    "change-menu": (target) => location.hash = `#/settings/${target.dataset.category}`,
+    "set": async (target) => {
+        let value; 
+        if(target.dataset.promt === "true") {
+            value = await showPromt(target.dataset.promttitle, target.dataset.promtdesc)
+        }
+        config[target.dataset.category][target.dataset.preference] = parseInt(target.value) || target.dataset.value || value
+        saveSettings()
+        loadSettings()
+    },
+    "copySettings": (target) => {
+        navigator.clipboard.writeText(localStorage.getItem(target.dataset.setting))
+        showNotification(`${target.dataset.setting} have been copied to your clipboard!`, `Your ${target.dataset.setting} have been exported`)
+    },
+    "save":async (target) => {
+        let config = await showPromt(target.dataset.promttitle, target.dataset.promtdesc)
+
+        localStorage.setItem(target.dataset.obj, config)
+        showNotification(`${target.dataset.obj} have been Imported!`, "app will reload in 3 secconds")
+        setTimeout(() => location.reload(), 3100)
+    },
+    "reset": (target) => {
+        localStorage.removeItem(target.dataset.option)
+        showNotification("Your settings have been reset", "The app will reload in 3 secconds")
+        setTimeout(() => location.reload(), 3100)
+    }
+}
+const settingsMenuInteractionsHandler = (e) => {
+    if(settingsMenuActions.hasOwnProperty(e.target.dataset.mode)){
+        settingsMenuActions[e.target.dataset.mode](e.target)
+        return
+    }
+}
+
+const settingsMenuSelectHandler = (e) => {
+    if(e.target.type === "range") {
+        settingsMenuActions.set(e.target)
+        return
+    }
+    config[e.target.children[e.target.selectedIndex].dataset.category][e.target.children[e.target.selectedIndex].dataset.preference] = e.target.children[e.target.selectedIndex].dataset.value
+    saveSettings()
+    loadSettings()
+}
 export function openSettingsMenu() {
     if(apliedMenuStatus.aplied === true) return
 
@@ -322,6 +398,9 @@ export function openSettingsMenu() {
     $root.insertAdjacentHTML("afterbegin", settingsContent.main)
     document.querySelector(".top-bg").style.display = "block"
     apliedMenuStatus.aplied = true
+
+    document.querySelector(".settings-menu").addEventListener("click", settingsMenuInteractionsHandler)
+    document.querySelector(".settings-menu").addEventListener("change", settingsMenuSelectHandler)
 }
 
 export function closeSettingsMenu() {
@@ -330,7 +409,8 @@ export function closeSettingsMenu() {
     $dynamicStyle.innerHTML = null
     $root.removeChild($root.querySelector(".settings-menu"))
     document.querySelector(".top-bg").style.display = "none"
-    document.removeEventListener("change", document)
+    document.removeEventListener("click", settingsMenuInteractionsHandler)
+    document.removeEventListener("change", settingsMenuSelectHandler)
 
     location.hash = "#/"
 }
@@ -338,44 +418,4 @@ export function closeSettingsMenu() {
 export function loadSettingsContent(content) {
     document.querySelector(".settings-menu_content").innerHTML = null
     document.querySelector(".settings-menu_content").insertAdjacentHTML("beforeend", content)
-}
-
-export function setSetting(target) {
-     if(target.dataset.category === "general") {
-        if(target.dataset.preference === "shortcuts_limit") {
-            config.general.shortcuts_limit = parseInt(target.dataset.value)
-            ajustShortcutsLenght()
-        }
-        if(target.dataset.preference === "search_engine") {
-            config.general.search_engine = target.dataset.value
-        }
-        if(target.dataset.preference === "weather_city") {
-            let city = prompt("Write the name of your city")
-            if(!city) return
-            config.general.weather_city = city
-            getWeather()
-        }
-        
-    }
-    if(target.dataset.category === "appereance") {
-        if(target.dataset.preference === "theme") {
-            config.appereance.theme = target.dataset.value
-            loadTheme()
-        }
-        if(target.dataset.preference === "background") {
-            config.appereance.background = target.getAttribute("src")
-            loadTheme()
-        }
-        if(target.dataset.preference === "background" && target.tagName === "INPUT") {
-            let background = prompt("insert background url")
-            if(!background) {return} else {config.appereance.background = background}
-            loadTheme()
-        }
-        if(target.dataset.preference === "blur") {
-            config.appereance.blur = parseInt(target.value)
-            loadTheme()
-        }
-
-    }
-    localStorage.setItem("settings", JSON.stringify(config))
 }

@@ -56,6 +56,51 @@ body {
     margin: 0;
     opacity: 60%;
 }
+.promt {
+    background-color: var(--shortcut-form-bg);
+    display: flex;
+    flex-flow: column;
+    position: absolute;
+    place-self: center;
+    z-index: 1000;
+    width: 30%;
+    min-width: max-content;
+    padding: 1rem;
+    margin: 0;
+    border-radius: 5px;
+    color: var(--main-content-font);
+}
+.promt legend {
+    color: var(--main-content-font);
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.promt p {
+    margin: 6px 0;
+    opacity: 70%;
+}
+.promt input[type="text"]{
+    background-color: var(--shortcut-form-inputtext-bg);
+    opacity: 60%;
+    margin-bottom: 6px;
+    padding: 10px 15px;
+    border: solid 2px var(--shortcut-form-inputText-border);
+    outline: none;
+    border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    color: var(--main-content-font);
+}
+.promt input[type="text"]:focus {
+    border: solid 2px rgb(157, 219, 255);
+}
+.promt .buttons {
+    display: flex;
+    justify-content: end;
+}
+.promt .buttons button {
+    margin-left: 6px;
+}
 .top-bg {
     display: none;
     position: fixed;
