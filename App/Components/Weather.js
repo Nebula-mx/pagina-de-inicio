@@ -16,7 +16,7 @@ export async function getWeather() {
     //     }))
     // }
     getContent({
-        url: `http://api.weatherapi.com/v1/current.json?key=b406c89026bf4209b5511231222906&q=${config.general.weather_city}&aqi=no`,
+        url: `https://api.weatherapi.com/v1/current.json?key=b406c89026bf4209b5511231222906&q=${config.general.weather_city}&aqi=no`,
         successFn: async (json) => {
             let res = await json.json()
             $weather.textContent = `${res.current.temp_c}° At ${res.location.name}`

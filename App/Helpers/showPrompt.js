@@ -9,8 +9,6 @@ export function closePromt() {
 }
 
 export function showPromt(title, desc) {
-    console.log(title, desc)
-
     const html = `
     <span class="promt">
         <legend>${title}</legend>
