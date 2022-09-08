@@ -227,9 +227,10 @@ export const settingsContent = {
                 <p>Change the default search engine</p>
                 <select class="option-select" name="search-engine" id="">
                     <option>--</option>
-                    <option data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q">Default (Google)</option>
-                    <option data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q">Bing</option>
-                    <option data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q">Duck Duck Go</option>
+                    <option data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">Default (Google)</option>
+                    <option data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q=">Bing</option>
+                    <option data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
+                    <option data-category="general" data-preference="search_engine" data-value="https://you.com/search?q=">You search engine</option>
                 </select>
             </div>
             <div class="option">
