@@ -6,8 +6,9 @@ export async function Router() {
 
     if(hash.includes("#/settings")) {
         openSettingsMenu()
-        if(hash.includes("#/settings/general")) loadSettingsContent(settingsContent.general)
-        if(hash.includes("#/settings/appereance")) loadSettingsContent(settingsContent.appereance)
-        if(hash.includes("#/settings/about")) loadSettingsContent(settingsContent.about)
+        if(hash.includes("#/settings/general")) return loadSettingsContent(settingsContent.general)
+        if(hash.includes("#/settings/appereance")) return loadSettingsContent(settingsContent.appereance)
+        if(hash.includes("#/settings/keybinds")) return loadSettingsContent(settingsContent.keybinds)
+        if(hash.includes("#/settings/about")) return loadSettingsContent(settingsContent.about)
     }
 }

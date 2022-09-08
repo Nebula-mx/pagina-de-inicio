@@ -1,5 +1,4 @@
 import { errorAnimShake } from "../Helpers/Animations.js";
-import { getContent } from "../Helpers/Loader.js";
 import { config } from "./loadSettings.js";
 
 const $root = document.getElementById("root"),
@@ -10,21 +9,74 @@ let $form,
     $editTarget = null;
     
 export function ShortcutForm(saveBtnID, editTarget){
-    getContent({
-        url: "App/Views/addShortcutForm.html",
-        successFn: async(res) => {
-            let formStyle = await fetch("./App/Assets/Styles/css/shortcut-form.css")
-            let html = await res.text()
-            $dynamicStyle.innerHTML = await formStyle.text()
-            $root.insertAdjacentHTML("afterbegin", html)
-            $form = document.getElementById("shortcut-form")
-            document.querySelector(".top-bg").style.display ="block"
+    const formStyle = `
+        .top-bg {
+            display: block;
+        }
+        #shortcut-form {
+            background-color: var(--shortcut-form-bg);
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            place-self: center;
+            border-radius: 5px;
+            padding: 1.7rem;
+            width: 50%;
+            max-width: 375px;
+            z-index: 11;
+        }
+        #shortcut-form input[type="text"]{
+            background-color: var(--shortcut-form-inputtext-bg);
+            margin-bottom: 6px;
+            padding: 10px 15px;
+            border: solid 2px var(--shortcut-form-inputText-border);
+            outline: none;
+            border-radius: 8px;
+            font-family: "Montserrat", sans-serif;
+            color: var(--main-content-font);
+        }
+        #shortcut-form input[type="text"]:focus {
+            border: solid 2px rgb(157, 219, 255);
+        }
+        #shortcut-form .shortcut-form_btns {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        #shortcut-form .shortcut-form_btns > input[type="button"]{
+            font-family: "Montserrat", sans-serif;
+            background-color: var(--shortcut-form-btn-bg);
+            border: solid 1px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 1px rgba(0, 0, 0, .10);
+            border-radius: 8px;
+            padding: 0.5em .8em;
+            width: 48%;
+            color: var(--main-content-font);
+        }
+        #shortcut-form .shortcut-form_btns > input[type="button"]:hover {
+            background-color: var(--shortcut-form-btn-hover);
+        }
+        #shortcut-form .shortcut-form_btns > input[type="button"]:active {
+            background-color: var(--shortcut-form-btn-active);
+        }
+    `
+    const html = `
+        <form id="shortcut-form">
+            <input type="text" name="url" placeholder="Insert page url...">
+            <input type="text" name="title" placeholder="Type page name...">
+            <div class="shortcut-form_btns">
+                <input id="closeSFBtn" type="button" value="cancel">
+                <input id="saveSFBtn" type="button" value="Save & exit">
+            </div>
+        </form>
+    `
+    $dynamicStyle.innerHTML = formStyle
+    $root.insertAdjacentHTML("afterbegin", html)
+    $form = document.getElementById("shortcut-form")
+    document.querySelector(".top-bg").style.display ="block"
 
-            $form.querySelector("#saveSFBtn").setAttribute("id", saveBtnID)
-            $editTarget = editTarget
-        },
-        errorFn: (err) => console.log(err)
-    })
+    $form.querySelector("#saveSFBtn").setAttribute("id", saveBtnID)
+    $editTarget = editTarget
 }
 
 export function closeShortcutForm(){
@@ -100,23 +152,23 @@ export function ajustShortcutsLenght() {
     const shortcuts = JSON.parse(localStorage.getItem("shortcuts"))
 
     let shortcutsLenght = $favourites.childElementCount -2,
-        shortcutsLimit = config.general.shortcuts_limit,
-        diference =  shortcutsLenght - shortcutsLimit;
+        shortcutsLimit = parseInt(config.general.shortcuts_limit),
+        diference = shortcutsLenght - shortcutsLimit;
 
     if(shortcutsLenght > shortcutsLimit) {
         while(diference !== 0 && diference >= 0) {
-            $favourites.removeChild($favourites.lastElementChild)
-            document.getElementById("add-shortcut").style.display = "none"
-            shortcuts.pop()
-            diference--
-        }
+        $favourites.removeChild($favourites.lastElementChild)
+        shortcuts.pop()
+        diference--
+    }
+        document.getElementById("add-shortcut").style.display = "none"
         localStorage.setItem("shortcuts", JSON.stringify(shortcuts))
         localStorage.setItem("shortcutsNumber", shortcuts.length)
     }
-    if(shortcutsLenght < shortcutsLimit && document.getElementById("add-shortcut").getAttribute("style") === "display: none;") {
-        document.getElementById("add-shortcut").style.display = "block"
-    }
-    if(shortcutsLenght === shortcutsLimit && document.getElementById("add-shortcut").getAttribute("style") === "display: block;") {
+    if(shortcutsLenght === shortcutsLimit && document.getElementById("add-shortcut").getAttribute("style") === "display: flex;") {
         document.getElementById("add-shortcut").style.display = "none"
+    }
+    if(shortcutsLenght < shortcutsLimit && document.getElementById("add-shortcut").getAttribute("style") === "display: none;") {
+        document.getElementById("add-shortcut").style.display = "flex"
     }
 }

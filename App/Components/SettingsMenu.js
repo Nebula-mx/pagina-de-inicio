@@ -1,8 +1,6 @@
 import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
 import { config, loadSettings } from "./loadSettings.js";
-import { loadTheme } from "./Settings/loadTheme.js";
-import { ajustShortcutsLenght } from "./ShortcutForm.js";
 import { getWeather } from "./Weather.js";
 
 const $root = document.getElementById("root"),
@@ -124,6 +122,16 @@ export const settingsContent = {
         background-color: var(--settings-menu-light-option-toggleBg);
         border-radius: 20px;
     }
+    .settings-menu .settings-menu_content .settings-menu_category-content .option .keys-container {
+        position: absolute;
+        place-self: flex-end;
+    }
+    .settings-menu .settings-menu_content .settings-menu_category-content .option .keys-container .key {
+        background-color: var(--context-menu-light-li-hover);
+        width: fit-content;
+        padding: .2em .4em;
+        border-radius: 5px;
+    }
     .settings-menu .settings-menu_content .settings-menu_category-content .option .option-toggle .option-toggle_circle{
         width: 17px;
         height: 17px;
@@ -154,7 +162,6 @@ export const settingsContent = {
     .settings-menu .settings-menu_content .settings-menu_category-content .option .option-buttons {
         display: flex;
         justify-content: end;
-        margin: 0 1rem;
     }
     .settings-menu .settings-menu_content .settings-menu_category-content .option .option-buttons > input[type="button"] {
         margin: 0 0 0 5px;
@@ -191,6 +198,7 @@ export const settingsContent = {
                 <ul id="settings-list" >
                     <li data-mode="change-menu" data-category="general" id="settings_general">General</li>
                     <li data-mode="change-menu" data-category="appereance" id="settings_appereance">Appereance</li>
+                    <!-- <li data-mode="change-menu" data-category="keybinds" id="settings_keybinds">Keybinds</li> -->
                     <li data-mode="change-menu" data-category="about" id="settings_about">About</li>
                 </ul>
             </div>
@@ -227,7 +235,10 @@ export const settingsContent = {
             <div class="option">
                 <legend>Set weather city</legend>
                 <p>Change your preferred city to display the weather</p>
-                <button data-mode="set" data-promt="true" data-promtTitle="Write the name of your city" data-promtDesc=" " data-category="general" data-preference="weather_city">Manual set</button>
+                <div class="option-buttons">
+                    <input type="button" data-mode="set" data-promt="true" data-promtTitle="Write the name of your city" data-promtDesc=" " data-category="general" data-preference="weather_city" value="Manual Set">
+                    <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="Auto Set">
+                </div>
             </div>
             <div class="option">
                 <legend>Change app language</legend>
@@ -313,6 +324,20 @@ export const settingsContent = {
         </div>
     </div>
     `,
+    keybinds: `
+        <div>
+            <div class="settings-menu_content-top">
+                <h5 id="category-name">Keybinds</h5>
+                <hr>
+            </div>
+            <div class="settings-menu_category-content">
+                <div class="option">
+                    <legend>Close menu</legend>
+                    <div class="keys-container"><span class="key">Esc</span></div>
+                </div>
+            </div>
+        </div>
+    `,
     about: `
     <div>
         <div class="settings-menu_content-top">
@@ -322,7 +347,16 @@ export const settingsContent = {
         <div class="settings-menu_category-content">
         <div class="option">
             <legend>Missing features</legend>
-            <p>This app still in development so features like <u><b>lang selection, custom style import and another features are not avalilable yet</u></b></p>
+            <p>This app still in development so features like <u><b>lang selection, custom style import, Keyblinds and other features are not avalilable yet</u></b></p>
+        </div>
+        <div class="option">
+            <legend>What's new?</legend>
+            <ul>
+                <li>Now context menu and edit/create shortcut prompt load faster :O</li>
+                <li>Fixed context menu behavior</li>
+                <li>Now you can set your city automatically to get the weather</li>
+                <li>Fixed shortcuts limit bug</li>
+            </ul>
         </div>
         <div class="option">
             <legend>Designed for desktop</legend>
@@ -333,12 +367,11 @@ export const settingsContent = {
             <code class="settingsMenu_code" >${JSON.stringify(config)}</code>
         </div>
         <div class="option">
-            <legend>App info</legend>
-            <p>Version: 0.9 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+            <legend>App info:</legend>
+            <p>Version: 0.9.1 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
         </div>
     </div>
     `
-
 }
 
 let apliedMenuStatus = {
@@ -351,6 +384,10 @@ const settingsMenuActions = {
     "change-menu": (target) => location.hash = `#/settings/${target.dataset.category}`,
     "set": async (target) => {
         let value; 
+        if(target.dataset.preference === "autoSet-weather_city") {
+            getWeather("auto")
+            return
+        }
         if(target.dataset.promt === "true") {
             value = await showPromt(target.dataset.promttitle, target.dataset.promtdesc)
         }
@@ -366,12 +403,12 @@ const settingsMenuActions = {
         let config = await showPromt(target.dataset.promttitle, target.dataset.promtdesc)
 
         localStorage.setItem(target.dataset.obj, config)
-        showNotification(`${target.dataset.obj} have been Imported!`, "app will reload in 3 secconds")
+        showNotification(`${target.dataset.obj} have been Imported!`, "App will reload in 3 seconds.")
         setTimeout(() => location.reload(), 3100)
     },
     "reset": (target) => {
         localStorage.removeItem(target.dataset.option)
-        showNotification("Your settings have been reset", "The app will reload in 3 secconds")
+        showNotification("Your settings have been reset", "The app will reload in 3 seconds")
         setTimeout(() => location.reload(), 3100)
     }
 }

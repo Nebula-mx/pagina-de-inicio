@@ -16,28 +16,30 @@ export function closeMenu(listener){
 }
 
 export function showActions(e){
-    getContent({
-        url: "App/Views/contextMenu.html",
-        fetchOptions: {
-            method: "GET"
-        },
-        successFn: (async(res) => {
-            const html = await res.text(),
-                parentElement = e.parentNode;
-            
-            if(status.aplied === true) {
-                if(status.target !== parentElement.parentNode) closeMenu()
-                if(status.target === parentElement.parentNode) return
-                
-                $menu = status.target.children[0].querySelector(".context-menu")
-            }
-            
-            status.aplied = true
-            status.target = parentElement.parentNode
-            parentElement.insertAdjacentHTML("afterbegin",  html)
+    const html = `
+        <span class="context-menu">
+            <ul id="context-menu_content">
+                <li id="context-menu_editBtn">Edit shortcut</li>
+                <li id="context-menu_deleteBtn">Delete shortcut</li>
+            </ul>
+            <hr>
+            <ul>
+                <li id="context-menu_closeBtn">Close</li>
+            </ul>
+        </span>
+    `,
+        parentElement = e.parentNode;
+    
+    if(status.aplied === true) {
+        if(status.target !== parentElement.parentNode) closeMenu()
+        if(status.target === parentElement.parentNode) return
+        
+        $menu = status.target.children[0].querySelector(".context-menu")
+    }
+    
+    status.aplied = true
+    status.target = parentElement.parentNode
+    parentElement.insertAdjacentHTML("afterbegin",  html)
 
-            document.addEventListener("click", closeMenu)
-        }),
-        errorFn: (err => console.log(err))
-    })
+    document.addEventListener("click", closeMenu)
 }
