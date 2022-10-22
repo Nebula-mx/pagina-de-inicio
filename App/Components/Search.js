@@ -1,7 +1,9 @@
-import { config } from "./loadSettings.js"
+import { sManager } from "./loadSettings.js";
 
 export function Search(){
-    const $form = document.querySelector(".search-form")
+    const $form = document.querySelector(".search-form");
 
-    location.href = `${config.general.search_engine}${$form.search.value}`
+    (sManager.config.general.open_search_in_newTab === "true") 
+        ? window.open(`${sManager.config.general.search_engine}${$form.search.value}`) 
+        : location.href = `${sManager.config.general.search_engine}${$form.search.value}`;
 }

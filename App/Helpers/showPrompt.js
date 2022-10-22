@@ -1,19 +1,22 @@
 import { errorAnimShake } from "./Animations.js"
 
 export let promtTarget;
-
+export const promtRegEx = {
+    "Import settings": null
+}
 
 export function closePromt() {    
     document.querySelector(".top-bg").style.zIndex = 10
     document.getElementById("root").removeChild(document.querySelector(".promt"))
 }
 
-export function showPromt(title, desc) {
+export function showPromt(config = {title, desc, placeholder, test}) {
+    console.log(config)
     const html = `
     <span class="promt">
-        <legend>${title}</legend>
-        <p>${desc}</p>
-        <input id="promt-input" type="text" name="" id="" placeholder="something">
+        <legend>${config.title}</legend>
+        <p>${config.desc}</p>
+        <input id="promt-input" type="text" placeholder="${config.placeholder}">
         <div class="buttons">
             <button id="closePrompt">Cancel</button>
             <button id="savePromt">Done</button>

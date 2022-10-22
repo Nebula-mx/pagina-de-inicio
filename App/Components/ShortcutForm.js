@@ -1,5 +1,5 @@
 import { errorAnimShake } from "../Helpers/Animations.js";
-import { config } from "./loadSettings.js";
+import { sManager } from "./loadSettings.js";
 
 const $root = document.getElementById("root"),
     $dynamicStyle = document.getElementById("dynamic-style"),
@@ -46,7 +46,7 @@ export function ShortcutForm(saveBtnID, editTarget){
         #shortcut-form .shortcut-form_btns > input[type="button"]{
             font-family: "Montserrat", sans-serif;
             background-color: var(--shortcut-form-btn-bg);
-            border: solid 1px rgba(0, 0, 0, 0.15);
+            border: solid 1px var(--light-button-border);
             box-shadow: 0px 1px rgba(0, 0, 0, .10);
             border-radius: 8px;
             padding: 0.5em .8em;
@@ -142,7 +142,7 @@ export async function saveForm(mode) {
     
     localStorage.setItem("shortcuts", JSON.stringify(shortcuts))
     localStorage.setItem("shortcutsNumber", shortcuts.length)
-    if(shortcuts.length === config.general.shortcuts_limit) {
+    if(shortcuts.length === sManager.getValue("general", "shortcuts_limit")) {
         document.getElementById("add-shortcut").style.display = "none"
     }
     closeShortcutForm()
@@ -152,15 +152,15 @@ export function ajustShortcutsLenght() {
     const shortcuts = JSON.parse(localStorage.getItem("shortcuts"))
 
     let shortcutsLenght = $favourites.childElementCount -2,
-        shortcutsLimit = parseInt(config.general.shortcuts_limit),
+        shortcutsLimit = parseInt(sManager.getValue("general", "shortcuts_limit")),
         diference = shortcutsLenght - shortcutsLimit;
 
     if(shortcutsLenght > shortcutsLimit) {
         while(diference !== 0 && diference >= 0) {
-        $favourites.removeChild($favourites.lastElementChild)
-        shortcuts.pop()
-        diference--
-    }
+            $favourites.removeChild($favourites.lastElementChild)
+            shortcuts.pop()
+            diference--
+        }
         document.getElementById("add-shortcut").style.display = "none"
         localStorage.setItem("shortcuts", JSON.stringify(shortcuts))
         localStorage.setItem("shortcutsNumber", shortcuts.length)
