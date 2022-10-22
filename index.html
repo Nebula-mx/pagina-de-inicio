@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link id="favicon" rel="icon" type="image/x-icon" href="">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,20 +14,39 @@
     <style id="dynamic-style"></style>
 </head>
 <body id="root">
+    <span class="weatherPopUp">
+        <legend id="wPopUp-cityName">Mexico city</legend>
+        <div id="wPopUp-main">
+            <img id="wStatusImg" src="App/Assets/Images/weather 1.svg">
+            <p id="wCurrentTemp">5°</p>
+            <legend>c°</legend>
+        </div>
+        <div id="wPopUp-footer">
+            <div id="wPopUp-footer_mainData">
+                <p id="wPopUp-footer_mainData-FL">Feels like: 4°</p>
+                <p id="wPopUp-footer_mainData-HM">Humidity: 50</p>
+            </div>
+            <hr>
+            <div id="wPopUp-footer_secondaryData">
+                <p id="wPopUp-footer_secondaryData_condition">Condition</p>
+                <legend id="wPopUp-footer_secondaryData_conditionStatus">cloudy</legend>
+            </div>
+        </div>
+    </span>
     <div class="top-bg"></div>
     <main>
         <div id="top-content">
             <div class="top-content_top">
-                <div id="weather">
+                <div id="weather" data-containerBG>
                     <img src="./App/Assets/Images/weather 1.svg" alt="weather-img">
-                    <p data-weatherState>Getting weather...</p>
+                    <p data-weatherState>Getting weather...</p><p id="weather-location"></p>
                 </div>
-                <div id="settings">
+                <div id="settings" data-containerBG>
                     <p id="settings-opener" >Settings</p>
                     <img  id="settings-opener" src="./App/Assets/Images/options 1.svg" alt="" srcset="">
                 </div>
             </div>
-            <div id="date">
+            <div id="date" data-containerBG>
                 <h2 data-hour>00:00</h2>
                 <p data-date>00/00/00</p>
             </div>

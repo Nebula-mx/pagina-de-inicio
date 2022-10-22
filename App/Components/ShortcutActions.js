@@ -1,5 +1,3 @@
-import { getContent } from "../Helpers/Loader.js";
-
 let $menu;
 const status = {
     aplied: false,
@@ -17,8 +15,9 @@ export function closeMenu(listener){
 
 export function showActions(e){
     const html = `
-        <span class="context-menu">
+    <span class="context-menu">
             <ul id="context-menu_content">
+                <li id="context-menu_newTab">Open in new tab</li>
                 <li id="context-menu_editBtn">Edit shortcut</li>
                 <li id="context-menu_deleteBtn">Delete shortcut</li>
             </ul>
@@ -40,6 +39,6 @@ export function showActions(e){
     status.aplied = true
     status.target = parentElement.parentNode
     parentElement.insertAdjacentHTML("afterbegin",  html)
-
+    
     document.addEventListener("click", closeMenu)
 }

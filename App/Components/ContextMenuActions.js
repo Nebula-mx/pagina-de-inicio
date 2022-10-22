@@ -1,4 +1,4 @@
-import { config } from "./loadSettings.js";
+import { sManager } from "./loadSettings.js";
 
 export function deleteShortcut(target){
     const $favourites = document.querySelector(".favourites"),
@@ -20,7 +20,6 @@ export function deleteShortcut(target){
         }
         if(position !== 0){
             if(i >= position){
-                console.log(i)
                 const shortcuts = document.querySelectorAll("[data-id]")
                 shortcuts[i].setAttribute("data-id", i)
             }
@@ -33,7 +32,7 @@ export function deleteShortcut(target){
     localStorage.setItem("shortcuts", JSON.stringify(shortcutData))
     localStorage.setItem("shortcutsNumber", shortcutData.length)
 
-    if(shortcutData.length < config.general.shortcuts_limit && document.getElementById("add-shortcut").getAttribute("style") === "display: none;") {
+    if(shortcutData.length < sManager.config.general.shortcuts_limit && document.getElementById("add-shortcut").getAttribute("style") === "display: none;") {
         document.getElementById("add-shortcut").style.display = "block"
     }
 }
