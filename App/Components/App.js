@@ -26,7 +26,9 @@ const MainClickableElements = {
     "editSaveBtn": () => saveForm("edit"),
     "context-menu_newTab": (ref) => window.open(ref.parentNode.parentNode.parentNode.parentNode.querySelector("[data-url]").getAttribute("data-url")),
 
-    "settings-opener": () => location.hash = "#/settings/general",
+    "settings-opener": () => {
+        location.hash = "#/settings/general"
+    },
 
     "closePrompt": () => closePromt(),
 }

@@ -32,6 +32,7 @@ export async function getWeather(mode) {
         },
         errorFn: (err) => {
             $temp.textContent = "weather is not availabe"
+            $temp.title = "Press CTRL + SHIFT + I, and then open the console to see where is the problem"
             $location.textContent = null
             console.log(err)
         }

@@ -62,7 +62,7 @@ class settingsManager {
         }
         if(localStorage.getItem("updated_settings") === "false") return this.updateSettings()
     }
-    loadConfig(){
+    async loadConfig(){
         this.testSettingsStatus()
         this.loadModules()
     }
