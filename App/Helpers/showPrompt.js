@@ -11,7 +11,6 @@ export function closePromt() {
 }
 
 export function showPromt(config = {title, desc, placeholder, test}) {
-    console.log(config)
     const html = `
     <span class="promt">
         <legend>${config.title}</legend>

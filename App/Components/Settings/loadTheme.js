@@ -31,23 +31,28 @@ export function loadTheme() {
             --light-button-fontColor: rgba(0, 0, 0, .75); 
             --light-button-hover: rgb(243, 243, 243);
             --light-button-active: rgb(235, 235, 235);
+
             --context-menu-open-btn-invert: 0%;
             --context-menu-light: rgb(255, 255, 255); 
             --context-menu-light-li: rgb(255, 255, 255);
             --context-menu-light-li-hover: rgba(0, 0, 0, 0.10);
-            --shortcut-form-bg: rgba(255, 255, 255, .90);
+
+            --shortcut-form-bg: rgba(255, 255, 255, 1);
             --shortcut-form-inputtext-bg: rgba(255, 255, 255, 0.87);
             --shortcut-form-inputText-border: rgba(212, 212, 212, 0.8);
             --shortcut-form-btn-bg: rgb(255, 255, 255);
             --shortcut-form-btn-hover: rgb(243, 243, 243);
             --shortcut-form-btn-active: rgb(235, 235, 235);
+
+            --settings-menu_link: #5f0d84;
             --settings-menu-light-list: #EEE;
             --settings-menu-light-list-items: #fff;
             --settings-menu-light-content: #fff;
             --settings-menu-light-options:#EEE;
             --settings-menu-light-selects:#D9D9D9;
             --settings-menu-details: #e3e3e3;
-            --settings-menu-light-toggleBg: #D9D9D9;
+            --settings-menu-active-toggle: #7C79FF;
+            --settings-menu-toggleBg: #D9D9D9;
             --settings-menu-option-toggleCircle: #fff;
             --settings-menu-invert: 0%;
         }
@@ -73,21 +78,23 @@ export function loadTheme() {
             --context-menu-light: #101010;
             --context-menu-light-li: #222222;
             --context-menu-light-li-hover: #1d1d1d;
-            --shortcut-form-bg: rgba(17, 17, 17, 0.9);
+            --shortcut-form-bg: rgba(17, 17, 17, 1);
             --shortcut-form-inputtext-bg: rgba(34, 34, 34, 0.87);
             --shortcut-form-inputText-border: #2f2f2f;
             --shortcut-form-btn-bg: rgba(34, 34, 34, 0.87);
             --shortcut-form-btn-hover: rgb(38, 38, 38);
             --shortcut-form-btn-active: rgb(28, 28, 28);
         
+            --settings-menu_link: #ff98d2;
             --settings-menu-light-list: #070707;
             --settings-menu-light-list-items: #0e0e0e;
             --settings-menu-light-items: #0E0E0E; 
             --settings-menu-light-content: #000;
             --settings-menu-light-options: #0E0E0E;
             --settings-menu-details: rgb(6 6 6);
-            --settings-menu-light-selects: rgba(39, 39, 39, 1); 
-            --settings-menu-light-toggleBg: rgba(39, 39, 39, 1);
+            --settings-menu-light-selects: rgba(39, 39, 39, 1);
+            --settings-menu-active-toggle: #7C79FF;
+            --settings-menu-toggleBg: rgba(39, 39, 39, 1);
             --settings-menu-option-toggleCircle: #fff;
             --settings-menu-invert: 100%;
         }

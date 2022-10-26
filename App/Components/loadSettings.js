@@ -21,6 +21,7 @@ class settingsManager {
                 "theme": "light",
                 "background": "App/Assets/Images/Backgrounds/1.jpg",
                 "blur": 8,
+                "dateFormat": "normalDate",
                 "top_itemsBg": "false",
                 "invert_top_items_colour": "false"
             }
@@ -79,7 +80,6 @@ class settingsManager {
             this.loadConfig()
             return this.defaultSettings
         }
-        console.log(this.config)
     }
     saveSettings(category, option, value){
         this.config[category][option] = value

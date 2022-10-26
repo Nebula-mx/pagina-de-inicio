@@ -8,10 +8,15 @@ const $root = document.getElementById("root"),
 let $form,
     $editTarget = null;
     
-export function ShortcutForm(saveBtnID, editTarget){
+export function ShortcutForm(saveBtnID, editTarget, title){
     const formStyle = `
         .top-bg {
             display: block;
+        }
+        #shortcutPrompTitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 8px;
         }
         #shortcut-form {
             background-color: var(--shortcut-form-bg);
@@ -62,6 +67,7 @@ export function ShortcutForm(saveBtnID, editTarget){
     `
     const html = `
         <form id="shortcut-form">
+            <legend id="shortcutPrompTitle">${title}</legend>
             <input type="text" name="url" placeholder="Insert page url...">
             <input type="text" name="title" placeholder="Type page name...">
             <div class="shortcut-form_btns">
