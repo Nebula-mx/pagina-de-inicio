@@ -6,6 +6,7 @@ import { Router } from "./Router.js";
 import { Search } from "./Search.js";
 import { showActions } from "./ShortcutActions.js";
 import { ShortcutForm ,closeShortcutForm, saveForm} from "./ShortcutForm.js";
+import { wPopUp } from "./Weather.js";
 
 
 export async function App(){
@@ -15,6 +16,9 @@ export async function App(){
 }
 
 const MainClickableElements = {
+    "openWeatherPopUp": () => wPopUp.openMenu(),
+    "weather-location": () => wPopUp.openMenu(),
+    "closeWeatherPopUp": () => wPopUp.closeMenu(),
     "shortcut-icon": (ref) => location.href = `${ref.parentNode.getAttribute("data-url")}`,
     "add-btnIMg": () => ShortcutForm("saveSFBtn"),
     "closeSFBtn": () => closeShortcutForm(),

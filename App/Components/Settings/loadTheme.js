@@ -37,13 +37,14 @@ export function loadTheme() {
             --context-menu-light-li: rgb(255, 255, 255);
             --context-menu-light-li-hover: rgba(0, 0, 0, 0.10);
 
-            --shortcut-form-bg: rgba(255, 255, 255, .90);
+            --shortcut-form-bg: rgba(255, 255, 255, 1);
             --shortcut-form-inputtext-bg: rgba(255, 255, 255, 0.87);
             --shortcut-form-inputText-border: rgba(212, 212, 212, 0.8);
             --shortcut-form-btn-bg: rgb(255, 255, 255);
             --shortcut-form-btn-hover: rgb(243, 243, 243);
             --shortcut-form-btn-active: rgb(235, 235, 235);
 
+            --settings-menu_link: #5f0d84;
             --settings-menu-light-list: #EEE;
             --settings-menu-light-list-items: #fff;
             --settings-menu-light-content: #fff;
@@ -77,13 +78,14 @@ export function loadTheme() {
             --context-menu-light: #101010;
             --context-menu-light-li: #222222;
             --context-menu-light-li-hover: #1d1d1d;
-            --shortcut-form-bg: rgba(17, 17, 17, 0.9);
+            --shortcut-form-bg: rgba(17, 17, 17, 1);
             --shortcut-form-inputtext-bg: rgba(34, 34, 34, 0.87);
             --shortcut-form-inputText-border: #2f2f2f;
             --shortcut-form-btn-bg: rgba(34, 34, 34, 0.87);
             --shortcut-form-btn-hover: rgb(38, 38, 38);
             --shortcut-form-btn-active: rgb(28, 28, 28);
         
+            --settings-menu_link: #ff98d2;
             --settings-menu-light-list: #070707;
             --settings-menu-light-list-items: #0e0e0e;
             --settings-menu-light-items: #0E0E0E; 

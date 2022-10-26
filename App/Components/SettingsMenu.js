@@ -14,6 +14,9 @@ class SETTINGS_MENU_MANAGER {
         this.apliedMenuStatus = false
         this.menuContent = {
             style: `
+            a {
+                color: var(--settings-menu_link);
+            }
             .settings-menu {
                 display: flex;
                 justify-content: center;
@@ -200,8 +203,10 @@ class SETTINGS_MENU_MANAGER {
                 background-color: var(--light-button-active);
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option input[type="range"]{
-                position: absolute;
-                place-self: end;
+                grid-column: 2/3;
+                grid-row: 1/3;
+                place-self: center;
+                width: 80%;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option #user-currentBG {
                 grid-column: 1/3;
@@ -266,8 +271,8 @@ class SETTINGS_MENU_MANAGER {
                                     <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z"/>
                                 </mask>
                                 <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z" fill="white" stroke="#2F2F2F" stroke-width="0.2" mask="url(#path-2-inside-1_415_44)"/>
-                            </svg>Appereance</li>
-                            <li data-mode="change-menu" data-category="keybinds" id="settings_keybinds">Keybinds</li>
+                            </svg>Appearance</li>
+                            <li style="display: none;" data-mode="change-menu" data-category="keybinds" id="settings_keybinds">Keybinds</li>
                             <li data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"/>
                                 <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"/>
@@ -370,7 +375,7 @@ class SETTINGS_MENU_MANAGER {
             appearance: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">Appereance</h5>
+                    <h5 id="category-name">Appearance</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
@@ -449,11 +454,11 @@ class SETTINGS_MENU_MANAGER {
                 <div class="settings-menu_category-content">
                 <div class="option">
                     <legend>Missing features</legend>
-                    <p>This app still in development so features like <u><b>lang selection, custom style import, Keyblinds and other features are not avalilable yet</u></b></p>
+                    <p class="full-space">This app still in development so features like <u><b>lang selection, custom style import, Keyblinds and other features are not avalilable yet</u></b></p>
                 </div>
                 <div class="option">
                     <legend>What's new?</legend>
-                    <ul>
+                    <ul class="full-space">
                         <li>Now context menu and edit/create shortcut prompt load faster :O</li>
                         <li>Fixed context menu behavior</li>
                         <li>Now you can set your city automatically to get the weather</li>
@@ -462,15 +467,15 @@ class SETTINGS_MENU_MANAGER {
                 </div>
                 <div class="option">
                     <legend>Designed for desktop</legend>
-                    <p>The app is not designed to use it on mobile devices, full mobile support will be available in next versions</p>
+                    <p class="full-space">The app is not designed to use it on mobile devices, full mobile support will be available in next versions</p>
                 </div>
                 <div class="option">
                     <legend>Your current settings</legend>
-                    <code class="settingsMenu_code" >${JSON.stringify(this.config)}</code>
+                    <code class="full-space settingsMenu_code" >${JSON.stringify(this.config)}</code>
                 </div>
                 <div class="option">
                     <legend>App info:</legend>
-                    <p>Version: 0.9.2.dev04 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                    <p>Version: 0.9.2.dev05PreRelease <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
                 </div>
             </div>
             `

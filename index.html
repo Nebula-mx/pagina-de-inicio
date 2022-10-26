@@ -14,32 +14,13 @@
     <style id="dynamic-style"></style>
 </head>
 <body id="root">
-    <span class="weatherPopUp">
-        <legend id="wPopUp-cityName">Mexico city</legend>
-        <div id="wPopUp-main">
-            <img id="wStatusImg" src="App/Assets/Images/weather 1.svg">
-            <p id="wCurrentTemp">5°</p>
-            <legend>c°</legend>
-        </div>
-        <div id="wPopUp-footer">
-            <div id="wPopUp-footer_mainData">
-                <p id="wPopUp-footer_mainData-FL">Feels like: 4°</p>
-                <p id="wPopUp-footer_mainData-HM">Humidity: 50</p>
-            </div>
-            <hr>
-            <div id="wPopUp-footer_secondaryData">
-                <p id="wPopUp-footer_secondaryData_condition">Condition</p>
-                <legend id="wPopUp-footer_secondaryData_conditionStatus">cloudy</legend>
-            </div>
-        </div>
-    </span>
     <div class="top-bg"></div>
     <main>
         <div id="top-content">
             <div class="top-content_top">
                 <div id="weather" data-containerBG>
-                    <img src="./App/Assets/Images/weather 1.svg" alt="weather-img">
-                    <p data-weatherState>Getting weather...</p><p id="weather-location"></p>
+                    <img class="weatherImg" id="openWeatherPopUp" src="./App/Assets/Images/weather 1.svg" alt="weather-img">
+                    <p id="openWeatherPopUp" data-weatherState>Getting weather...</p><p id="weather-location"></p>
                 </div>
                 <div id="settings" data-containerBG>
                     <p id="settings-opener" >Settings</p>
@@ -53,7 +34,7 @@
         </div>
         <div id="main-content">
             <form class="search-form">
-                <input type="search" name="search" placeholder="Type to search">
+                <input autofocus type="search" name="search" placeholder="Type to search">
                 <input type="image" src="./App/Assets/Images/Search 2.svg" alt="Seach btn" width="43px" height="43px">
             </form>
             <div class="favourites">
