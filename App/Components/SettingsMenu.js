@@ -356,10 +356,13 @@ class SETTINGS_MENU_MANAGER {
                 <div class="option">
                     <legend>What's new?</legend>
                     <ul>
-                        <li>Now context menu and edit/create shortcut prompt load faster :O</li>
-                        <li>Fixed context menu behavior</li>
-                        <li>Now you can set your city automatically to get the weather</li>
-                        <li>Fixed shortcuts limit bug</li>
+                        <li>New weather popUp that shows more info about the weather</li>
+                        <li>New notitications style</li>
+                        <li>Now you can chose that every seach will open in new tabs</li>
+                        <li>New date format (you can change this on the appearance tab)</li>
+                        <li>Added invert top content font colour feature</li>
+                        <li>Added a semi-transparent background for top content items (you can find it on the appearance tab)</li>
+                        <li>New Open in New Tab button on shortcuts context menu</li>
                     </ul>
                 </div>
                 <div class="option">
