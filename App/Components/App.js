@@ -20,13 +20,13 @@ const MainClickableElements = {
     "weather-location": () => wPopUp.openMenu(),
     "closeWeatherPopUp": () => wPopUp.closeMenu(),
     "shortcut-icon": (ref) => location.href = `${ref.parentNode.getAttribute("data-url")}`,
-    "add-btnIMg": () => ShortcutForm("saveSFBtn"),
+    "add-btnIMg": () => ShortcutForm("saveSFBtn", undefined, "Create shortcut"),
     "closeSFBtn": () => closeShortcutForm(),
     "saveSFBtn": () => saveForm(),
 
     "edit-btn": (ref) => showActions(ref),
     "context-menu_deleteBtn": (ref) => deleteShortcut(ref.parentNode.parentNode.parentNode.parentNode),
-    "context-menu_editBtn": (ref) => ShortcutForm("editSaveBtn", ref.parentNode.parentNode.parentNode.parentNode),
+    "context-menu_editBtn": (ref) => ShortcutForm("editSaveBtn", ref.parentNode.parentNode.parentNode.parentNode, "Edit shortcut"),
     "editSaveBtn": () => saveForm("edit"),
     "context-menu_newTab": (ref) => window.open(ref.parentNode.parentNode.parentNode.parentNode.querySelector("[data-url]").getAttribute("data-url")),
 

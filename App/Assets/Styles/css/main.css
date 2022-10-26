@@ -285,6 +285,7 @@ input[type="button"]:active {
     border-radius: 5px;
 }
 #top-content #date h2 {
+    display: initial;
     width: fit-content;
     font-size: 4rem;
     text-align: center;

@@ -357,7 +357,7 @@ class SETTINGS_MENU_MANAGER {
                     <div class="option">
                         <legend>Import shortcuts</legend>
                         <p>Import shortcuts from other place</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-obj="shortcuts">Import</button>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-placeholder="Ex: {config, appearance}" data-obj="shortcuts">Import</button>
                     </div>
                     <legend class="subtitle">Reset app values</legend>
                     <hr>
@@ -412,6 +412,16 @@ class SETTINGS_MENU_MANAGER {
                         <legend>Set blur strength</legend>
                         <p>Adjust the blur to your liking</p>
                         <input data-mode="set" data-category="appearance" data-preference="blur" id="blur-range" type="range" min="0" max="32" value="${this.config.appearance.blur}">
+                    </div>
+                    <hr>
+                    <div class="option">
+                        <legend>Change date format</legend>
+                        <p>Select a diferent format to display the date</p>
+                        <select class="option-select" name="date-format" id="">
+                            <option>--</option>
+                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="normalDate">D/M/Y</option>
+                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="fullDate">Day of week, Day of month, month, Year</option>
+                        </select>
                     </div>
                     <hr>
                     <div class="option">
@@ -475,7 +485,7 @@ class SETTINGS_MENU_MANAGER {
                 </div>
                 <div class="option">
                     <legend>App info:</legend>
-                    <p>Version: 0.9.2.dev05PreRelease <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                    <p>Version: 0.9.2 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
                 </div>
             </div>
             `
@@ -491,7 +501,7 @@ class SETTINGS_MENU_MANAGER {
                 this.apliedMenuStatus = false
             },
             "change-menu": (target) => {
-                location.hash = `#settings/${target.dataset.category}`
+                location.hash = `#/settings/${target.dataset.category}`
             },
             "set": async (target) => {
                 let value; 
@@ -500,7 +510,7 @@ class SETTINGS_MENU_MANAGER {
                     return
                 }
                 if(target.dataset.promt === "true") {
-                    value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference)})
+                    value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: target.dataset.placeholder || sManager.getValue(target.dataset.category, target.dataset.preference)})
                 }
                 sManager.saveSettings(target.dataset.category, target.dataset.preference, (parseInt(target.value) || target.dataset.value || value))
        

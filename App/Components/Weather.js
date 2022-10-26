@@ -67,14 +67,13 @@ class weatherPopUp{
                     </div>
                     <hr>
                     <div id="wPopUp-footer_secondaryData">
-                        <p id="wPopUp-footer_secondaryData_condition">Condition</p>
+                        <p id="wPopUp-footer_secondaryData_condition">Condition:</p>
                         <legend id="wPopUp-footer_secondaryData_conditionStatus">cloudy</legend>
                     </div>
                 </div>
             </span>
         `
     }
-    
     openMenu(){
         if(weatherInfo === null) return showNotification("Can't display weather info", "An error was occurred while trying to get the weather")
         if(this.apliedStatus === true) return
@@ -85,13 +84,13 @@ class weatherPopUp{
         document.getElementById("wPopUp-cityName").textContent = weatherInfo.location.name
         document.getElementById("wCurrentTemp").textContent = weatherInfo.current.temp_c
         document.getElementById("wStatusImg").src = weatherInfo.current.condition.icon
-        document.getElementById("wPopUp-footer_mainData-FL").textContent = `Feels like: ${weatherInfo.current.feelslike_c}`
+        document.getElementById("wPopUp-footer_mainData-FL").textContent = `Feels like: ${weatherInfo.current.feelslike_c}°`
         document.getElementById("wPopUp-footer_mainData-HM").textContent = `Humidity: ${weatherInfo.current.humidity}`
         
         document.getElementById("wPopUp-footer_secondaryData_conditionStatus").textContent = weatherInfo.current.condition.text
     }
     closeMenu(){
-        this.$root.removeChild(document.querySelector(".weatherPopUp"))
+        this.$root.removeChild(this.weatherPopPupContainer)
         this.apliedStatus = false
     }
 }
