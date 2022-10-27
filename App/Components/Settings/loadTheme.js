@@ -88,6 +88,7 @@ export function loadTheme() {
             --settings-menu_link: #ff98d2;
             --settings-menu-light-list: #070707;
             --settings-menu-light-list-items: #0e0e0e;
+            --settings-menu-lignt-list-items-hoverBg: #111;
             --settings-menu-light-items: #0E0E0E; 
             --settings-menu-light-content: #000;
             --settings-menu-light-options: #0E0E0E;
