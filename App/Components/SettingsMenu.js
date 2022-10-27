@@ -74,6 +74,7 @@ class SETTINGS_MENU_MANAGER {
                 filter: invert(var(--settings-menu-invert));
             }
             .settings-menu .settings-menu_list ul li:hover {
+                background-color: var(--settings-menu-light-list-items-hoverBg);
                 box-shadow: 2px 2px 7px #00000045;
             }
             .settings-menu .settings-menu_content {
