@@ -74,6 +74,10 @@ class SETTINGS_MENU_MANAGER {
                 filter: invert(var(--settings-menu-invert));
             }
             .settings-menu .settings-menu_list ul li:hover {
+<<<<<<< HEAD
+=======
+                background-color: var(--settings-menu-lignt-items-hoverBg);
+>>>>>>> 446264a (Bug fixes after 0.9.2)
                 box-shadow: 2px 2px 7px #00000045;
             }
             .settings-menu .settings-menu_content {
@@ -469,10 +473,12 @@ class SETTINGS_MENU_MANAGER {
                 <div class="option">
                     <legend>What's new?</legend>
                     <ul class="full-space">
-                        <li>Now context menu and edit/create shortcut prompt load faster :O</li>
-                        <li>Fixed context menu behavior</li>
-                        <li>Now you can set your city automatically to get the weather</li>
-                        <li>Fixed shortcuts limit bug</li>
+                        <li>New weather popUp that shows you more info about the weather</li>
+                        <li>Now you can chose that every search will open in new tabs</li>
+                        <li>New appearance tab style</li>
+                        <li>You can chose between two date formats</li>
+                        <li>New highlight top content feature</li>
+                        <li>New Invert top content font colour feature</li>
                     </ul>
                 </div>
                 <div class="option">
@@ -485,7 +491,7 @@ class SETTINGS_MENU_MANAGER {
                 </div>
                 <div class="option">
                     <legend>App info:</legend>
-                    <p>Version: 0.9.2 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                    <p>Version: 0.9.2.1 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
                 </div>
             </div>
             `
@@ -550,6 +556,9 @@ class SETTINGS_MENU_MANAGER {
             "importSettings": async (target) => {
                 let str = await showPromt({title: `Insert your ${target.dataset.obj} string`, desc: "", placeholder: localStorage.getItem(target.dataset.obj)})
                 sManager.importSettings(target.dataset.obj, str)
+            },
+            "reset": (target) => {
+                sManager.resetValue(target.dataset.obj)
             }
         }
     }

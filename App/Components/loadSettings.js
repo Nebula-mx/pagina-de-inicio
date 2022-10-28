@@ -32,21 +32,23 @@ class settingsManager {
         getWeather()
         ajustShortcutsLenght()
     }
-    updateSettings(){
-        console.error("update settings method started")
-        let newSettings = this.defaultSettings
-        if(localStorage.getItem("settings").includes("appereance")) {
-            let newStr = localStorage.getItem("settings").replace("appereance", "appearance")
-            this.config = JSON.parse(newStr)
-        }
-        for(let key in this.config){
-            for(let option in this.config[key]){
-                newSettings[key][option] = this.config[key][option]
+    updateSettings(mode){
+        if(mode === "start"){         
+            let newSettings = this.defaultSettings
+            if(localStorage.getItem("settings").includes("appereance")) {
+                let newStr = localStorage.getItem("settings").replace("appereance", "appearance")
+                this.config = JSON.parse(newStr)
             }
+            for(let key in this.config){
+                for(let option in this.config[key]){
+                    newSettings[key][option] = this.config[key][option]
+                }
+            }
+            localStorage.setItem("settings", JSON.stringify(newSettings))
+            localStorage.setItem("updated_settings", "true")
+            this.config = newSettings
         }
-        localStorage.setItem("settings", JSON.stringify(newSettings))
-        localStorage.setItem("updated_settings", "true")
-        this.config = newSettings
+        return
     }
     testSettingsStatus(){
         if(!localStorage.getItem("settings")){
@@ -55,13 +57,14 @@ class settingsManager {
         } else {
             try {
                 this.config = JSON.parse(localStorage.getItem("settings"))
+                if(localStorage.getItem("updated_settings") === "false") return this.updateSettings("start")
             } catch (err) {
+                console.log("LMAOSS")
                 this.config = this.defaultSettings
                 localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
                 showNotification("Your settings have been restored", "The settings object was corrupt")
             }
         }
-        if(localStorage.getItem("updated_settings") === "false") return this.updateSettings()
     }
     loadConfig(){
         this.testSettingsStatus()
@@ -91,9 +94,15 @@ class settingsManager {
         showNotification(`Your ${obj} have been exported!`, "Now you can paste the string to import your settings in other place")
     }
     importSettings(obj, str){
+        console.log(obj, "and", str)
         localStorage.setItem(obj, str)
         localStorage.setItem("updated_settings", "false")
         showNotification(`Your ${obj} have been imported!`, "The app will reload in 3 secconds to apply the changes")
+        setTimeout(() => location.reload(), 3100)
+    }
+    resetValue(obj){
+        localStorage.removeItem(obj)
+        showNotification(`Your ${obj} have been reset`, "The app will reload in 3 secconds")
         setTimeout(() => location.reload(), 3100)
     }
 }

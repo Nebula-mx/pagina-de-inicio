@@ -47,6 +47,7 @@ export function loadTheme() {
             --settings-menu_link: #5f0d84;
             --settings-menu-light-list: #EEE;
             --settings-menu-light-list-items: #fff;
+            --settings-menu-lignt-items-hoverBg: ;
             --settings-menu-light-content: #fff;
             --settings-menu-light-options:#EEE;
             --settings-menu-light-selects:#D9D9D9;
@@ -88,6 +89,10 @@ export function loadTheme() {
             --settings-menu_link: #ff98d2;
             --settings-menu-light-list: #070707;
             --settings-menu-light-list-items: #0e0e0e;
+<<<<<<< HEAD
+=======
+            --settings-menu-lignt-items-hoverBg: #222;
+>>>>>>> 446264a (Bug fixes after 0.9.2)
             --settings-menu-light-items: #0E0E0E; 
             --settings-menu-light-content: #000;
             --settings-menu-light-options: #0E0E0E;
