@@ -76,6 +76,10 @@ class SETTINGS_MENU_MANAGER {
             .settings-menu .settings-menu_list ul li:hover {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+                background-color: var(--settings-menu-lignt-items-hoverBg);
+>>>>>>> 446264a (Bug fixes after 0.9.2)
 =======
                 background-color: var(--settings-menu-lignt-items-hoverBg);
 >>>>>>> 446264a (Bug fixes after 0.9.2)

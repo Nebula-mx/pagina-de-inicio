@@ -91,6 +91,10 @@ export function loadTheme() {
             --settings-menu-light-list-items: #0e0e0e;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            --settings-menu-lignt-items-hoverBg: #222;
+>>>>>>> 446264a (Bug fixes after 0.9.2)
 =======
             --settings-menu-lignt-items-hoverBg: #222;
 >>>>>>> 446264a (Bug fixes after 0.9.2)
