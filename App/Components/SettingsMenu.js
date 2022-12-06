@@ -1,12 +1,10 @@
-import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
 import { sManager } from "./loadSettings.js";
 import { getWeather } from "./Weather.js";
 
-if(localStorage.getItem("updated_settings") === "false") sManager.updateSettings()
 class SETTINGS_MENU_MANAGER {
     constructor(clickHandler, SelectHandler){
-        this.config = sManager.getFullSettings() || sManager.defaultSettings
+        this.config = sManager.getFullSettings()
         this.ClickHandler = clickHandler
         this.SelectHandler = SelectHandler
         this.$root = document.getElementById("root")
@@ -31,8 +29,8 @@ class SETTINGS_MENU_MANAGER {
             }
             .settings-menu .settings-menu_list {
                 background-color: var(--settings-menu-light-list);
-                /* padding: 26px 0 26px 26px; */
                 padding: 26px;
+                border: var(--settings-menu-list-border);
                 border-radius: 10px 0 0 10px;
                 width: 30%;
                 min-width: 163px;
@@ -74,18 +72,7 @@ class SETTINGS_MENU_MANAGER {
                 filter: invert(var(--settings-menu-invert));
             }
             .settings-menu .settings-menu_list ul li:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
                 background-color: var(--settings-menu-lignt-items-hoverBg);
->>>>>>> 446264a (Bug fixes after 0.9.2)
-=======
-                background-color: var(--settings-menu-lignt-items-hoverBg);
->>>>>>> 446264a (Bug fixes after 0.9.2)
-=======
-                background-color: var(--settings-menu-lignt-items-hoverBg);
->>>>>>> 446264a (Bug fixes after 0.9.2)
                 box-shadow: 2px 2px 7px #00000045;
             }
             .settings-menu .settings-menu_content {
@@ -166,8 +153,8 @@ class SETTINGS_MENU_MANAGER {
             .settings-menu .settings-menu_content .settings-menu_category-content .option .keys-container {
                 grid-row:3/4;
                 grid-column: 1/3;
-                position: absolute;
                 place-self: flex-end;
+                margin-top: 5px;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option .keys-container .key {
                 background-color: var(--context-menu-light-li-hover);
@@ -284,7 +271,22 @@ class SETTINGS_MENU_MANAGER {
                                 </mask>
                                 <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z" fill="white" stroke="#2F2F2F" stroke-width="0.2" mask="url(#path-2-inside-1_415_44)"/>
                             </svg>Appearance</li>
-                            <li style="display: none;" data-mode="change-menu" data-category="keybinds" id="settings_keybinds">Keybinds</li>
+                            <li data-mode="change-menu" data-category="keybinds" id="settings_keybinds"><svg width="37" height="22" viewBox="0 0 37 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="1" y="1" width="35" height="20" rx="1" stroke="#2F2F2F" stroke-width="2" stroke-linejoin="round"/>
+                                <rect x="8" y="14" width="21" height="4" rx="1" fill="#222222"/>
+                                <rect x="30" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="27" y="9" width="7" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="27" y="4" width="7" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="3" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="9" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="15" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="21" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="22" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="17" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="11" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="3" y="9" width="6" height="4" rx="1" fill="#2F2F2F"/>
+                                <rect x="3" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            </svg>Keybinds</li>
                             <li data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"/>
                                 <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"/>
@@ -358,7 +360,7 @@ class SETTINGS_MENU_MANAGER {
                     <div class="option">
                         <legend>Import settings</legend>
                         <p>Import your custom settings to use</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import settings" data-promtDesc="insert your settings string" data-obj="settings">Import</button>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import settings" data-promtDesc="insert your settings string" data-obj="settings" data-placeholder="Ex: {General: {}, Appearance: {}}">Import</button>
                     </div>
                     <hr>
                     <div class="option">
@@ -369,7 +371,7 @@ class SETTINGS_MENU_MANAGER {
                     <div class="option">
                         <legend>Import shortcuts</legend>
                         <p>Import shortcuts from other place</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-placeholder="Ex: {config, appearance}" data-obj="shortcuts">Import</button>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-placeholder="Ex: [{id: 1}, {id: 2}...]" data-obj="shortcuts">Import</button>
                     </div>
                     <legend class="subtitle">Reset app values</legend>
                     <hr>
@@ -461,8 +463,24 @@ class SETTINGS_MENU_MANAGER {
                     </div>
                     <div class="settings-menu_category-content">
                         <div class="option">
-                            <legend>Close menu</legend>
-                            <div class="keys-container"><span class="key">Esc</span></div>
+                            <legend>Create shortcut</legend>
+                            <p class="full-space">Create a new shortcut</p>
+                            <div class="keys-container"><span class="key">Shift</span> + <span class="key">n</span></div>
+                        </div>
+                        <div class="option">
+                            <legend>Change app theme</legend>
+                            <p class="full-space">Toggle between light and dark themes</p>
+                            <div class="keys-container"><span class="key">Ctrl</span> + <span class="key">c</span> + <span class="key">t</span></div>
+                        </div>
+                        <div class="option">
+                            <legend>Open shortcut in current tab</legend>
+                            <p class="full-space">Open a shortcut using the current tab</p>
+                            <div class="keys-container"><span class="key">Ctrl</span> + <span class="key">number</span></div>
+                        </div>
+                        <div class="option">
+                            <legend>Open shortcut in a new tab</legend>
+                            <p class="full-space">Open a shortcut using a new tab</p>
+                            <div class="keys-container"><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">number</span></div>
                         </div>
                     </div>
                 </div>
@@ -499,7 +517,7 @@ class SETTINGS_MENU_MANAGER {
                 </div>
                 <div class="option">
                     <legend>App info:</legend>
-                    <p>Version: 0.9.2.1 <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                    <p>Version: ${this.config.general.version} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
                 </div>
             </div>
             `
@@ -524,7 +542,7 @@ class SETTINGS_MENU_MANAGER {
                     return
                 }
                 if(target.dataset.promt === "true") {
-                    value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: target.dataset.placeholder || sManager.getValue(target.dataset.category, target.dataset.preference)})
+                    value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder})
                 }
                 sManager.saveSettings(target.dataset.category, target.dataset.preference, (parseInt(target.value) || target.dataset.value || value))
        
@@ -562,7 +580,7 @@ class SETTINGS_MENU_MANAGER {
                 sManager.exportSettings(target.dataset.obj)
             },
             "importSettings": async (target) => {
-                let str = await showPromt({title: `Insert your ${target.dataset.obj} string`, desc: "", placeholder: localStorage.getItem(target.dataset.obj)})
+                let str = await showPromt({title: `Insert your ${target.dataset.obj} string`, desc: "", placeholder: target.dataset.placeholder})
                 sManager.importSettings(target.dataset.obj, str)
             },
             "reset": (target) => {
@@ -602,95 +620,3 @@ function settingsMenuSelectsHandler(e){
     }
 }
 export const settingsMenuManager = new SETTINGS_MENU_MANAGER(settingsMenuInteractionsHandler, settingsMenuSelectsHandler)
-// let apliedMenuStatus = {
-//     aplied: false
-// }
-
-// const settingsMenuActions = {
-//     "change-menu": (target) => location.hash = `#/settings/${target.dataset.category}`,
-     
-//     "toggle": (target) => {
-//         let toggleElement = target
-//         if(target.dataset.active === "false") {
-//             if(target.classList.contains("option-toggle_circle")){
-//                 toggleElement = target.parentNode
-//             }
-//             toggleElement.firstElementChild.dataset.active = "true"
-//             toggleElement.classList.add("toggle-active")
-//             toggleElement.dataset.active = "true"
-
-//             sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.activevalue)
-//             return
-//         }
-//         if(target.dataset.active === "true") {
-//             if(target.classList.contains("option-toggle_circle")){
-//                 toggleElement = target.parentNode
-//             }
-//             toggleElement.firstElementChild.dataset.active = "false"
-//             toggleElement.classList.remove("toggle-active")
-//             toggleElement.dataset.active = "false"
-
-//             sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.offvalue)
-    
-//             return
-//         }
-//     },
-//     "copySettings": (target) => {
-//         sManager.exportSettings(target.dataset.setting)
-//     },
-//     "import":async (target) => {
-//         let this.config = await showPromt({title: target.dataset.promttitle, desc: target.dataset.promtdesc, placeholder: target.dataset.promtex})
-//         sManager.importSettings(target.dataset.obj, this.config)
-//     },
-//     "reset": (target) => {
-//         localStorage.removeItem(target.dataset.option)
-//         showNotification("Your settings have been reset", "The app will reload in 3 seconds")
-//         setTimeout(() => location.reload(), 3100)
-//     }
-// }
-// const settingsMenuInteractionsHandler = (e) => {
-//     if(settingsMenuActions.hasOwnProperty(e.target.dataset.mode)){
-//         settingsMenuActions[e.target.dataset.mode](e.target)
-//         return
-//     }
-// }
-
-// const settingsMenuSelectHandler = (e) => {
-//     if(e.target.type === "range") {
-//         settingsMenuActions.set(e.target)
-//         return
-//     }
-//     if(e.target.type === "select-one"){
-//         settingsMenuActions.set(e.target.children[e.target.selectedIndex])
-//     }
-//     return
-// }
-// export function openSettingsMenu() {
-//     if(apliedMenuStatus.aplied === true) return
-
-//     $dynamicStyle.innerHTML = settingsContent.style
-//     $root.insertAdjacentHTML("afterbegin", settingsContent.main)
-//     document.querySelector(".top-bg").style.display = "block"
-//     apliedMenuStatus.aplied = true
-
-//     this.config = sManager.getFullSettings()
-//     document.querySelector(".settings-menu").addEventListener("click", settingsMenuInteractionsHandler)
-//     document.querySelector(".settings-menu").addEventListener("change", settingsMenuSelectHandler)
-// }
-
-// export function closeSettingsMenu() {
-//     apliedMenuStatus.aplied = false
-
-//     $dynamicStyle.innerHTML = null
-//     $root.removeChild($root.querySelector(".settings-menu"))
-//     document.querySelector(".top-bg").style.display = "none"
-//     document.removeEventListener("click", settingsMenuInteractionsHandler)
-//     document.removeEventListener("change", settingsMenuSelectHandler)
-
-//     location.hash = "#/"
-// }
-
-// export function loadSettingsContent(content) {
-//     document.querySelector(".settings-menu_content").innerHTML = null
-//     document.querySelector(".settings-menu_content").insertAdjacentHTML("beforeend", content)
-// }

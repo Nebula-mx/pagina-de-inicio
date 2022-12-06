@@ -33,7 +33,7 @@ export function loadTheme() {
             --light-button-active: rgb(235, 235, 235);
 
             --context-menu-open-btn-invert: 0%;
-            --context-menu-light: rgb(255, 255, 255); 
+            --context-menu-light: #ffffff91;
             --context-menu-light-li: rgb(255, 255, 255);
             --context-menu-light-li-hover: rgba(0, 0, 0, 0.10);
 
@@ -45,9 +45,9 @@ export function loadTheme() {
             --shortcut-form-btn-active: rgb(235, 235, 235);
 
             --settings-menu_link: #5f0d84;
-            --settings-menu-light-list: #EEE;
-            --settings-menu-light-list-items: #fff;
-            --settings-menu-lignt-items-hoverBg: ;
+            --settings-menu-light-list: #EEEC;
+            --settings-menu-light-list-items: #ffffff82;
+            --settings-menu-lignt-items-hoverBg: #ffffffb3;
             --settings-menu-light-content: #fff;
             --settings-menu-light-options:#EEE;
             --settings-menu-light-selects:#D9D9D9;
@@ -76,9 +76,9 @@ export function loadTheme() {
             --light-button-active: rgb(28, 28, 28);
         
             --context-menu-open-btn-invert: 100%;
-            --context-menu-light: #101010;
+            --context-menu-light: #101010e3;
             --context-menu-light-li: #222222;
-            --context-menu-light-li-hover: #1d1d1d;
+            --context-menu-light-li-hover: #9393931c;
             --shortcut-form-bg: rgba(17, 17, 17, 1);
             --shortcut-form-inputtext-bg: rgba(34, 34, 34, 0.87);
             --shortcut-form-inputText-border: #2f2f2f;
@@ -86,21 +86,12 @@ export function loadTheme() {
             --shortcut-form-btn-hover: rgb(38, 38, 38);
             --shortcut-form-btn-active: rgb(28, 28, 28);
         
+            --settings-menu-list-border: 1px solid rgba(255, 255, 255, 0.1);
             --settings-menu_link: #ff98d2;
-            --settings-menu-light-list: #070707;
-            --settings-menu-light-list-items: #0e0e0e;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+            --settings-menu-light-list: #070707c4;
+            --settings-menu-light-list-items: #28282866;
             --settings-menu-lignt-items-hoverBg: #222;
->>>>>>> 446264a (Bug fixes after 0.9.2)
-=======
             --settings-menu-lignt-items-hoverBg: #222;
->>>>>>> 446264a (Bug fixes after 0.9.2)
-=======
-            --settings-menu-lignt-items-hoverBg: #222;
->>>>>>> 446264a (Bug fixes after 0.9.2)
             --settings-menu-light-items: #0E0E0E; 
             --settings-menu-light-content: #000;
             --settings-menu-light-options: #0E0E0E;
@@ -140,9 +131,9 @@ export function loadTheme() {
         }
     }
     const favicons = {
-        "Firefox": "/App/Assets/Images/Firefox.png",
-        "Edg": "/App/Assets/Images/Edge.png",
-        "Chrome": "/App/Assets/Images/Chrome.png"
+        "Firefox": "App/Assets/Images/Firefox.png",
+        "Edg": "App/Assets/Images/Edge.png",
+        "Chrome": "App/Assets/Images/Chrome.png"
     }
     cssStyle.innerHTML = cssVariables[theme]
     document.querySelector("body").style.backgroundImage = `url(${sManager.getValue("appearance","background")})`

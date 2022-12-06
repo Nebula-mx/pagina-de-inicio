@@ -10,7 +10,7 @@ export function closePromt() {
     document.getElementById("root").removeChild(document.querySelector(".promt"))
 }
 
-export function showPromt(config = {title, desc, placeholder, test}) {
+export function showPromt(config = {title, desc, placeholder}) {
     const html = `
     <span class="promt">
         <legend>${config.title}</legend>

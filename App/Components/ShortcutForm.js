@@ -17,6 +17,7 @@ export function ShortcutForm(saveBtnID, editTarget, title){
             text-align: center;
             font-size: 20px;
             margin-bottom: 8px;
+            color: var(--main-content-font);
         }
         #shortcut-form {
             background-color: var(--shortcut-form-bg);

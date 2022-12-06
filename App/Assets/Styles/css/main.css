@@ -190,10 +190,10 @@ input[type="button"]:active {
 }
 
 .weatherPopUp{
-    flex-direction: column;
     position: absolute;
     padding: 12px;
-    margin: 5.4rem;
+    top: 0;
+    margin: 5.4rem 2rem;
     backdrop-filter: blur(var(--blur-strenght));
         -webkit-backdrop-filter: blur(var(--blur-strenght));
     background-color: var(--top-content-weather-PopUp-BG);
@@ -202,6 +202,7 @@ input[type="button"]:active {
     font-family: "Montserrat", sans-serif;
     border-radius: 5px;
     z-index: 10;
+    cursor: default;
 }
 .weatherPopUp::before {
     content: '';
@@ -223,7 +224,7 @@ input[type="button"]:active {
     filter: invert(var(--settings-menu-invert));
 }
 .weatherPopUp #wPopUp-cityName {
-    margin: .5em;
+    margin: .5em 1.1em;
 }
 .weatherPopUp #wPopUp-main {
     display: flex;
@@ -387,6 +388,7 @@ input[type="button"]:active {
     position: absolute;
     display: block;
     background-color: var(--context-menu-light);
+    backdrop-filter: blur(var(--blur-strenght));
     width: max-content;
     padding: 0 15px;
     margin: 0 60px;

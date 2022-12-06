@@ -15,7 +15,8 @@ class settingsManager {
                 "search_engine": "https://www.google.com/search?q=",
                 "open_search_in_newTab": "false",
                 "weather_city": "Mexico-City",
-                "lang": "en"
+                "lang": "en",
+                "version": "0.9.3.dev05"
             },
             "appearance": {
                 "theme": "light",
@@ -33,7 +34,7 @@ class settingsManager {
         ajustShortcutsLenght()
     }
     updateSettings(mode){
-        if(mode === "start"){         
+        if(mode === "start"){
             let newSettings = this.defaultSettings
             if(localStorage.getItem("settings").includes("appereance")) {
                 let newStr = localStorage.getItem("settings").replace("appereance", "appearance")
@@ -57,9 +58,9 @@ class settingsManager {
         } else {
             try {
                 this.config = JSON.parse(localStorage.getItem("settings"))
-                if(localStorage.getItem("updated_settings") === "false") return this.updateSettings("start")
+                if(localStorage.getItem("updated_settings") === "false" || !this.config.general.version || this.config.general.version !== this.defaultSettings.general.version) return this.updateSettings("start")
             } catch (err) {
-                console.log("LMAOSS")
+                console.log(err)
                 this.config = this.defaultSettings
                 localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
                 showNotification("Your settings have been restored", "The settings object was corrupt")
@@ -78,9 +79,9 @@ class settingsManager {
     }
     getFullSettings(){
         try {
+            this.loadConfig()
             return JSON.parse(localStorage.getItem("settings"))
         } catch {
-            this.loadConfig()
             return this.defaultSettings
         }
     }
@@ -94,7 +95,6 @@ class settingsManager {
         showNotification(`Your ${obj} have been exported!`, "Now you can paste the string to import your settings in other place")
     }
     importSettings(obj, str){
-        console.log(obj, "and", str)
         localStorage.setItem(obj, str)
         localStorage.setItem("updated_settings", "false")
         showNotification(`Your ${obj} have been imported!`, "The app will reload in 3 secconds to apply the changes")
