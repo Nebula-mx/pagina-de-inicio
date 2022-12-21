@@ -9,6 +9,7 @@ let $form,
     $editTarget = null;
     
 export function ShortcutForm(saveBtnID, editTarget, title){
+    if($favourites.childElementCount-2 === sManager.getValue("general", "shortcuts_limit") && !editTarget) return
     const formStyle = `
         .top-bg {
             display: block;
@@ -25,7 +26,7 @@ export function ShortcutForm(saveBtnID, editTarget, title){
             display: flex;
             flex-direction: column;
             place-self: center;
-            border-radius: 5px;
+            border-radius: var(--global-border-radius);
             padding: 1.7rem;
             width: 50%;
             max-width: 375px;
@@ -37,7 +38,7 @@ export function ShortcutForm(saveBtnID, editTarget, title){
             padding: 10px 15px;
             border: solid 2px var(--shortcut-form-inputText-border);
             outline: none;
-            border-radius: 8px;
+            border-radius: var(--global-border-radius);
             font-family: "Montserrat", sans-serif;
             color: var(--main-content-font);
         }
@@ -54,7 +55,7 @@ export function ShortcutForm(saveBtnID, editTarget, title){
             background-color: var(--shortcut-form-btn-bg);
             border: solid 1px var(--light-button-border);
             box-shadow: 0px 1px rgba(0, 0, 0, .10);
-            border-radius: 8px;
+            border-radius: var(--global-border-radius);
             padding: 0.5em .8em;
             width: 48%;
             color: var(--main-content-font);

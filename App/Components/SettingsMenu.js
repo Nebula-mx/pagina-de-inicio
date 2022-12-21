@@ -1,7 +1,10 @@
+import { showAlert } from "../Helpers/showAlert.js";
+import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
 import { sManager } from "./loadSettings.js";
 import { getWeather } from "./Weather.js";
 
+export let openedMenu;
 class SETTINGS_MENU_MANAGER {
     constructor(clickHandler, SelectHandler){
         this.config = sManager.getFullSettings()
@@ -29,12 +32,10 @@ class SETTINGS_MENU_MANAGER {
             }
             .settings-menu .settings-menu_list {
                 background-color: var(--settings-menu-light-list);
-                padding: 26px;
+                padding: clamp(min(10px), 3vw, max(26px));
                 border: var(--settings-menu-list-border);
                 border-radius: 10px 0 0 10px;
-                width: 30%;
-                min-width: 163px;
-                max-width: 238px;
+                width: clamp(min(42px), 30%, max(258px));
                 height: 100%;
             }
             .settings-menu .settings-menu_list #closeSettingsBtn {
@@ -60,7 +61,7 @@ class SETTINGS_MENU_MANAGER {
                 align-items: center;
                 margin-bottom: 10px;
                 padding: 5px 10px;
-                border-radius: 5px;
+                border-radius: var(--global-border-radius);
                 box-shadow: 2px 2px 7px #00000026;
                 list-style: none;
                 cursor: pointer;
@@ -79,17 +80,16 @@ class SETTINGS_MENU_MANAGER {
                 display: flex;
                 flex-flow: column;
                 background-color: var(--settings-menu-light-content);
-                width: 70%;
-                min-width: 400px;
-                max-width: 720px;
-                padding: 26px;
+                width: clamp(min(196px), 100vw, max(720px));
+                padding: clamp(min(10px), 3vw, max(26px));
                 border-radius: 0 10px 10px 0;
                 height: 100%;
                 overflow-y: auto;
+                overflow-x: hiden;
             }
             .settings-menu .settings-menu_content .settings-menu_content-top h5{
                 text-align: center;
-                font-size: 1.5rem;
+                font-size: clamp(min(1.1rem), 4vw, max(1.6rem));
                 margin: 0;
             }
             .settings-menu .settings-menu_content .settings-menu_content-top hr{
@@ -103,27 +103,16 @@ class SETTINGS_MENU_MANAGER {
                 grid-template-columns: 75% 25%;
                 padding: .6em;
                 margin: 1rem 0;
-                border-radius: 5px;
+                border-radius: var(--global-border-radius);
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option-select {
-                background-color: var(--settings-menu-light-selects);
                 grid-row: 1/3;
                 grid-column: 2/3;
-                width: auto;
-                height: fit-content;
-                align-self: center;
-                padding: 4px;
-                border-radius: 5px;
-                font-family: "Montserrat", sans-serif;
-                font-weight: 600;
-                border: 1px solid var(--settings-menu-light-selects);
-                color: var(--main-content-light-font);
-                cursor: pointer;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option legend{
                 grid-row: 1/2;
                 grid-column: 1/2;
-                font-size: 1.2rem;
+                font-size: clamp(min(.5rem), 4vw, max(1.3rem));
                 font-weight: 500;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option p{
@@ -131,9 +120,10 @@ class SETTINGS_MENU_MANAGER {
                 grid-column: 1/2;
                 margin: 0 0 0 2px;
                 opacity: 60%;
-                font-size: 14px;
+                font-size: clamp(min(4px), 3vw, max(15px));
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option .full-space {
+                font-size: clamp(min(.5em), 4vw, max(1.1em));
                 grid-column: 1/3;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option button {
@@ -154,18 +144,18 @@ class SETTINGS_MENU_MANAGER {
                 grid-row:3/4;
                 grid-column: 1/3;
                 place-self: flex-end;
-                margin-top: 5px;
+                margin-top: var(--global-border-radius);
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option .keys-container .key {
                 background-color: var(--context-menu-light-li-hover);
                 width: fit-content;
                 padding: .2em .4em;
-                border-radius: 5px;
+                border-radius: var(--global-border-radius);
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option code {
-                background-color: var(--settings-menu-light-option-toggleBg);
+                background-color: var(--settings-menu_code);
                 padding: 1em;
-                border-radius: 5px;
+                border-radius: var(--global-border-radius);
                 overflow: auto;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option .option-toggle {
@@ -181,6 +171,10 @@ class SETTINGS_MENU_MANAGER {
                 background-color: var(--settings-menu-toggleBg);
                 border-radius: 20px;
                 cursor: pointer;
+            }
+            .settings-menu .settings-menu_content .settings-menu_category-content .option input[type="color"] {
+                grid-row: 1/3;
+                grid-column: 2/3;
             }
             .toggle-active {
                 justify-content: end;
@@ -207,6 +201,12 @@ class SETTINGS_MENU_MANAGER {
                 place-self: center;
                 width: 80%;
             }
+            .settings-menu .settings-menu_content .settings-menu_content-top #submenus-backButon {
+                position: relative;
+                width: clamp(11px, 4vw, 20px);
+                height: clamp(12px, 4vw, 21px);
+                cursor: pointer;
+            }
             .settings-menu .settings-menu_content .settings-menu_category-content .option #user-currentBG {
                 grid-column: 1/3;
                 grid-row: 2/3;
@@ -215,7 +215,7 @@ class SETTINGS_MENU_MANAGER {
                 height: fit-content;
                 place-self: center;
                 align-self: center;
-                border-radius: 5px;
+                border-radius: var(--global-border-radius);
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option #backgroundsSummary {
                 grid-column: 1/3;
@@ -233,13 +233,13 @@ class SETTINGS_MENU_MANAGER {
                 grid-row: 4/5;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .option .backgrounds-container .settings_background-img{
-                border-radius: 5px;
+                border-radius: var(--global-border-radius);
                 width: 45%;
                 margin: 5px;
                 cursor: pointer;
             }
             .settings-menu .settings-menu_content .settings-menu_category-content .subtitle {
-                font-size: 1.2rem;
+                font-size: clamp(min(.8rem), 3vw, max(1.2rem));
                 font-weight: 600;
                 margin: 1em 0;
                 text-align: center;
@@ -248,54 +248,64 @@ class SETTINGS_MENU_MANAGER {
                 opacity: 30%;
                 width: 80%;
             }
+            
+            .settings-menu .settings-menu_content .settings-menu_category-content .theme-editor_actions {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .settings-menu .settings-menu_content .settings-menu_category-content .theme-editor_actions  #theme-editor_selectedTheme {
+                display: flex;
+                align-items: center;
+                color: var(--main-content-font);
+            }
             `,
             main: `
             <div class="settings-menu">
                 <div class="settings-menu_list">
                     <img id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" data-mode="close-menu" alt="close menu" title="Close menu" width="25px" height="25px">
                     <h4>Settings</h4>
-                        <ul id="settings-list" >
-                            <li data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="13" cy="13" r="7.5" stroke="#2F2F2F" stroke-width="5"/>
-                                <path d="M10.5234 0.510996C10.5674 0.217284 10.8197 0 11.1167 0H14.8833C15.1803 0 15.4326 0.217284 15.4766 0.510996L15.8966 3.311C15.9511 3.67376 15.6701 4 15.3033 4H10.6967C10.3299 4 10.0489 3.67376 10.1034 3.311L10.5234 0.510996Z" fill="#2F2F2F"/>
-                                <path d="M15.4766 25.489C15.4326 25.7827 15.1803 26 14.8833 26L11.1167 26C10.8197 26 10.5674 25.7827 10.5234 25.489L10.1034 22.689C10.0489 22.3262 10.3299 22 10.6967 22L15.3033 22C15.6701 22 15.9511 22.3262 15.8966 22.689L15.4766 25.489Z" fill="#2F2F2F"/>
-                                <path d="M22.5774 4.61065C22.8538 4.50195 23.1682 4.61181 23.3167 4.86902L25.1999 8.13097C25.3484 8.38818 25.2864 8.71532 25.0541 8.90033L22.8392 10.6641C22.5523 10.8926 22.1293 10.8124 21.9458 10.4947L19.6426 6.50529C19.4591 6.18761 19.6012 5.78118 19.9426 5.64692L22.5774 4.61065Z" fill="#2F2F2F"/>
-                                <path d="M3.42256 21.3894C3.14617 21.4981 2.83184 21.3882 2.68334 21.131L0.800056 17.869C0.651557 17.6118 0.713577 17.2847 0.94591 17.0997L3.16078 15.3359C3.44774 15.1074 3.87075 15.1876 4.05416 15.5053L6.35744 19.4947C6.54086 19.8124 6.3988 20.2188 6.05743 20.3531L3.42256 21.3894Z" fill="#2F2F2F"/>
-                                <path d="M25.0541 17.0996C25.2864 17.2846 25.3484 17.6118 25.1999 17.869L23.3167 21.1309C23.1682 21.3881 22.8538 21.498 22.5774 21.3893L19.9426 20.353C19.6012 20.2188 19.4591 19.8123 19.6426 19.4947L21.9458 15.5053C22.1293 15.1876 22.5523 15.1074 22.8392 15.3359L25.0541 17.0996Z" fill="#2F2F2F"/>
-                                <path d="M0.94591 8.90038C0.713576 8.71537 0.651557 8.38822 0.800056 8.13101L2.68334 4.86906C2.83184 4.61186 3.14617 4.50199 3.42256 4.61069L6.05743 5.64696C6.3988 5.78122 6.54086 6.18766 6.35745 6.50533L4.05416 10.4947C3.87075 10.8124 3.44774 10.8926 3.16078 10.6641L0.94591 8.90038Z" fill="#2F2F2F"/>
-                            </svg>General</li>
-                            <li data-mode="change-menu" data-category="appearance" id="settings_appearance"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22.1924 3.80761C20.9852 2.60045 19.5521 1.64288 17.9749 0.989565C16.3976 0.336254 14.7072 -2.8491e-07 13 0C11.2928 2.84911e-07 9.60235 0.336256 8.02511 0.989567C6.44788 1.64288 5.01477 2.60045 3.80761 3.80761C2.60045 5.01478 1.64288 6.44788 0.989565 8.02512C0.336254 9.60235 -3.59534e-07 11.2928 0 13C3.59534e-07 14.7072 0.336256 16.3977 0.989567 17.9749C1.64288 19.5521 2.60045 20.9852 3.80761 22.1924L13 13L22.1924 3.80761Z" fill="#2F2F2F"/>
-                                <mask id="path-2-inside-1_415_44" fill="white">
-                                    <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z"/>
-                                </mask>
-                                <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z" fill="white" stroke="#2F2F2F" stroke-width="0.2" mask="url(#path-2-inside-1_415_44)"/>
-                            </svg>Appearance</li>
-                            <li data-mode="change-menu" data-category="keybinds" id="settings_keybinds"><svg width="37" height="22" viewBox="0 0 37 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="1" y="1" width="35" height="20" rx="1" stroke="#2F2F2F" stroke-width="2" stroke-linejoin="round"/>
-                                <rect x="8" y="14" width="21" height="4" rx="1" fill="#222222"/>
-                                <rect x="30" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="27" y="9" width="7" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="27" y="4" width="7" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="3" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="9" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="15" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="21" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="22" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="17" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="11" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="3" y="9" width="6" height="4" rx="1" fill="#2F2F2F"/>
-                                <rect x="3" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
-                            </svg>Keybinds</li>
-                            <li data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"/>
-                                <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"/>
-                                <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"/>
-                            </svg>About</li>
-                        </ul>
-                    </div>
-                    <div class="settings-menu_content">
+                    <ul id="settings-list" >
+                        <li data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="13" cy="13" r="7.5" stroke="#2F2F2F" stroke-width="5"/>
+                            <path d="M10.5234 0.510996C10.5674 0.217284 10.8197 0 11.1167 0H14.8833C15.1803 0 15.4326 0.217284 15.4766 0.510996L15.8966 3.311C15.9511 3.67376 15.6701 4 15.3033 4H10.6967C10.3299 4 10.0489 3.67376 10.1034 3.311L10.5234 0.510996Z" fill="#2F2F2F"/>
+                            <path d="M15.4766 25.489C15.4326 25.7827 15.1803 26 14.8833 26L11.1167 26C10.8197 26 10.5674 25.7827 10.5234 25.489L10.1034 22.689C10.0489 22.3262 10.3299 22 10.6967 22L15.3033 22C15.6701 22 15.9511 22.3262 15.8966 22.689L15.4766 25.489Z" fill="#2F2F2F"/>
+                            <path d="M22.5774 4.61065C22.8538 4.50195 23.1682 4.61181 23.3167 4.86902L25.1999 8.13097C25.3484 8.38818 25.2864 8.71532 25.0541 8.90033L22.8392 10.6641C22.5523 10.8926 22.1293 10.8124 21.9458 10.4947L19.6426 6.50529C19.4591 6.18761 19.6012 5.78118 19.9426 5.64692L22.5774 4.61065Z" fill="#2F2F2F"/>
+                            <path d="M3.42256 21.3894C3.14617 21.4981 2.83184 21.3882 2.68334 21.131L0.800056 17.869C0.651557 17.6118 0.713577 17.2847 0.94591 17.0997L3.16078 15.3359C3.44774 15.1074 3.87075 15.1876 4.05416 15.5053L6.35744 19.4947C6.54086 19.8124 6.3988 20.2188 6.05743 20.3531L3.42256 21.3894Z" fill="#2F2F2F"/>
+                            <path d="M25.0541 17.0996C25.2864 17.2846 25.3484 17.6118 25.1999 17.869L23.3167 21.1309C23.1682 21.3881 22.8538 21.498 22.5774 21.3893L19.9426 20.353C19.6012 20.2188 19.4591 19.8123 19.6426 19.4947L21.9458 15.5053C22.1293 15.1876 22.5523 15.1074 22.8392 15.3359L25.0541 17.0996Z" fill="#2F2F2F"/>
+                            <path d="M0.94591 8.90038C0.713576 8.71537 0.651557 8.38822 0.800056 8.13101L2.68334 4.86906C2.83184 4.61186 3.14617 4.50199 3.42256 4.61069L6.05743 5.64696C6.3988 5.78122 6.54086 6.18766 6.35745 6.50533L4.05416 10.4947C3.87075 10.8124 3.44774 10.8926 3.16078 10.6641L0.94591 8.90038Z" fill="#2F2F2F"/>
+                        </svg><legend class="settings-menu_list-legend">General</legend></li>
+                        <li data-mode="change-menu" data-category="appearance" id="settings_appearance"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.1924 3.80761C20.9852 2.60045 19.5521 1.64288 17.9749 0.989565C16.3976 0.336254 14.7072 -2.8491e-07 13 0C11.2928 2.84911e-07 9.60235 0.336256 8.02511 0.989567C6.44788 1.64288 5.01477 2.60045 3.80761 3.80761C2.60045 5.01478 1.64288 6.44788 0.989565 8.02512C0.336254 9.60235 -3.59534e-07 11.2928 0 13C3.59534e-07 14.7072 0.336256 16.3977 0.989567 17.9749C1.64288 19.5521 2.60045 20.9852 3.80761 22.1924L13 13L22.1924 3.80761Z" fill="#2F2F2F"/>
+                            <mask id="path-2-inside-1_415_44" fill="white">
+                                <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z"/>
+                            </mask>
+                            <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z" fill="white" stroke="#2F2F2F" stroke-width="0.2" mask="url(#path-2-inside-1_415_44)"/>
+                        </svg><legend class="settings-menu_list-legend">Appearance</legend></li>
+                        <li style="display: none;" data-mode="change-menu" data-category="keybinds" id="settings_keybinds"><svg width="37" height="22" viewBox="0 0 37 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="35" height="20" rx="1" stroke="#2F2F2F" stroke-width="2" stroke-linejoin="round"/>
+                            <rect x="8" y="14" width="21" height="4" rx="1" fill="#222222"/>
+                            <rect x="30" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="27" y="9" width="7" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="27" y="4" width="7" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="3" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="9" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="15" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="21" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="22" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="17" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="11" y="9" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="3" y="9" width="6" height="4" rx="1" fill="#2F2F2F"/>
+                            <rect x="3" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
+                        </svg><legend class="settings-menu_list-legend">Keybinds</legend></li>
+                        <li data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"/>
+                            <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"/>
+                            <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"/>
+                        </svg><legend class="settings-menu_list-legend">About</legend></li>
+                    </ul>
                 </div>
+                    <div class="settings-menu_content">
             </div>
             `,
             general: `
@@ -314,6 +324,7 @@ class SETTINGS_MENU_MANAGER {
                             <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="3">3</option>
                         </select>
                     </div>
+                    <hr>
                     <div class="option">
                         <legend>Select search engine</legend>
                         <p>Change the default search engine</p>
@@ -325,7 +336,6 @@ class SETTINGS_MENU_MANAGER {
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://you.com/search?q=">You search engine</option>
                         </select>
                     </div>
-                    <hr>
                     <div class="option">
                         <legend>Open seach on NewTab</legend>
                         <p>Make every seach you made open in new tabs</p>
@@ -400,6 +410,8 @@ class SETTINGS_MENU_MANAGER {
                             <option>--</option>
                             <option data-mode="set" data-category="appearance" data-preference="theme" data-value="light">Light</option>
                             <option data-mode="set" data-category="appearance" data-preference="theme" data-value="dark">Dark</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme1">Custom theme 1</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme2">Custom theme 2</option>
                         </select>
                     </div>
                     <div class="option">
@@ -427,6 +439,23 @@ class SETTINGS_MENU_MANAGER {
                         <p>Adjust the blur to your liking</p>
                         <input data-mode="set" data-category="appearance" data-preference="blur" id="blur-range" type="range" min="0" max="32" value="${this.config.appearance.blur}">
                     </div>
+                    <details>
+                        <summary>Related options</summary>
+                        <div class="option">
+                            <legend>Change context menu opacity</legend>
+                            <p>Make more transparent or opaque the shortcuts context menu</p>
+                            <input data-mode="set" data-category="appearance" data-preference="shortcutsPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${this.config.appearance.shortcutsPopUpOpacity}">
+                        </div>
+                        <div class="option">
+                            <legend>Change favourites content opacity</legend>
+                            <p>Make more transparent or opaque the favourites container (this only affects to the background of the container)</p>
+                            <input data-mode="set" data-category="appearance" data-preference="mainContentBgOpacity" id="blur-range" type="range" min="0" max="100" value="${this.config.appearance.mainContentBgOpacity}">
+                        </div><div class="option">
+                            <legend>Change weather popUp opacity</legend>
+                            <p>Make more transparent or opaque the weather popUp</p>
+                            <input data-mode="set" data-category="appearance" data-preference="weatherPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${this.config.appearance.weatherPopUpOpacity}">
+                        </div>
+                    </details>
                     <hr>
                     <div class="option">
                         <legend>Change date format</legend>
@@ -447,10 +476,17 @@ class SETTINGS_MENU_MANAGER {
                     </div>
                     <div class="option">
                         <legend>Invert top content font colour</legend>
-                        <p>If your background doesn't matches width the font colour, you can invert the colour</p>
+                        <p>If your background doesn't matches with the font colour, you can invert the colour</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${this.config.appearance.invert_top_items_colour}" data-category="appearance" data-preference="invert_top_items_colour" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
+                    </div>
+                    <legend class="subtitle">Advanced options</legend>
+                    <hr>
+                    <div class="option">
+                        <legend>Create custom theme</legend>
+                        <p>You can create your own colour theme. You can only create 2 themes.</p>
+                        <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">Let's Go</button>
                     </div>
                 </div>
             </div>
@@ -475,7 +511,7 @@ class SETTINGS_MENU_MANAGER {
                         <div class="option">
                             <legend>Open shortcut in current tab</legend>
                             <p class="full-space">Open a shortcut using the current tab</p>
-                            <div class="keys-container"><span class="key">Ctrl</span> + <span class="key">number</span></div>
+                            <div class="keys-container"><span class="key">Shift</span> + <span class="key">number</span></div>
                         </div>
                         <div class="option">
                             <legend>Open shortcut in a new tab</legend>
@@ -492,35 +528,164 @@ class SETTINGS_MENU_MANAGER {
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
-                <div class="option">
-                    <legend>Missing features</legend>
-                    <p class="full-space">This app still in development so features like <u><b>lang selection, custom style import, Keyblinds and other features are not avalilable yet</u></b></p>
-                </div>
-                <div class="option">
-                    <legend>What's new?</legend>
-                    <ul class="full-space">
-                        <li>New weather popUp that shows you more info about the weather</li>
-                        <li>Now you can chose that every search will open in new tabs</li>
-                        <li>New appearance tab style</li>
-                        <li>You can chose between two date formats</li>
-                        <li>New highlight top content feature</li>
-                        <li>New Invert top content font colour feature</li>
-                    </ul>
-                </div>
-                <div class="option">
-                    <legend>Designed for desktop</legend>
-                    <p class="full-space">The app is not designed to use it on mobile devices, full mobile support will be available in next versions</p>
-                </div>
-                <div class="option">
-                    <legend>Your current settings</legend>
-                    <code class="full-space settingsMenu_code" >${JSON.stringify(this.config)}</code>
-                </div>
-                <div class="option">
-                    <legend>App info:</legend>
-                    <p>Version: ${this.config.general.version} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                    <div class="option">
+                        <legend>Missing features</legend>
+                        <p class="full-space">This app still in development so features like <u><b>lang selection, custom style import, Keyblinds and other features are not avalilable yet</u></b></p>
+                    </div>
+                    <div class="option">
+                        <legend>Designed for desktop</legend>
+                        <p class="full-space">The app is not designed to use it on mobile devices, full mobile support will be available in next versions</p>
+                    </div>
+                    <div class="option">
+                        <legend>What's new?</legend>
+                        <ul class="full-space">
+                            <li>New weather popUp that shows you more info about the weather</li>
+                            <li>Now you can chose that every search will open in new tabs</li>
+                            <li>New appearance tab style</li>
+                            <li>You can chose between two date formats</li>
+                            <li>New highlight top content feature</li>
+                            <li>New Invert top content font colour feature</li>
+                        </ul>
+                    </div>
+                    <div class="option">
+                        <legend>Your current settings</legend>
+                        <code class="full-space settingsMenu_code" >${JSON.stringify(this.config)}</code>
+                    </div>
+                    <div class="option">
+                        <legend>App info:</legend>
+                        <p>Version: ${this.config.general.version} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                    </div>
                 </div>
             </div>
             `
+        }
+        this.subMenus = {
+            "customizeTheme": {
+                "dynamicContent": true,
+                "patentMenu": "appearance",
+                "themeBackup": JSON.parse(JSON.stringify(this.config.customThemes.customTheme1)),
+                "previousTheme": null,
+                "editedTheme": "customTheme1",
+                "previewEnabled": "false",
+                "html": `
+                    <div>
+                        <div class="settings-menu_content-top">
+                            <svg id="submenus-backButon" data-alert="true" data-mode="change-menu" data-category="appearance" title="Back to appearance category" width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="6.28918" y="0.642029" width="2" height="7" rx="1" transform="rotate(60 6.28918 0.642029)" fill="#CFCFCF"/>
+                                <rect x="7.28918" y="6.62592" width="2" height="7" rx="1" transform="rotate(120 7.28918 6.62592)" fill="#CFCFCF"/>
+                            </svg>                            
+                            <h5 id="category-name">Customize app theme</h5>
+                            <hr>
+                        </div>
+                        <div class="settings-menu_category-content">
+                            <div class="option">
+                                <legend>Want to know more about this feature?</legend>
+                                <button>View tutorials</button>
+                            </div>
+                            <div class="option theme-editor_actions">
+                                <div id="theme-editor_selectedTheme">
+                                    <p>Selected theme:</p>
+                                    <select class="option-select">
+                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme1">Custom theme 1</option>
+                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme2">Custom theme 2</option>
+                                    </select>
+                                </div>
+                                <div id="theme-editor_actions">
+                                    <button id="themeEditorActions_preview" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="livePreview" data-active="false">Preview</button>
+                                    <button disabled="true" id="themeEditorActions_saveTheme" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="saveTheme">Save</button>
+                                    <button disabled="true" id="themeEditorActions_cancel" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="restoreTheme">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="option" style="display: flex;align-items: center;">
+                                <svg style="filter: invert(var(--settings-menu-invert));" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"></rect>
+                                    <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"></circle>
+                                    <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"></circle>
+                                </svg> 
+                                <p id="selectedStyleStatus" style="margin: 0 0 0 5px;">You can use live preview to see how beautiful is your theme</p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                `,
+                "insertContent": (theme = "customTheme1") => {
+                    let $container = document.querySelector(".settings-menu_category-content"),
+                        $fragment = document.createDocumentFragment(),
+                        $contentContainer = document.createElement("div"),
+                        inputRangeValues = {
+                            "Global border radius": 10,
+                            "Blur strenght": 40,
+                            "Settings menu invert icons colour intensity": 100,
+                        };
+                    $container.scroll(0, 0)
+                    $contentContainer.classList.add("customizeThemeContent")
+                    this.subMenus.customizeTheme.editedTheme = theme
+                    for(let key in this.config.customThemes[theme]) {
+                        let $optionContainer = document.createElement("div"),
+                            $optionTitle = document.createElement("legend"),
+                            $optionDesc = document.createElement("p"),
+                            $input = null;
+        
+                            $optionContainer.classList.add("option")
+                            $optionTitle.textContent = key
+                            $optionDesc.textContent = `Current value: ${sManager.getSubObjectValue("customThemes", theme, key)}`
+                            $optionContainer.appendChild($optionTitle)
+                            $optionContainer.appendChild($optionDesc)
+                            
+                            if(/(#([\da-f]{3}){1,2}|(rgb|hsl)a\((\d{1,3}%?,\s?){3}(1|0?\.\d+)\)|(rgb|hsl)\(\d{1,3}%?(,\s?\d{1,3}%?){2}\))/.test(sManager.getSubObjectValue("customThemes", theme, key))) {
+                                $input = `<input type="color" data-subSetting="true" data-mode="set" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" value="${sManager.getSubObjectValue("customThemes", theme, key)}">`
+                            } else {$input = `<input type="range" data-subSetting="true" data-mode="set" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" min="0" max="${inputRangeValues[key]}" value="${sManager.getSubObjectValue("customThemes", theme, key)}">`}
+                            $optionContainer.insertAdjacentHTML("beforeend", $input)
+                            $fragment.appendChild($optionContainer)
+                    }
+                    $contentContainer.appendChild($fragment)
+                    $container.appendChild($contentContainer)
+                    this.subMenus.customizeTheme.previousTheme = sManager.getValue("appearance", "theme")
+                    if(this.subMenus.customizeTheme.previewEnabled === "true" || sManager.getValue("appearance", "theme").includes("customTheme")) this.subMenus.customizeTheme.submenuInteractions.livePreview() 
+                },
+                "submenuInteractions": {
+                    "livePreview": () => {
+                        if(this.subMenus.customizeTheme.previewEnabled === "false") {
+                            if(document.querySelectorAll("#theme-editor_actions button[disabled]")) document.querySelectorAll("#theme-editor_actions button[disabled]").forEach(node => node.removeAttribute("disabled"))
+                            this.subMenus.customizeTheme.previewEnabled = "true"
+                            
+                            document.getElementById("selectedStyleStatus").textContent = `Live preview is enabled!, your previous theme will be saved in case of you wan to restore your previous theme`
+                            document.getElementById("selectedStyleStatus").style.color = "var(--important-text-colour)"
+                            
+                            return sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.editedTheme)                       
+                        } else if(this.subMenus.customizeTheme.previewEnabled === "true"){
+                            this.subMenus.customizeTheme.previewEnabled = "false"
+                            
+                            document.getElementById("selectedStyleStatus").textContent = `You can use live preview to see how beautiful is your theme`
+                            document.getElementById("selectedStyleStatus").style.color = "var(--main-content-font)"
+                            document.getElementById("themeEditorActions_preview").setAttribute("data-active", "false")
+                            
+                            sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.previousTheme)
+                        }
+                    },
+                    "showThemeValue": (target) => {
+                        document.querySelector(".settings-menu_category-content").removeChild(document.querySelector(".customizeThemeContent"))
+                        document.getElementById("themeEditorActions_preview").setAttribute("data-active", "true")
+                        this.subMenus.customizeTheme.submenuInteractions.livePreview(document.getElementById("themeEditorActions_preview"))
+                        this.subMenus.customizeTheme.insertContent(target.dataset.value)
+                    },
+                    "saveTheme": () => {
+                        showAlert("Are you shure that you want to save your changes?", "This action will overwite your previous theme!")
+                            .then(() => {
+                                this.subMenus.customizeTheme.themeBackup = null
+                            })
+                            .catch((err) => {return})
+                    },
+                    "restoreTheme": () => {
+                        showAlert("Do you want to restore your previous theme?", "By doing this all the changes you made will be restored!")
+                            .then(() => {
+                                showNotification("The theme was restored", "You wont be able to restore your changes")
+                                sManager.saveSettings("customThemes", "customTheme1", this.subMenus.customizeTheme.themeBackup)
+                                sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.previousTheme)                    
+                            }) .catch((err) => {return})
+                    }
+                }
+            }
         }
         this.menuInteractions = {
             "close-menu": () => {
@@ -531,20 +696,21 @@ class SETTINGS_MENU_MANAGER {
                 document.querySelector(".top-bg").style.display = "none"
                 
                 this.apliedMenuStatus = false
+                openedMenu = false
             },
             "change-menu": (target) => {
+                if(target.dataset.alert === "true") return showAlert("You have unsaved changes!", "Your changes may not be saved if you close this menu.")
+                    .then(() => location.hash = `#/settings/${target.dataset.category}`)
+                    .catch(() => {return})
                 location.hash = `#/settings/${target.dataset.category}`
+                document.querySelector(".settings-menu_content").scroll(0, 0)
             },
             "set": async (target) => {
                 let value; 
-                if(target.dataset.preference === "autoSet-weather_city") {
-                    getWeather("auto")
-                    return
-                }
-                if(target.dataset.promt === "true") {
-                    value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder})
-                }
-                sManager.saveSettings(target.dataset.category, target.dataset.preference, (parseInt(target.value) || target.dataset.value || value))
+                if(target.dataset.subsetting === "true") return sManager.saveSettings([target.dataset.category, target.dataset.subobj], target.dataset.preference, target.value)
+                if(target.dataset.preference === "autoSet-weather_city") return getWeather("auto")
+                if(target.dataset.promt === "true") value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder})
+                sManager.saveSettings(target.dataset.category, target.dataset.preference, parseInt(target.value) || value || target.dataset.value || target.value)
        
             },
             "toggle": (target) => {
@@ -576,6 +742,14 @@ class SETTINGS_MENU_MANAGER {
                 }
                     
             },
+            "createSubMenu": (target) => {
+                let $contentContainer = document.querySelector(".settings-menu_content")
+                $contentContainer.innerHTML = this.subMenus[target.dataset.typeofmenu].html
+                if(this.subMenus[target.dataset.typeofmenu].dynamicContent === true) this.subMenus[target.dataset.typeofmenu].insertContent()
+            },
+            "subMenuInteraction": (target) => {
+                if(this.subMenus[target.dataset.menu]["submenuInteractions"].hasOwnProperty(target.dataset.action)) return this.subMenus[target.dataset.menu]["submenuInteractions"][target.dataset.action](target)
+            },
             "exportSettings": (target) => {
                 sManager.exportSettings(target.dataset.obj)
             },
@@ -584,7 +758,9 @@ class SETTINGS_MENU_MANAGER {
                 sManager.importSettings(target.dataset.obj, str)
             },
             "reset": (target) => {
-                sManager.resetValue(target.dataset.obj)
+                showAlert(`Want to reset your ${target.dataset.obj}?`, "This action can't be undone, think it twice!")
+                    .then(() => sManager.resetValue(target.dataset.obj))
+                    .catch(() => {return})
             }
         }
     }
@@ -594,6 +770,7 @@ class SETTINGS_MENU_MANAGER {
         document.querySelector(".top-bg").style.display = "block"
         
         this.apliedMenuStatus = true
+        openedMenu = true
         document.querySelector(".settings-menu").addEventListener("click", this.ClickHandler)
         document.querySelector(".settings-menu").addEventListener("change", this.SelectHandler)
     }

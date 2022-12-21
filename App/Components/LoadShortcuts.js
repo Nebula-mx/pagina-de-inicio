@@ -23,5 +23,5 @@ export default function() {
         $fragment.append($clone)
     })
     $favourites.append($fragment)
-    if(shortcuts.length === sManager.config.general.shortcuts_limit) document.getElementById("add-shortcut").style.display = "none"
+    if(shortcuts.length >= sManager.config.general.shortcuts_limit) document.getElementById("add-shortcut").style.display = "none"
 }
