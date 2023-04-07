@@ -1,12 +1,37 @@
 import { settingsMenuManager } from "./SettingsMenu.js"
 
-export function Router(e) {
-    const { hash } = location
-    if(hash.match("settings")) {
-        if(settingsMenuManager.apliedMenuStatus === false) settingsMenuManager.showMenu()
-        if(hash.match("general")) settingsMenuManager.showCategory("general")
-        if(hash.match("keybinds")) settingsMenuManager.showCategory("keybinds")
-        if(hash.match("appearance")) settingsMenuManager.showCategory("appearance")
-        if(hash.match("about")) settingsMenuManager.showCategory("about")
+const routes = {
+    "#/settings/general": () => {
+        settingsMenuManager.showMenu()
+        settingsMenuManager.showCategory("general")
+    },
+    "#/settings/appearance": () => {
+        settingsMenuManager.showMenu()
+        settingsMenuManager.showCategory("appearance")
+    },
+    "#/settings/keybinds": () => {
+        settingsMenuManager.showMenu()
+        settingsMenuManager.showCategory("keybinds")
+    },
+    "#/settings/about": () => {
+        settingsMenuManager.showMenu()
+        settingsMenuManager.showCategory("about")
+    },
+    "#/settings/appearance/theme-editor": () => {
+        settingsMenuManager.showMenu()
+        settingsMenuManager.showCategory("appearance")
+        document.querySelector("[data-typeofmenu]").click()
     }
 }
+class ROUTER {
+    constructor() {
+        this.previousRoute = null
+    }
+    insertMenu(){
+        if(routes.hasOwnProperty(location.hash)){
+            routes[location.hash]()
+            this.previousRoute = location.hash
+        }
+    }
+}
+export const Router = new ROUTER()

@@ -1,11 +1,12 @@
 import { openedMenu } from "../Components/SettingsMenu.js"
 
-function closeAlert(){
-    document.getElementById("root").removeChild(document.querySelector(".alert"))
+function closeAlert(hideTopBg){
+    if(hideTopBg === true) document.querySelector(".top-bg").style.display = "none"
     document.querySelector(".top-bg").style.zIndex = 10
+    document.getElementById("root").removeChild(document.querySelector(".alert"))
     if (openedMenu === false) document.querySelector(".top-bg").style.display = "none"
 }
-export function showAlert(title, desc, obj = null){
+export function showAlert(title, desc, obj = null, hideTopBg = false){
     const HTML = `
          <span class="alert">
             <div id="alert-topContent">
@@ -24,7 +25,7 @@ export function showAlert(title, desc, obj = null){
     
     return new Promise((resolve, reject) => {
         document.getElementById("succesAlert").onclick = () => {
-            closeAlert()
+            closeAlert(hideTopBg)
             resolve({
                 value:true,
                 obj

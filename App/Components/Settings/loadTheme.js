@@ -38,7 +38,7 @@ class THEME_MANAGER {
             }
         }
     }
-    aplyTheme(){
+    async aplyTheme(){
         this.$cssvariables.innerHTML = this.themes[sManager.getValue("appearance", "theme")]
         this.$root.style.backgroundImage = `url(${sManager.getValue("appearance", "background")})`
         
@@ -58,11 +58,26 @@ class THEME_MANAGER {
         this.themes = {
             light: `
                 :root{
+                    --body-backgroundImage: url(${sManager.getValue("appearance", "background")});
                     --global-border-radius: 5px;
                     --blur-strenght: ${sManager.getValue("appearance", "blur")}px;
                     --top-items-BG: rgba(0, 0, 0, 0.2);
                     --top-content-weather-PopUp-BG: rgba(255, 255, 255, ${sManager.getValue("appearance", "weatherPopUpOpacity")}%);
                     --important-text-colour: rgba(191, 0, 0, 1);
+                    
+                    --colourPicker-topBg: #FFFFFF;
+                    --colourPicker-topColor: #000;
+                    --colourPicker-topButtonsBG: #F3F3F3;
+                    --colourPicker-mainBg: #EEEEEE;
+                    --colourPicker-spectrumSelectors-bg: #fff;
+                    --colourPicker-main-fontColor: #000;
+                    --colourPicker-main-formatSelectorBg: #D3D3D3;
+                    --colourPicker-main-formatSelectorHoverBg: #B8B8B8;
+                    --colourPicker-main-formatSelectorActiveBg: #B1B1B1;
+                    --colourPicker-main-formatSelectorSelectedBg: #fff;
+                    --colourPicker-main-valueName: #fff;
+                    --colourPicker_mainContent-colourValue: #D3D3D3;
+                    --colourPicker_mainContent-defaultColorSwatches: #D9D9D9;
 
                     --inputs-colour_border_colour: rgba(168, 168, 168, 1);
                                                             
@@ -93,7 +108,7 @@ class THEME_MANAGER {
                     --context-menu-light: rgba(255, 255, 255, ${sManager.getValue("appearance", "shortcutsPopUpOpacity")}%);
                     --context-menu-light-li: rgba(0, 0, 0, 0);
                     --context-menu-light-li-hover: rgba(0, 0, 0, 0.10);
-
+                    
                     --shortcut-form-bg: rgba(255, 255, 255, 1);
                     --shortcut-form-inputtext-bg: rgba(255, 255, 255, 0.87);
                     --shortcut-form-inputText-border: rgba(212, 212, 212, 0.8);
@@ -117,64 +132,94 @@ class THEME_MANAGER {
             }`,
             dark: `
                 :root {
-                --global-border-radius: 5px;
-                --blur-strenght: ${sManager.getValue("appearance", "blur")}px;
-                --important-text-colour: rgba(236, 110, 110, 1);
-
-                --top-content-light-fontColor: #fff;
-                --top-items-BG: rgba(0, 0, 0, 0.2);
-                --top-content-weather-PopUp-BG: rgba(0, 0, 0, ${sManager.getValue("appearance", "weatherPopUpOpacity")}%);
-
-                --inputs-colour_border_colour: rgba(47, 47, 47, 1);
-                
-                --main-content-font: #fff;
-                --main-content-light-bg: rgba(0, 0, 0, ${sManager.getValue("appearance", "mainContentBgOpacity")}%);
-                --main-content-light-searchBox: rgba(21, 21, 21, 0.8);
-                --main-content-light-searchBtn: rgb(0, 0, 0);
-                --main-content-light-icon-bg: rgba(0, 0, 0, 0.6);
-                
-                --light-button-theme: rgba(39, 39, 39, 1); 
-                --light-button-border: rgba(255, 255, 255, 0.06);
-                --light-button-fontColor: #fff; 
-                --light-button-hover: rgba(55, 55, 55, 1);
-                --light-button-active: rgb(28, 28, 28);
-        
-                --alert-top-Bg-colour: rgb(13, 13, 13);
-                --alert-buttonsContainer-Bg-colour: rgb(19, 19, 19);
-                
-                --context-menu-open-btn-invert: 100%;
-                --context-menu-light: rgba(16, 16, 16, ${sManager.getValue("appearance", "shortcutsPopUpOpacity")}%);
-                --context-menu-light-li: rgba(0, 0, 0, 0);
-                --context-menu-light-li-hover: #9393931c;
-                
-                --shortcut-form-bg: rgba(17, 17, 17, 1);
-                --shortcut-form-inputtext-bg: rgba(34, 34, 34, 0.87);
-                --shortcut-form-inputText-border: #2f2f2f;
-                --shortcut-form-btn-bg: rgba(34, 34, 34, 0.87);
-                --shortcut-form-btn-hover: rgb(38, 38, 38);
-                --shortcut-form-btn-active: rgb(28, 28, 28);
-        
-                --settings-menu-list-border: 1px solid rgba(255, 255, 255, 0.1);
-                --settings-menu_link: #ff98d2;
-                --settings-menu-light-list: #070707c4;
-                --settings-menu-light-list-items: #28282866;
-                --settings-menu-lignt-items-hoverBg: #222;
-                --settings-menu-light-content: #000;
-                --settings-menu-light-options: #0E0E0E;
-                --settings-menu-details: rgb(6 6 6);
-                --settings-menu-light-selects: rgba(39, 39, 39, 1);
-                --settings-menu-active-toggle: #7C79FF;
-                --settings-menu-toggleBg: rgba(39, 39, 39, 1);
-                --settings-menu-option-toggleCircle: #fff;
-                --settings-menu-invert: 100%;
-                --settings-menu_code: rgba(0, 0, 0, 1);
+                    --body-backgroundImage: url(${sManager.getValue("appearance", "background")});
+                    --global-border-radius: 5px;
+                    --blur-strenght: ${sManager.getValue("appearance", "blur")}px;
+                    --important-text-colour: rgba(236, 110, 110, 1);
+                    
+                    --colourPicker-topBg: rgba(0, 0, 0, 1);
+                    --colourPicker-topColor: #fff;
+                    --colourPicker-topButtonsBG: #252525;
+                    --colourPicker-mainBg: #111111;
+                    --colourPicker-spectrumSelectors-bg: #fff;
+                    --colourPicker-main-fontColor: #fff;
+                    --colourPicker-main-formatSelectorBg: #212121;
+                    --colourPicker-main-formatSelectorHoverBg: #363636;
+                    --colourPicker-main-formatSelectorActiveBg: rgb(37, 37, 37);
+                    --colourPicker-main-formatSelectorSelectedBg: #000;
+                    --colourPicker-main-valueName: #000;
+                    --colourPicker_mainContent-colourValue: #212121;
+                    --colourPicker_mainContent-defaultColorSwatches: #060606;
+    
+                    --top-content-light-fontColor: #fff;
+                    --top-items-BG: rgba(0, 0, 0, 0.2);
+                    --top-content-weather-PopUp-BG: rgba(0, 0, 0, ${sManager.getValue("appearance", "weatherPopUpOpacity")}%);
+    
+                    --inputs-colour_border_colour: rgba(47, 47, 47, 1);
+                    
+                    --main-content-font: #fff;
+                    --main-content-light-bg: rgba(0, 0, 0, ${sManager.getValue("appearance", "mainContentBgOpacity")}%);
+                    --main-content-light-searchBox: rgba(21, 21, 21, 0.8);
+                    --main-content-light-searchBtn: rgb(0, 0, 0);
+                    --main-content-light-icon-bg: rgba(0, 0, 0, 0.6);
+                    
+                    --light-button-theme: rgba(39, 39, 39, 1); 
+                    --light-button-border: rgba(255, 255, 255, 0.06);
+                    --light-button-fontColor: #fff; 
+                    --light-button-hover: rgba(55, 55, 55, 1);
+                    --light-button-active: rgb(28, 28, 28);
+            
+                    --alert-top-Bg-colour: rgb(13, 13, 13);
+                    --alert-buttonsContainer-Bg-colour: rgb(19, 19, 19);
+                    
+                    --context-menu-open-btn-invert: 100%;
+                    --context-menu-light: rgba(16, 16, 16, ${sManager.getValue("appearance", "shortcutsPopUpOpacity")}%);
+                    --context-menu-light-li: rgba(0, 0, 0, 0);
+                    --context-menu-light-li-hover: #9393931c;
+                    
+                    --shortcut-form-bg: rgba(17, 17, 17, 1);
+                    --shortcut-form-inputtext-bg: rgba(34, 34, 34, 0.87);
+                    --shortcut-form-inputText-border: #2f2f2f;
+                    --shortcut-form-btn-bg: rgba(34, 34, 34, 0.87);
+                    --shortcut-form-btn-hover: rgb(38, 38, 38);
+                    --shortcut-form-btn-active: rgb(28, 28, 28);
+            
+                    --settings-menu-list-border: 1px solid rgba(255, 255, 255, 0.1);
+                    --settings-menu_link: #ff98d2;
+                    --settings-menu-light-list: #070707c4;
+                    --settings-menu-light-list-items: #28282866;
+                    --settings-menu-lignt-items-hoverBg: #222;
+                    --settings-menu-light-content: #000;
+                    --settings-menu-light-options: #0E0E0E;
+                    --settings-menu-details: rgb(6 6 6);
+                    --settings-menu-light-selects: rgba(39, 39, 39, 1);
+                    --settings-menu-active-toggle: #7C79FF;
+                    --settings-menu-toggleBg: rgba(39, 39, 39, 1);
+                    --settings-menu-option-toggleCircle: #fff;
+                    --settings-menu-invert: 100%;
+                    --settings-menu_code: rgba(0, 0, 0, 1);
             } `,
             "customTheme1": `
                 :root {
+                    --body-backgroundImage: url(${sManager.getValue("appearance", "background")});
                     --global-border-radius: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Global border radius")}px;
                     --blur-strenght: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Blur strenght")}px;
-                    --important-text-colour: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Important text colour")};
-    
+                    --important-text-colour: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Important text colour")};
+                    
+                    --colourPicker-topBg: rgba(0, 0, 0, 1);
+                    --colourPicker-topColor: #fff;
+                    --colourPicker-topButtonsBG: #252525;
+                    --colourPicker-mainBg: #111111;
+                    --colourPicker-spectrumSelectors-bg: #fff;
+                    --colourPicker-main-fontColor: #fff;
+                    --colourPicker-main-formatSelectorBg: #212121;
+                    --colourPicker-main-formatSelectorHoverBg: #363636;
+                    --colourPicker-main-formatSelectorActiveBg: rgb(37, 37, 37);
+                    --colourPicker-main-formatSelectorSelectedBg: #000;
+                    --colourPicker-main-valueName: #000;
+                    --colourPicker_mainContent-colourValue: #212121;
+                    --colourPicker_mainContent-defaultColorSwatches: #060606;
+                    
                     --top-content-light-fontColor: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Top content font colour")};
                     --top-items-BG: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Highlight top content items bg")};
                     --top-content-weather-PopUp-BG: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Weather popUp Bg colour")};
@@ -199,6 +244,7 @@ class THEME_MANAGER {
                     --context-menu-light: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Context menu Bg colour")};
                     --context-menu-light-li: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Context menu items Bg colour")};
                     --context-menu-light-li-hover: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Context menu items hover colour")};
+                    
                     --shortcut-form-bg: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Shortcuts form Bg colour")};
                     --shortcut-form-inputtext-bg: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Shortcuts form inputs Bg colour")};
                     --shortcut-form-inputText-border: ${sManager.getSubObjectValue("customThemes", "customTheme1", "Shortcuts form inputs border colour")};
@@ -223,10 +269,25 @@ class THEME_MANAGER {
             } `,
             "customTheme2": `
                 :root {
+                    --body-backgroundImage: url(${sManager.getValue("appearance", "background")});
                     --global-border-radius: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Global border radius")}px;
                     --blur-strenght: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Blur strenght")}px;
                     --important-text-colour: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Important text colour")};                    
-    
+                    
+                    --colourPicker-topBg: rgba(0, 0, 0, 1);
+                    --colourPicker-topColor: #fff;
+                    --colourPicker-topButtonsBG: #252525;
+                    --colourPicker-mainBg: #111111;
+                    --colourPicker-spectrumSelectors-bg: #fff;
+                    --colourPicker-main-fontColor: #fff;
+                    --colourPicker-main-formatSelectorBg: #212121;
+                    --colourPicker-main-formatSelectorHoverBg: #363636;
+                    --colourPicker-main-formatSelectorActiveBg: rgb(37, 37, 37);
+                    --colourPicker-main-formatSelectorSelectedBg: #000;
+                    --colourPicker-main-valueName: #000;
+                    --colourPicker_mainContent-colourValue: #212121;
+                    --colourPicker_mainContent-defaultColorSwatches: #060606;  
+                    
                     --top-content-light-fontColor: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Top content font colour")};
                     --top-items-BG: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Highlight top content items bg")};
                     --top-content-weather-PopUp-BG: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Weather popUp Bg colour")};
@@ -251,6 +312,7 @@ class THEME_MANAGER {
                     --context-menu-light: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Context menu Bg colour")};
                     --context-menu-light-li: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Context menu items Bg colour")};
                     --context-menu-light-li-hover: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Context menu items hover colour")};
+                    
                     --shortcut-form-bg: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Shortcuts form Bg colour")};
                     --shortcut-form-inputtext-bg: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Shortcuts form inputs Bg colour")};
                     --shortcut-form-inputText-border: ${sManager.getSubObjectValue("customThemes", "customTheme2", "Shortcuts form inputs border colour")};

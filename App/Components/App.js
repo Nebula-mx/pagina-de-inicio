@@ -2,37 +2,34 @@ import { popUpsManager } from "../Helpers/popUpsManager.js";
 import { showAlert } from "../Helpers/showAlert.js";
 import { closePromt } from "../Helpers/showPrompt.js";
 import { Clock } from "./Clock.js";
-import { deleteShortcut } from "./ContextMenuActions.js";
-import LoadShortcuts from "./LoadShortcuts.js";
-import { Router } from "./Router.js";
-import { Search } from "./Search.js";
-import { ShortcutForm ,closeShortcutForm, saveForm} from "./ShortcutForm.js";
 import { getWeather } from "./Weather.js";
+import { Search } from "./Search.js";
+import { settingsMenuManager } from "./SettingsMenu.js"
+import { shortcuts_manager } from "./ShortcutsManager.js"
 
-export async function App(){
-    Router()
-    LoadShortcuts()
+export function App(){
     Clock()
     getWeather()
+    shortcuts_manager.testShortcutsStatus()
 }
 const MainClickableElements = {
     "shortcut-icon": (ref) => location.href = `${ref.parentNode.getAttribute("data-url")}`,
-    "add-btnIMg": () => ShortcutForm("saveSFBtn", undefined, "Create shortcut"),
-    "closeSFBtn": () => closeShortcutForm(),
-    "saveSFBtn": () => saveForm(),
+    "add-btnIMg": () => shortcuts_manager.createShortcut(),
     
     "edit-btn": (target) => popUpsManager.showPopUp("shortcutsContextMenu", target.parentNode, target.parentNode.parentNode),
     "context-menu_deleteBtn": (ref) => {
-        showAlert("Want to delete this shortcut?", "This action can not be undone", ref.parentNode.parentNode.parentNode.parentNode)
-        .then((res) => deleteShortcut(res.obj))
-        .catch(() => {return})
+        showAlert("Want to delete this shortcut?", "This action can not be undone", ref.parentNode.parentNode.parentNode.parentNode, true)
+        .then((res) => shortcuts_manager.deleteShortcut(res.obj))
+        .catch((err) => console.log(err))
     },
-    "context-menu_editBtn": (ref) => ShortcutForm("editSaveBtn", ref.parentNode.parentNode.parentNode.parentNode, "Edit shortcut"),
+    "context-menu_editBtn": (ref) => shortcuts_manager.editShortcut(ref.parentNode.parentNode.parentNode.parentNode),
     "editSaveBtn": () => saveForm("edit"),
     "context-menu_newTab": (ref) => window.open(ref.parentNode.parentNode.parentNode.parentNode.querySelector("[data-url]").getAttribute("data-url")),
 
     "settings-opener": () => {
         location.hash = "#/settings/general"
+        settingsMenuManager.showMenu()
+        settingsMenuManager.showCategory("general")
     },
     "weather": (target) => popUpsManager.showPopUp("weatherPopUp", target.parentNode),
     "closePrompt": () => closePromt(),
