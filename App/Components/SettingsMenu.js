@@ -707,9 +707,25 @@ class SETTINGS_MENU_MANAGER {
                         colourPicker.openMenu(target, this.subMenus.customizeTheme.submenuInteractions.useColour)
                     },
                     "openGuide": () => {
-                        let $container = document.querySelector(".settings-menu_category-content"),
-                            $content = `asd`
-                        
+                        let $container = document.querySelector(".settings-menu_content"),
+                            $content = `
+                                <div>
+                                    <div class="settings-menu_content-top">
+                                        <h5 id="category-name">How to use the Theme editor</h5>
+                                        <hr>
+                                    </div>
+                                    <div class="settings-menu_category-content">
+                                        <legend class="subtitle">Understanding properties name</legend>
+                                        <div class="option">
+                                            <legend>Top content and Main content</legend>
+                                            <p class="full-space">The top content is where you can see the hour, date, weather, open settings button.
+                                            Here you can change the colour of these elements</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `
+                        $container.innerHTML = ''
+                        $container.innerHTML = $content
                     }
                 }
             }
