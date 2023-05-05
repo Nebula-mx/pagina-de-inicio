@@ -14,7 +14,7 @@ class settingsManager {
                 "open_search_in_newTab": "false",
                 "weather_city": "Mexico-City",
                 "lang": "en",
-                "version": "0.9.4.dev02"
+                "version": "0.9.5"
             },
             "appearance": {
                 "theme": "light",

@@ -9,8 +9,24 @@ class SHORTCUTS_MANAGER {
         this.shortcuts = null
         this.shortcutsContainer = document.querySelector(".shortcutsContainer")
         this.shortcutsLimit = sManager.getValue("general", "shortcuts_limit")
-        this.shortcutsLenght = parseInt(JSON.parse(localStorage.getItem("shortcutsNumber")))
+        this.shortcutsLenght = parseInt(localStorage.getItem("shortcutsNumber"))
         this.$shortcutTemplate = document.getElementById("shortcut-template").content        
+    }
+    testShortcutsLenght(){
+        let newShortcutsArr = JSON.parse(localStorage.getItem("shortcuts"))
+        let sLimit = parseInt(sManager.getValue("general", "shortcuts_limit"))
+        let sLenght = newShortcutsArr.length
+        
+        if(sLenght > sLimit) {
+            console.log("holis")
+            while(sLenght > sLimit){
+                sLenght--
+                newShortcutsArr.pop()
+            }
+            this.shortcuts = newShortcutsArr
+            localStorage.shortcuts = JSON.stringify(newShortcutsArr)
+            localStorage.shortcutsNumber = newShortcutsArr.length
+        }        
     }
     async loadShortcuts() {
         try {
@@ -42,8 +58,9 @@ class SHORTCUTS_MANAGER {
     }
     testShortcutsStatus() {
         try {
-            if(!this.shortcuts instanceof Array || localStorage.getItem("shortcuts") === "null") throw new Error("The shortcuts object format is not valid")
+            if(localStorage.getItem("shortcuts") === "null" || !JSON.parse(localStorage.getItem("shortcuts")) instanceof Array) throw new Error("The shortcuts object format is not valid")
             this.shortcuts = JSON.parse(localStorage.getItem("shortcuts"))
+            this.testShortcutsLenght()
             this.loadShortcuts()
         } catch (err) {
             console.info(err)
