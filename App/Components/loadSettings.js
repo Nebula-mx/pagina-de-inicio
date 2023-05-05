@@ -15,7 +15,12 @@ class settingsManager {
                 "search_engine": "https://www.google.com/search?q=",
                 "open_search_in_newTab": "false",
                 "weather_city": "Mexico-City",
+<<<<<<< HEAD
                 "lang": "en"
+=======
+                "lang": "en",
+                "version": "0.9.5"
+>>>>>>> 0870ebb (0.9.5 is here!)
             },
             "appearance": {
                 "theme": "light",
