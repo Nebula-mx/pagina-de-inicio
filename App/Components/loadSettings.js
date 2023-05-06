@@ -14,7 +14,7 @@ class settingsManager {
                 "open_search_in_newTab": "false",
                 "weather_city": "Mexico-City",
                 "lang": "en",
-                "version": "0.9.5"
+                "version": "0.9.51"
             },
             "appearance": {
                 "theme": "light",
@@ -25,7 +25,7 @@ class settingsManager {
                 "mainContentBgOpacity": 65,
                 "dateFormat": "normalDate",
                 "top_itemsBg": "false",
-                "invert_top_items_colour": "false"
+                "invert_top_items_colour": "true"
             },
             "customThemes": {
                 "customTheme1": {
