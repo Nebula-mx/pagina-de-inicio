@@ -602,7 +602,7 @@ class SETTINGS_MENU_MANAGER {
                             <hr>
                         </div>
                         <div class="settings-menu_category-content">
-                            <div class="option">
+                            <div style="display: none;" class="option">
                                 <legend>Want to know more about this feature?</legend>
                                 <button data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="openGuide">View tutorials</button>
                             </div>
