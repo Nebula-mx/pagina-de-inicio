@@ -471,7 +471,7 @@ class SETTINGS_MENU_MANAGER {
                     <details>
                         <summary>Related options</summary>
                         <div class="option">
-                            <legend>Chane context menu opacity</legend>
+                            <legend>Change context menu opacity</legend>
                             <p>Make more transparent or opaque the shortcuts context menu</p>
                             <input data-mode="set" data-category="appearance" data-preference="shortcutsPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "shortcutsPopUpOpacity")}">
                         </div>
@@ -1302,7 +1302,7 @@ class SETTINGS_MENU_MANAGER {
                     <details>
                         <summary>Related options</summary>
                         <div class="option">
-                            <legend>Chane context menu opacity</legend>
+                            <legend>Change context menu opacity</legend>
                             <p>Make more transparent or opaque the shortcuts context menu</p>
                             <input data-mode="set" data-category="appearance" data-preference="shortcutsPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "shortcutsPopUpOpacity")}">
                         </div>
