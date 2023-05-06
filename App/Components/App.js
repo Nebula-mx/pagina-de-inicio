@@ -15,9 +15,7 @@ export function App(){
 const MainClickableElements = {
     "shortcut-icon": (ref) => {
         let url = `${ref.parentNode.getAttribute("data-url")}`
-        if(url.match(/^https:\/\//) === null || url.match(/^http:\/\//) === null) {
-            return location.href = `https://${url}`
-        } else {location.href = `${ref.parentNode.getAttribute("data-url")}`}
+        location.href = url
     },
     "add-btnIMg": () => shortcuts_manager.createShortcut(),
     
