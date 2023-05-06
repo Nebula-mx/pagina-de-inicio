@@ -26,12 +26,12 @@ class THEME_MANAGER {
             },
             "invert_top_items_colour": {
                 "true": () => {
-                    document.querySelectorAll("[data-containerbg] p, h2").forEach(el => {
+                    document.querySelectorAll("[data-containerbg] p, h2, #settings img").forEach(el => {
                         el.style.filter = "invert(100%)"
                     })
                 },
                 "false": () => {
-                    document.querySelectorAll("[data-containerbg] p, h2").forEach(el => {
+                    document.querySelectorAll("[data-containerbg] p, h2, #settings img").forEach(el => {
                         el.style.filter = "invert(0)"
                     })
                 }
@@ -151,7 +151,7 @@ class THEME_MANAGER {
                     --colourPicker_mainContent-colourValue: #212121;
                     --colourPicker_mainContent-defaultColorSwatches: #060606;
     
-                    --top-content-light-fontColor: #fff;
+                    --top-content-light-fontColor: #000;
                     --top-items-BG: rgba(0, 0, 0, 0.2);
                     --top-content-weather-PopUp-BG: rgba(0, 0, 0, ${sManager.getValue("appearance", "weatherPopUpOpacity")}%);
     

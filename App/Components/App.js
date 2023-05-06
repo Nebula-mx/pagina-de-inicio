@@ -13,7 +13,12 @@ export function App(){
     shortcuts_manager.testShortcutsStatus()
 }
 const MainClickableElements = {
-    "shortcut-icon": (ref) => location.href = `${ref.parentNode.getAttribute("data-url")}`,
+    "shortcut-icon": (ref) => {
+        let url = `${ref.parentNode.getAttribute("data-url")}`
+        if(url.match(/^https:\/\//) === null || url.match(/^http:\/\//) === null) {
+            return location.href = `https://${url}`
+        } else {location.href = `${ref.parentNode.getAttribute("data-url")}`}
+    },
     "add-btnIMg": () => shortcuts_manager.createShortcut(),
     
     "edit-btn": (target) => popUpsManager.showPopUp("shortcutsContextMenu", target.parentNode, target.parentNode.parentNode),

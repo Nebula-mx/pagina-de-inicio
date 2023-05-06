@@ -14,6 +14,7 @@ class SHORTCUTS_MANAGER {
     }
     testShortcutsLenght(){
         let newShortcutsArr = JSON.parse(localStorage.getItem("shortcuts"))
+        if(newShortcutsArr === null) return
         let sLimit = parseInt(sManager.getValue("general", "shortcuts_limit"))
         let sLenght = newShortcutsArr.length
         
@@ -29,6 +30,7 @@ class SHORTCUTS_MANAGER {
         }        
     }
     async loadShortcuts() {
+        if(this.shortcuts === null) return
         try {
             const $fragment = document.createDocumentFragment()
             this.shortcuts.forEach((el, i) => {
@@ -47,7 +49,6 @@ class SHORTCUTS_MANAGER {
             localStorage.setItem("shortcutsNumber", this.shortcutsLenght)
             if(this.shortcuts.length == sManager.config.general["shortcuts_limit"]) return document.getElementById("add-shortcut").style.display = "none"
         } catch (error) {
-            console.log(typeof(error))
             if(error.message === "shortcutsLimitReached"){
                 return //document.getElementById("add-shortcut").style.display = "none"
             }
@@ -73,13 +74,11 @@ class SHORTCUTS_MANAGER {
     }
     closeShortcutPrompt() {
         this.$root.removeChild(document.getElementById("shortcut-form"))
+        this.$root.querySelector(".top-bg").style.display = "none"        
         this.$dynamicStyle.innerHTML = null
     }
-    openShortcutPrompt(title, pageUrlPlaceholder, pageNamePlaceholder) {
+    openShortcutPrompt(title, pageUrlPlaceholder, pageNamePlaceholder, mode) {
         const formStyle = `
-            .top-bg {
-                display: block;
-            }
             #shortcutPrompTitle {
                 text-align: center;
                 font-size: 20px;
@@ -146,6 +145,12 @@ class SHORTCUTS_MANAGER {
         `
         this.$dynamicStyle.innerHTML = formStyle
         this.$root.insertAdjacentHTML("afterbegin", html)
+        this.$root.querySelector(".top-bg").style.display = "block"
+        
+        if(mode) {
+            document.getElementById("formUrlInput").value = mode[0]
+            document.getElementById("formNameInput").value = mode[1]
+        }
         
         let saveBtn = document.getElementById("saveSFBtn"),
             closeBtn = document.getElementById("closeSFBtn");
@@ -194,7 +199,7 @@ class SHORTCUTS_MANAGER {
     }
     editShortcut(target) {
         let targetId = parseInt(target.dataset.shortcutid)
-        this.openShortcutPrompt("Edit shortcut", `Previous Url: ${target.children[1].dataset.url}`, `Previous name: ${target.children[1].querySelector("legend").outerText}`)
+        this.openShortcutPrompt("Edit shortcut", `Previous Url: ${target.children[1].dataset.url}`, `Previous name: ${target.children[1].querySelector("legend").outerText}`, [`${target.children[1].dataset.url}`, `${target.children[1].querySelector("legend").outerText}`])
             .then(data => {
                 this.shortcuts[targetId] = {
                     id: targetId,
