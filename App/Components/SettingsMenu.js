@@ -4,12 +4,13 @@ import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
 import { getWeather } from "./Weather.js";
 import { colourPicker } from "../Helpers/colourPicker.js";
-import { App } from "./App.js" 
+import { App } from "./App.js";
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
 export let openedMenu; //this variable is used to validate if a menu is opened, its useful when prompts or alerts are required
-
 class SETTINGS_MENU_MANAGER {
-    constructor(clickHandler, SelectHandler){
+    constructor(clickHandler, SelectHandler) {
         this.config = sManager.getFullSettings()
         this.ClickHandler = clickHandler
         this.SelectHandler = SelectHandler
@@ -343,7 +344,7 @@ class SETTINGS_MENU_MANAGER {
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Change shortcuts limit</legend>
+                        <legend>${language.settings.general.shortcut.legend}</legend>
                         <p>This feature requieres to reload this page.</p>
                         <select class="option-select" name="shortcuts" id="">
                             <option>--</option>
@@ -383,10 +384,11 @@ class SETTINGS_MENU_MANAGER {
                     </div>
                     <div class="option">
                         <legend>Change app language</legend>
-                        <p>Chose your prefered lang to use.</p>
+                        <p>Choose your prefered language.</p>
                         <select class="option-select" name="app-lang" id="">
                             <option>--</option>
-                            <option data-category="general" data-preference="lang" data-value="en">Default (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="en">Default (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="es">Spanish (Español)</option>
                         </select>
                     </div>
                     <legend class="subtitle">Extra</legend>
@@ -645,52 +647,52 @@ class SETTINGS_MENU_MANAGER {
                     $container.scroll(0, 0)
                     $contentContainer.classList.add("customizeThemeContent")
                     this.subMenus.customizeTheme.editedTheme = theme
-                    for(let key in this.config.customThemes[theme]) { //creating sub-menu content
+                    for (let key in this.config.customThemes[theme]) { //creating sub-menu content
                         let $optionContainer = document.createElement("div"),
                             $optionTitle = document.createElement("legend"),
                             $optionDesc = document.createElement("p"),
                             $input = null;
-        
-                            $optionContainer.classList.add("option")
-                            $optionTitle.textContent = key
-                            $optionDesc.textContent = `Current value: ${sManager.getSubObjectValue("customThemes", theme, key)}`
-                            $optionContainer.appendChild($optionTitle)
-                            $optionContainer.appendChild($optionDesc)
-                            
-                            if(/(rgb(a?)|hsl(a?)|#)/.test(sManager.getSubObjectValue("customThemes", theme, key))) { //this if validates the data type to use certain input type
-                                $input = `<div class="colourPicker-clickableSwatches" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" value="${sManager.getSubObjectValue("customThemes", theme, key)}" style="background-color: ${sManager.getSubObjectValue('customThemes', theme, key)};" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showColourPicker" data-value="${sManager.getSubObjectValue("customThemes", theme, key)}"></div>`
-                            } else {$input = `<input type="range" data-subSetting="true" data-mode="set" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" min="0" max="${inputRangeValues[key]}" value="${sManager.getSubObjectValue("customThemes", theme, key)}">`}
-                            $optionContainer.insertAdjacentHTML("beforeend", $input)
-                            $fragment.appendChild($optionContainer)
+
+                        $optionContainer.classList.add("option")
+                        $optionTitle.textContent = key
+                        $optionDesc.textContent = `Current value: ${sManager.getSubObjectValue("customThemes", theme, key)}`
+                        $optionContainer.appendChild($optionTitle)
+                        $optionContainer.appendChild($optionDesc)
+
+                        if (/(rgb(a?)|hsl(a?)|#)/.test(sManager.getSubObjectValue("customThemes", theme, key))) { //this if validates the data type to use certain input type
+                            $input = `<div class="colourPicker-clickableSwatches" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" value="${sManager.getSubObjectValue("customThemes", theme, key)}" style="background-color: ${sManager.getSubObjectValue('customThemes', theme, key)};" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showColourPicker" data-value="${sManager.getSubObjectValue("customThemes", theme, key)}"></div>`
+                        } else { $input = `<input type="range" data-subSetting="true" data-mode="set" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" min="0" max="${inputRangeValues[key]}" value="${sManager.getSubObjectValue("customThemes", theme, key)}">` }
+                        $optionContainer.insertAdjacentHTML("beforeend", $input)
+                        $fragment.appendChild($optionContainer)
                     }
                     $contentContainer.appendChild($fragment)
                     $container.appendChild($contentContainer)
                     this.subMenus.customizeTheme.previousTheme = sManager.getValue("appearance", "theme")
-                    if(this.subMenus.customizeTheme.previewEnabled === "true" || sManager.getValue("appearance", "theme").includes("customTheme")) {
+                    if (this.subMenus.customizeTheme.previewEnabled === "true" || sManager.getValue("appearance", "theme").includes("customTheme")) {
                         this.subMenus.customizeTheme.previewEnabled = "false"
                         this.subMenus.customizeTheme.submenuInteractions.livePreview()
                     }
                 },
                 "submenuInteractions": {
                     "livePreview": () => {
-                        if(this.subMenus.customizeTheme.previewEnabled === "false") {
-                            if(document.querySelectorAll("#theme-editor_actions button[disabled]")) document.querySelectorAll("#theme-editor_actions button[disabled]").forEach(node => node.removeAttribute("disabled"))
+                        if (this.subMenus.customizeTheme.previewEnabled === "false") {
+                            if (document.querySelectorAll("#theme-editor_actions button[disabled]")) document.querySelectorAll("#theme-editor_actions button[disabled]").forEach(node => node.removeAttribute("disabled"))
                             document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "true"))
                             this.subMenus.customizeTheme.previewEnabled = "true"
-                            
+
                             document.getElementById("selectedStyleStatus").textContent = `Live preview is enabled!, your previous theme will be saved in case of you wan to restore your previous theme`
                             document.getElementById("selectedStyleStatus").style.color = "var(--important-text-colour)"
-                            
-                            return sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.editedTheme)                       
-                        } else if(this.subMenus.customizeTheme.previewEnabled === "true"){
+
+                            return sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.editedTheme)
+                        } else if (this.subMenus.customizeTheme.previewEnabled === "true") {
                             console.log(this.subMenus.customizeTheme.previousTheme)
                             document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "false"))
                             this.subMenus.customizeTheme.previewEnabled = "false"
-                            
+
                             document.getElementById("selectedStyleStatus").textContent = `You can use live preview to see how beautiful is your theme`
                             document.getElementById("selectedStyleStatus").style.color = "var(--main-content-font)"
                             document.getElementById("themeEditorActions_preview").setAttribute("data-active", "false")
-                            
+
                             sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.previousTheme)
                         }
                     },
@@ -705,17 +707,17 @@ class SETTINGS_MENU_MANAGER {
                             .then(() => {
                                 this.subMenus.customizeTheme.themeBackup = null
                             })
-                            .catch((err) => {return})
+                            .catch((err) => { return })
                     },
                     "restoreTheme": () => {
                         showAlert("Do you want to restore your previous theme?", "By doing this all the changes you made will be restored!")
                             .then(() => {
                                 showNotification("The theme was restored", "You wont be able to restore your changes")
                                 sManager.saveSettings("customThemes", "customTheme1", this.subMenus.customizeTheme.themeBackup)
-                                sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.previousTheme)                    
-                            }) .catch((err) => {return})
+                                sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.previousTheme)
+                            }).catch((err) => { return })
                     },
-                    "useColour": (obj)=> {
+                    "useColour": (obj) => {
                         let target = obj[1]
                         target.style.backgroundColor = obj[0]
                         target.previousElementSibling.textContent = `Current value: ${obj[0]}`
@@ -754,7 +756,7 @@ class SETTINGS_MENU_MANAGER {
         }
         this.menuInteractions = {
             "close-menu": async () => {
-                if(document.getElementById("closeSettingsBtn").getAttribute("data-alert") === "true") {
+                if (document.getElementById("closeSettingsBtn").getAttribute("data-alert") === "true") {
                     let target = document.getElementById("closeSettingsBtn")
                     await showAlert(target.dataset.alerttitle, target.dataset.alertdesc)
                         .then(() => {
@@ -762,20 +764,20 @@ class SETTINGS_MENU_MANAGER {
                             document.getElementById("closeSettingsBtn").setAttribute("data-alert", "false")
                             this.menuInteractions["close-menu"]()
                         })
-                        .catch(err => {return})
-                }else {
+                        .catch(err => { return })
+                } else {
                     document.querySelector(".top-bg").style.display = "none"
                     document.querySelector(".settings-menu").removeEventListener("click", this.handler)
                     location.hash = "#/"
                     this.dynamicStyle.innerHTML = null
                     this.$root.removeChild(document.querySelector(".settings-menu"))
-                    
+
                     this.apliedMenuStatus = false
                     openedMenu = false
                 }
             },
             "change-menu": (target) => {
-                if(target.dataset.alert === "true") {
+                if (target.dataset.alert === "true") {
                     return showAlert(target.dataset.alerttitle, target.dataset.alertdesc)
                         .then(() => {
                             location.hash = `#/settings/${target.dataset.category}`
@@ -784,69 +786,69 @@ class SETTINGS_MENU_MANAGER {
                         })
                         .catch(() => {
                             return
-                        })  
+                        })
                 } else {
                     location.hash = `#/settings/${target.dataset.category}`
                     this.showCategory(target.dataset.category)
                 }
             },
             "set": async (target) => {
-                let value; 
-                if(target.dataset.subsetting === "true") return sManager.saveSettings([target.dataset.category, target.dataset.subobj], target.dataset.preference, target.value)
-                if(target.dataset.preference === "autoSet-weather_city") return getWeather("auto")
-                if(target.dataset.promt === "true") value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder})
+                let value;
+                if (target.dataset.subsetting === "true") return sManager.saveSettings([target.dataset.category, target.dataset.subobj], target.dataset.preference, target.value)
+                if (target.dataset.preference === "autoSet-weather_city") return getWeather("auto")
+                if (target.dataset.promt === "true") value = await showPromt({ title: target.dataset.promttitle, desc: target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder })
                 sManager.saveSettings(target.dataset.category, target.dataset.preference, parseInt(target.value) || value || target.dataset.value || target.value)
                 console.log(target.dataset.value)
                 this.updateMenusContent()
             },
             "toggle": (target) => {
                 let toggleElement = target
-                if(target.dataset.active === "false") {
-                    if(target.classList.contains("option-toggle_circle")){
+                if (target.dataset.active === "false") {
+                    if (target.classList.contains("option-toggle_circle")) {
                         toggleElement = target.parentNode;
                     }
                     toggleElement.firstElementChild.dataset.active = "true";
                     toggleElement.dataset.active = "true";
 
                     sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.activevalue);
-                    this.updateMenusContent()                    
+                    this.updateMenusContent()
                     return;
                 }
-                if(target.dataset.active === "true") {
-                    if(target.classList.contains("option-toggle_circle")){
+                if (target.dataset.active === "true") {
+                    if (target.classList.contains("option-toggle_circle")) {
                         toggleElement = target.parentNode;
                     }
                     toggleElement.firstElementChild.dataset.active = "false";
                     toggleElement.dataset.active = "false";
 
                     sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.offvalue);
-                    this.updateMenusContent()                     
+                    this.updateMenusContent()
                     return;
                 }
             },
             "createSubMenu": (target) => {
                 let $contentContainer = document.querySelector(".settings-menu_content")
                 $contentContainer.innerHTML = this.subMenus[target.dataset.typeofmenu].html
-                if(this.subMenus[target.dataset.typeofmenu].dynamicContent === true) this.subMenus[target.dataset.typeofmenu].insertContent()
+                if (this.subMenus[target.dataset.typeofmenu].dynamicContent === true) this.subMenus[target.dataset.typeofmenu].insertContent()
             },
             "subMenuInteraction": (target) => {
-                if(this.subMenus[target.dataset.menu]["submenuInteractions"].hasOwnProperty(target.dataset.action)) return this.subMenus[target.dataset.menu]["submenuInteractions"][target.dataset.action](target)
+                if (this.subMenus[target.dataset.menu]["submenuInteractions"].hasOwnProperty(target.dataset.action)) return this.subMenus[target.dataset.menu]["submenuInteractions"][target.dataset.action](target)
             },
             "exportSettings": (target) => {
                 sManager.exportSettings(target.dataset.obj)
             },
             "importSettings": async (target) => {
-                let str = await showPromt({title: `Insert your ${target.dataset.obj} string`, desc: "", placeholder: target.dataset.placeholder})
+                let str = await showPromt({ title: `Insert your ${target.dataset.obj} string`, desc: "", placeholder: target.dataset.placeholder })
                 sManager.importSettings(target.dataset.obj, str)
             },
             "reset": (target) => {
                 showAlert(`Want to reset your ${target.dataset.obj}?`, "This action can't be undone, think it twice!")
                     .then(() => sManager.resetValue(target.dataset.obj))
-                    .catch(() => {return})
+                    .catch(() => { return })
             }
         }
     }
-    updateMenusContent(){
+    updateMenusContent() {
         this.menuContent = {
             style: `
                 a {
@@ -1413,18 +1415,18 @@ class SETTINGS_MENU_MANAGER {
             `
         }
     }
-    async showMenu(){
-        if(this.apliedMenuStatus === true) return
+    async showMenu() {
+        if (this.apliedMenuStatus === true) return
         this.dynamicStyle.innerHTML = this.menuContent.style
         this.$root.insertAdjacentHTML("afterbegin", this.menuContent.main)
         document.querySelector(".top-bg").style.display = "block"
-        
+
         this.apliedMenuStatus = true
         openedMenu = true
         document.querySelector(".settings-menu").addEventListener("click", this.ClickHandler)
         document.querySelector(".settings-menu").addEventListener("change", this.SelectHandler)
     }
-    async showCategory(cat){
+    async showCategory(cat) {
         let content = this.menuContent
         document.querySelector(".settings-menu_content").innerHTML = null
         document.querySelector(".settings-menu_content").innerHTML = content[cat]
@@ -1432,19 +1434,19 @@ class SETTINGS_MENU_MANAGER {
     }
 }
 function settingsMenuInteractionsHandler(e) {
-    if(settingsMenuManager.menuInteractions[e.target.dataset.mode]){
+    if (settingsMenuManager.menuInteractions[e.target.dataset.mode]) {
         settingsMenuManager.menuInteractions[e.target.dataset.mode](e.target)
     }
 }
-function settingsMenuSelectsHandler(e){
-    if(e.target.tagName === "SELECT"){
-        if(settingsMenuManager.menuInteractions[e.target.children[e.target.selectedIndex].dataset.mode]){
+function settingsMenuSelectsHandler(e) {
+    if (e.target.tagName === "SELECT") {
+        if (settingsMenuManager.menuInteractions[e.target.children[e.target.selectedIndex].dataset.mode]) {
             settingsMenuManager.menuInteractions[e.target.children[e.target.selectedIndex].dataset.mode](e.target.children[e.target.selectedIndex])
         }
     }
-    if(e.target.type === "range"){
-        if(settingsMenuManager.menuInteractions[e.target.dataset.mode]){
-           settingsMenuManager.menuInteractions[e.target.dataset.mode](e.target) 
+    if (e.target.type === "range") {
+        if (settingsMenuManager.menuInteractions[e.target.dataset.mode]) {
+            settingsMenuManager.menuInteractions[e.target.dataset.mode](e.target)
         }
     }
 }
