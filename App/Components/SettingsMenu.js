@@ -5,6 +5,8 @@ import { showPromt } from "../Helpers/showPrompt.js";
 import { getWeather } from "./Weather.js";
 import { colourPicker } from "../Helpers/colourPicker.js";
 import { App } from "./App.js" 
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
 export let openedMenu; //this variable is used to validate if a menu is opened, its useful when prompts or alerts are required
 
@@ -291,7 +293,7 @@ class SETTINGS_MENU_MANAGER {
             <div class="settings-menu">
                 <div class="settings-menu_list">
                     <img data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" data-mode="close-menu" alt="close menu" title="Close menu" width="25px" height="25px">
-                    <h4>Settings</h4>
+                    <h4>${language.settings.title}</h4>
                     <ul id="settings-list" >
                         <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="13" cy="13" r="7.5" stroke="#2F2F2F" stroke-width="5"/>
@@ -301,7 +303,7 @@ class SETTINGS_MENU_MANAGER {
                             <path d="M3.42256 21.3894C3.14617 21.4981 2.83184 21.3882 2.68334 21.131L0.800056 17.869C0.651557 17.6118 0.713577 17.2847 0.94591 17.0997L3.16078 15.3359C3.44774 15.1074 3.87075 15.1876 4.05416 15.5053L6.35744 19.4947C6.54086 19.8124 6.3988 20.2188 6.05743 20.3531L3.42256 21.3894Z" fill="#2F2F2F"/>
                             <path d="M25.0541 17.0996C25.2864 17.2846 25.3484 17.6118 25.1999 17.869L23.3167 21.1309C23.1682 21.3881 22.8538 21.498 22.5774 21.3893L19.9426 20.353C19.6012 20.2188 19.4591 19.8123 19.6426 19.4947L21.9458 15.5053C22.1293 15.1876 22.5523 15.1074 22.8392 15.3359L25.0541 17.0996Z" fill="#2F2F2F"/>
                             <path d="M0.94591 8.90038C0.713576 8.71537 0.651557 8.38822 0.800056 8.13101L2.68334 4.86906C2.83184 4.61186 3.14617 4.50199 3.42256 4.61069L6.05743 5.64696C6.3988 5.78122 6.54086 6.18766 6.35745 6.50533L4.05416 10.4947C3.87075 10.8124 3.44774 10.8926 3.16078 10.6641L0.94591 8.90038Z" fill="#2F2F2F"/>
-                        </svg><legend class="settings-menu_list-legend">General</legend></li>
+                        </svg><legend class="settings-menu_list-legend">${language.settings.general.title}</legend></li>
                         <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="appearance" id="settings_appearance"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.1924 3.80761C20.9852 2.60045 19.5521 1.64288 17.9749 0.989565C16.3976 0.336254 14.7072 -2.8491e-07 13 0C11.2928 2.84911e-07 9.60235 0.336256 8.02511 0.989567C6.44788 1.64288 5.01477 2.60045 3.80761 3.80761C2.60045 5.01478 1.64288 6.44788 0.989565 8.02512C0.336254 9.60235 -3.59534e-07 11.2928 0 13C3.59534e-07 14.7072 0.336256 16.3977 0.989567 17.9749C1.64288 19.5521 2.60045 20.9852 3.80761 22.1924L13 13L22.1924 3.80761Z" fill="#2F2F2F"/>
                             <mask id="path-2-inside-1_415_44" fill="white">
@@ -338,89 +340,90 @@ class SETTINGS_MENU_MANAGER {
             general: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">General</h5>
+                    <h5 id="category-name">${language.settings.general.categories.general}</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Change shortcuts limit</legend>
-                        <p>This feature requieres to reload this page.</p>
+                        <legend>${language.settings.general.shortcutsLimit.legend}</legend>
+                        <p>${language.settings.general.shortcutsLimit.p}</p>
                         <select class="option-select" name="shortcuts" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">Default (8)</option>
+                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">${language.commonWords.default} (8)</option>
                             <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="6">6</option>
                             <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="3">3</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">Clean (0)</option>
+                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">${language.commonWords.clean} (0)</option>
                         </select>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Select search engine</legend>
-                        <p>Change the default search engine.</p>
+                        <legend>${language.settings.general.searchEngine.legend}</legend>
+                        <p>${language.settings.general.searchEngine.p}</p>
                         <select class="option-select" name="search-engine" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">Default (Google)</option>
+                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q=">Bing</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://you.com/search?q=">You search engine</option>
                         </select>
                     </div>
                     <div class="option">
-                        <legend>Open seach on NewTab</legend>
-                        <p>Make every seach you made open in new tabs.</p>
+                        <legend>${language.settings.general.searchInNewTab.legend}</legend>
+                        <p>${language.settings.general.searchInNewTab.p}</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("general", "open_search_in_newTab")}" data-category="general" data-preference="open_search_in_newTab" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Set weather city</legend>
-                        <p class="full-space">Change your preferred city to display the weather.</p>
+                        <legend>${language.settings.general.weatherCity.legend}</legend>
+                        <p class="full-space">${language.settings.general.weatherCity.p}</p>
                         <div class="option-buttons">
-                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="Write the name of your city" data-promtDesc=" " data-category="general" data-preference="weather_city" value="Manual Set">
-                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="Auto Set">
+                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="Write the name of your city" data-promtDesc=" " data-category="general" data-preference="weather_city" value="${language.settings.general.weatherCity.manualSetButton}">
+                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="${language.settings.general.weatherCity.autoSetButton}">
                         </div>
                     </div>
                     <div class="option">
-                        <legend>Change app language</legend>
-                        <p>Chose your prefered lang to use.</p>
+                        <legend>${language.settings.general.appLanguage.legend}</legend>
+                        <p>${language.settings.general.appLanguage.p}</p>
                         <select class="option-select" name="app-lang" id="">
                             <option>--</option>
-                            <option data-category="general" data-preference="lang" data-value="en">Default (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="en">${language.commonWords.default} (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="es">Spanish (Español)</option>
                         </select>
                     </div>
-                    <legend class="subtitle">Extra</legend>
+                    <legend class="subtitle">${language.settings.general.categories.extra}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Export settings</legend>
-                        <p>Export your settings to use them in another browser.</p>
-                        <button id="importExportConfig" data-mode="exportSettings" data-obj="settings">Export</button>
+                        <legend>${language.settings.general.exportSettings.legend}</legend>
+                        <p>${language.settings.general.exportSettings.p}</p>
+                        <button id="importExportConfig" data-mode="exportSettings" data-obj="settings">${language.settings.general.exportSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Export shortcuts</legend>
-                        <p>Export all your shortcuts.</p>
-                        <button id="importExportConfig" data-mode="exportSettings" data-obj="shortcuts">Export</button>
+                        <legend>${language.settings.general.exportShortcuts.legend}</legend>
+                        <p>${language.settings.general.exportShortcuts.p}</p>
+                        <button id="importExportConfig" data-mode="exportSettings" data-obj="shortcuts">${language.settings.general.exportShortcuts.button}</button>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Import settings</legend>
-                        <p>Import your custom settings to use.</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import settings" data-promtDesc="insert your settings string" data-obj="settings" data-placeholder="Ex: {General: {}, Appearance: {}}">Import</button>
+                        <legend>${language.settings.general.importSettings.legend}</legend>
+                        <p>${language.settings.general.importSettings.p}</p>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import settings" data-promtDesc="insert your settings string" data-obj="settings" data-placeholder="Ex: {General: {}, Appearance: {}}">${language.settings.general.importSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Import shortcuts</legend>
-                        <p>Import shortcuts from other place.</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-placeholder="Ex: [{id: 1}, {id: 2}...]" data-obj="shortcuts">Import</button>
+                        <legend>${language.settings.general.importShortcuts.legend}</legend>
+                        <p>${language.settings.general.importShortcuts.p}</p>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-placeholder="Ex: [{id: 1}, {id: 2}...]" data-obj="shortcuts">${language.settings.general.importShortcuts.button}</button>
                     </div>
-                    <legend class="subtitle">Reset app values</legend>
+                    <legend class="subtitle">${language.settings.general.categories.resetAppValues}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Reset settings</legend>
-                        <button data-mode="reset" data-obj="settings">Reset</button>
+                        <legend>${language.settings.general.resetSettings.legend}</legend>
+                        <button data-mode="reset" data-obj="settings">${language.settings.general.resetSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Delete all shortcuts</legend>
-                        <button data-mode="reset" data-obj="shortcuts" >Delete all</button>
+                        <legend>${language.settings.general.deleteShortcuts.legend}</legend>
+                        <button data-mode="reset" data-obj="shortcuts" >${language.settings.general.deleteShortcuts.button}</button>
                     </div>
                 </div>
             </div>
