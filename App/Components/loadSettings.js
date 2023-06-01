@@ -7,6 +7,7 @@ if(!localStorage.getItem("updated_settings")){
 class settingsManager {
     constructor(){
         this.config = null,
+        this.lang = null,
         this.defaultSettings = {
             "general": {
                 "shortcuts_limit": 8,
@@ -132,12 +133,11 @@ class settingsManager {
                 }
             }
         }
-        this.langs = {
-            "en": {},
-            "es": {}
-        }
     }
-    loadModules(){
+    async loadModules(){
+        let lang = this.config.general.lang
+        this.lang = (await import(`../lang/${lang}.js`)).default;
+        document.getElementById("settings").firstElementChild.textContent = this.lang.settings.title
         themeManager.startModule()
     }
     updateSettings(mode){
@@ -171,7 +171,7 @@ class settingsManager {
                 console.log(err)
                 this.config = this.defaultSettings
                 localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
-                showNotification("Your settings have been restored", "The settings object was corrupt")
+                showNotification("Your settings have been restored", "The settings object was corrut")
             }
         }
     }
@@ -229,3 +229,4 @@ class settingsManager {
     }
 }
 export let sManager = new settingsManager()
+window.SettingsManager = new settingsManager()

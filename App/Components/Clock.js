@@ -1,38 +1,15 @@
 import { sManager } from "./loadSettings.js";
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
 export function Clock(){
     let previousHour,
         previousDate,
         staticDate = new Date;
         
-    const dateData = {
-        daysOfWeek: {
-            0: "Sunday",
-            1: "Monday",
-            2: "Tuesday",
-            3: "Wednesday",
-            4: "Thursday",
-            5: "Friday",
-            6: "Saturday"
-        },
-        months: {
-            0: "January",
-            1: "February",
-            2: "March",
-            3: "Aplil",
-            4: "May",
-            5: "June",
-            6: "July",
-            7: "August",
-            8: "September",
-            9: "October",
-            10: "November",
-            11: "December"
-        }
-    }
     const dateFormats = {
         "normalDate": `${staticDate.getDate()}/${staticDate.getMonth() +1}/${staticDate.getFullYear()}`,
-        "fullDate": `${dateData.daysOfWeek[staticDate.getDay()]}, ${dateData.months[staticDate.getMonth()]} ${staticDate.getDate()} of ${staticDate.getFullYear()}`
+        "fullDate": `${language.daysOfWeek[staticDate.getDay()]}, ${language.months[staticDate.getMonth()]} ${staticDate.getDate()} ${language.commonWords.of} ${staticDate.getFullYear()}`
     }
     const $clock = document.querySelector("[data-hour]"),
         $date = document.querySelector("[data-date]");

@@ -1,5 +1,8 @@
 import { sManager } from "./loadSettings.js";
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
+document.querySelector(".search-form").search.placeholder = `${language.search.searchUsing} ${sManager.getValue("general","search_engine")}`
 export function Search(){
     const $form = document.querySelector(".search-form");
 

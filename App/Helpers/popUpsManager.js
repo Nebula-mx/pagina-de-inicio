@@ -1,4 +1,7 @@
 import { weatherData } from "../Components/Weather.js"
+import { sManager } from "../Components/loadSettings.js"
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
 const popUpsElements = {
   "shortcutsContextMenu": {
@@ -7,13 +10,13 @@ const popUpsElements = {
     html:  `
       <span class="context-menu">
         <ul id="context-menu_content">
-           <li id="context-menu_newTab">Open in new tab</li>
-            <li id="context-menu_editBtn">Edit shortcut</li>
-            <li id="context-menu_deleteBtn">Delete shortcut</li>
+           <li id="context-menu_newTab">${language.contextMenus.shortcuts.openInNewTab}</li>
+            <li id="context-menu_editBtn">${language.contextMenus.shortcuts.editShortcut}</li>
+            <li id="context-menu_deleteBtn">${language.contextMenus.shortcuts.deleteShortcut}</li>
         </ul>
         <hr>
         <ul>
-          <li id="context-menu_closeBtn">Close</li>
+          <li id="context-menu_closeBtn">${language.contextMenus.shortcuts.close}</li>
         </ul>
       </span>
     `
@@ -35,12 +38,12 @@ const popUpsElements = {
           </div>
           <div id="wPopUp-footer">
               <div id="wPopUp-footer_mainData">
-                  <p id="wPopUp-footer_mainData-FL">Feels like: 4°</p>
-                  <p id="wPopUp-footer_mainData-HM">Humidity: 50</p>
+                  <p id="wPopUp-footer_mainData-FL">${language.contextMenus.weather.feelsLike}: 0°</p>
+                  <p id="wPopUp-footer_mainData-HM">${language.contextMenus.weather.humidity} 0</p>
               </div>
               <hr>
               <div id="wPopUp-footer_secondaryData">
-                  <p id="wPopUp-footer_secondaryData_condition">Condition:</p>
+                  <p id="wPopUp-footer_secondaryData_condition">${language.contextMenus.weather.condition}:</p>
                   <legend id="wPopUp-footer_secondaryData_conditionStatus">cloudy</legend>
               </div>
           </div>
@@ -50,8 +53,8 @@ const popUpsElements = {
       document.getElementById("wPopUp-cityName").textContent = weatherData.location.name
       document.getElementById("wStatusImg").src = weatherData.current.condition.icon
       document.getElementById("wCurrentTemp").textContent = `${weatherData.current.temp_c}°`
-      document.getElementById("wPopUp-footer_mainData-FL").textContent = `Feels like: ${weatherData.current.feelslike_c}°`
-      document.getElementById("wPopUp-footer_mainData-HM").textContent = `Humidity: ${weatherData.current.humidity}`
+      document.getElementById("wPopUp-footer_mainData-FL").textContent = `${language.contextMenus.weather.feelsLike}: ${weatherData.current.feelslike_c}°`
+      document.getElementById("wPopUp-footer_mainData-HM").textContent = `${language.contextMenus.weather.humidity}: ${weatherData.current.humidity}`
       document.getElementById("wPopUp-footer_secondaryData_conditionStatus").textContent = weatherData.current.condition.text
     }
   }

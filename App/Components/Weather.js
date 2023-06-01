@@ -1,6 +1,8 @@
 import { getContent } from "../Helpers/Loader.js"
 import { showNotification } from "../Helpers/showNotification.js"
 import { sManager } from "./loadSettings.js"
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
 const $temp = document.querySelector("[data-weatherState]"),
     $location = document.getElementById("weather-location");
@@ -32,7 +34,7 @@ export async function getWeather(mode) {
             
             document.querySelector(".weatherImg").src = res.current.condition.icon
             $temp.textContent = `${res.current.temp_c}°`
-            $location.textContent = `At ${res.location.name}`
+            $location.textContent = `${language.commonWords.at} ${res.location.name}`
         },
         errorFn: (err) => {
             $temp.textContent = "weather is not availabe"

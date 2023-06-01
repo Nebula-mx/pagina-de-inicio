@@ -42,8 +42,6 @@ class THEME_MANAGER {
         this.$cssvariables.innerHTML = this.themes[sManager.getValue("appearance", "theme")]
         this.$root.style.backgroundImage = `url(${sManager.getValue("appearance", "background")})`
         
-        document.querySelector(".search-form").search.placeholder = `Search using ${sManager.getValue("general","search_engine")}`
-        
         for (let obj in this.objectsThemes) {
             this.objectsThemes[obj][sManager.getValue("appearance", obj)]()
         }

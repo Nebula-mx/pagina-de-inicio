@@ -1,6 +1,8 @@
 import { errorAnimShake } from "../Helpers/Animations.js";
-import { showNotification } from "../Helpers/showNotification.js"
+import { showNotification } from "../Helpers/showNotification.js";
 import { sManager } from "./loadSettings.js";
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
 class SHORTCUTS_MANAGER {
     constructor() {
@@ -65,7 +67,7 @@ class SHORTCUTS_MANAGER {
             this.loadShortcuts()
         } catch (err) {
             console.info(err)
-            showNotification("Your shortcuts object was restored", "an error was ocurred while trying to get required values, check browser console to get more info")
+            showNotification(language.notifications.errors.corruptShortcuts.title, language.notifications.errors.corruptShortcuts.desc)
             localStorage.setItem("shortcuts", "[]")
             this.shortcuts = []
             this.shortcutsLimit = 6
@@ -138,8 +140,8 @@ class SHORTCUTS_MANAGER {
                 <input id="formUrlInput" type="text" name="url" placeholder="${pageUrlPlaceholder}">
                 <input id="formNameInput" type="text" name="title" placeholder="${pageNamePlaceholder}">
                 <div class="shortcut-form_btns">
-                    <input id="closeSFBtn" type="button" value="cancel">
-                    <input id="saveSFBtn" type="button" value="Save & exit">
+                    <input id="closeSFBtn" type="button" value="${language.prompts.shortcuts.cancel}">
+                    <input id="saveSFBtn" type="button" value="${language.prompts.shortcuts.save}">
                 </div>
             </form>
         `
@@ -177,7 +179,7 @@ class SHORTCUTS_MANAGER {
         })
     }
     createShortcut() {
-        this.openShortcutPrompt("Create new shortcut", "Insert page url...", "Type page name...")
+        this.openShortcutPrompt(language.prompts.shortcuts.createTitle, language.prompts.shortcuts.urlPlaceHolder, language.prompts.shortcuts.namePlaceHolder)
             .then((data) => {
                 let pos = this.shortcutsLenght
                 this.$shortcutTemplate.querySelector(".shortcut").setAttribute("data-shortcutID", pos)
@@ -199,7 +201,7 @@ class SHORTCUTS_MANAGER {
     }
     editShortcut(target) {
         let targetId = parseInt(target.dataset.shortcutid)
-        this.openShortcutPrompt("Edit shortcut", `Previous Url: ${target.children[1].dataset.url}`, `Previous name: ${target.children[1].querySelector("legend").outerText}`, [`${target.children[1].dataset.url}`, `${target.children[1].querySelector("legend").outerText}`])
+        this.openShortcutPrompt(language.prompts.shortcuts.editTitle, `Previous Url: ${target.children[1].dataset.url}`, `Previous name: ${target.children[1].querySelector("legend").outerText}`, [`${target.children[1].dataset.url}`, `${target.children[1].querySelector("legend").outerText}`])
             .then(data => {
                 this.shortcuts[targetId] = {
                     id: targetId,
