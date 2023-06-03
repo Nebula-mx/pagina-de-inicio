@@ -491,8 +491,8 @@ class SETTINGS_MENU_MANAGER {
                         <p>Select a diferent format to display the date</p>
                         <select class="option-select" name="date-format" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="normalDate">D/M/Y</option>
-                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="fullDate">Day of week, Day of month, month, Year</option>
+                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="normalDate">${language.settings.appearance.dateFormat.select.dmy}</option>
+                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="fullDate">${language.settings.appearance.dateFormat.select.fulldate}</option>
                         </select>
                     </div>
                     <hr>
@@ -796,7 +796,6 @@ class SETTINGS_MENU_MANAGER {
                 if(target.dataset.preference === "autoSet-weather_city") return getWeather("auto")
                 if(target.dataset.promt === "true") value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder})
                 sManager.saveSettings(target.dataset.category, target.dataset.preference, parseInt(target.value) || value || target.dataset.value || target.value)
-                console.log(target.dataset.value)
                 this.updateMenusContent()
             },
             "toggle": (target) => {
