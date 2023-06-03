@@ -12,6 +12,7 @@ export function closePromt(hideTopBg) {
 }
 
 export function showPromt(config = {title, desc, placeholder}) {
+    console.log(config.title, config.desc)
     const html = `
         <span class="promt">
             <legend>${config.title}</legend>

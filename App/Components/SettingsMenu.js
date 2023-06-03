@@ -4,7 +4,8 @@ import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
 import { getWeather } from "./Weather.js";
 import { colourPicker } from "../Helpers/colourPicker.js";
-import { App } from "./App.js" 
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
 
 const lang = sManager.getValue("general", "lang");
 const language = (await import(`../lang/${lang}.js`)).default;
@@ -293,10 +294,10 @@ class SETTINGS_MENU_MANAGER {
             main: `
             <div class="settings-menu">
                 <div class="settings-menu_list">
-                    <img data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" data-mode="close-menu" alt="close menu" title="Close menu" width="25px" height="25px">
-                    <h4>Settings</h4>
+                    <img data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" data-mode="close-menu" alt="close menu" title="Close menu" width="25px" height="25px">
+                    <h4>${language.settings.title}</h4>
                     <ul id="settings-list" >
-                        <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <li data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="13" cy="13" r="7.5" stroke="#2F2F2F" stroke-width="5"/>
                             <path d="M10.5234 0.510996C10.5674 0.217284 10.8197 0 11.1167 0H14.8833C15.1803 0 15.4326 0.217284 15.4766 0.510996L15.8966 3.311C15.9511 3.67376 15.6701 4 15.3033 4H10.6967C10.3299 4 10.0489 3.67376 10.1034 3.311L10.5234 0.510996Z" fill="#2F2F2F"/>
                             <path d="M15.4766 25.489C15.4326 25.7827 15.1803 26 14.8833 26L11.1167 26C10.8197 26 10.5674 25.7827 10.5234 25.489L10.1034 22.689C10.0489 22.3262 10.3299 22 10.6967 22L15.3033 22C15.6701 22 15.9511 22.3262 15.8966 22.689L15.4766 25.489Z" fill="#2F2F2F"/>
@@ -304,15 +305,15 @@ class SETTINGS_MENU_MANAGER {
                             <path d="M3.42256 21.3894C3.14617 21.4981 2.83184 21.3882 2.68334 21.131L0.800056 17.869C0.651557 17.6118 0.713577 17.2847 0.94591 17.0997L3.16078 15.3359C3.44774 15.1074 3.87075 15.1876 4.05416 15.5053L6.35744 19.4947C6.54086 19.8124 6.3988 20.2188 6.05743 20.3531L3.42256 21.3894Z" fill="#2F2F2F"/>
                             <path d="M25.0541 17.0996C25.2864 17.2846 25.3484 17.6118 25.1999 17.869L23.3167 21.1309C23.1682 21.3881 22.8538 21.498 22.5774 21.3893L19.9426 20.353C19.6012 20.2188 19.4591 19.8123 19.6426 19.4947L21.9458 15.5053C22.1293 15.1876 22.5523 15.1074 22.8392 15.3359L25.0541 17.0996Z" fill="#2F2F2F"/>
                             <path d="M0.94591 8.90038C0.713576 8.71537 0.651557 8.38822 0.800056 8.13101L2.68334 4.86906C2.83184 4.61186 3.14617 4.50199 3.42256 4.61069L6.05743 5.64696C6.3988 5.78122 6.54086 6.18766 6.35745 6.50533L4.05416 10.4947C3.87075 10.8124 3.44774 10.8926 3.16078 10.6641L0.94591 8.90038Z" fill="#2F2F2F"/>
-                        </svg><legend class="settings-menu_list-legend">General</legend></li>
-                        <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="appearance" id="settings_appearance"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        </svg><legend class="settings-menu_list-legend">${language.settings.general.title}</legend></li>
+                        <li data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" data-mode="change-menu" data-category="appearance" id="settings_appearance"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.1924 3.80761C20.9852 2.60045 19.5521 1.64288 17.9749 0.989565C16.3976 0.336254 14.7072 -2.8491e-07 13 0C11.2928 2.84911e-07 9.60235 0.336256 8.02511 0.989567C6.44788 1.64288 5.01477 2.60045 3.80761 3.80761C2.60045 5.01478 1.64288 6.44788 0.989565 8.02512C0.336254 9.60235 -3.59534e-07 11.2928 0 13C3.59534e-07 14.7072 0.336256 16.3977 0.989567 17.9749C1.64288 19.5521 2.60045 20.9852 3.80761 22.1924L13 13L22.1924 3.80761Z" fill="#2F2F2F"/>
                             <mask id="path-2-inside-1_415_44" fill="white">
                                 <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z"/>
                             </mask>
                             <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z" fill="white" stroke="#2F2F2F" stroke-width="0.2" mask="url(#path-2-inside-1_415_44)"/>
-                        </svg><legend class="settings-menu_list-legend">Appearance</legend></li>
-                        <li style="display: none;" data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" style="display: innerit;" data-mode="change-menu" data-category="keybinds" id="settings_keybinds"><svg width="37" height="22" viewBox="0 0 37 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        </svg><legend class="settings-menu_list-legend">${language.settings.appearance.title}</legend></li>
+                        <li style="display: none;" data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" style="display: innerit;" data-mode="change-menu" data-category="keybinds" id="settings_keybinds"><svg width="37" height="22" viewBox="0 0 37 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="35" height="20" rx="1" stroke="#2F2F2F" stroke-width="2" stroke-linejoin="round"/>
                             <rect x="8" y="14" width="21" height="4" rx="1" fill="#222222"/>
                             <rect x="30" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
@@ -328,11 +329,11 @@ class SETTINGS_MENU_MANAGER {
                             <rect x="3" y="9" width="6" height="4" rx="1" fill="#2F2F2F"/>
                             <rect x="3" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
                         </svg><legend class="settings-menu_list-legend">Keybinds</legend></li>
-                        <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <li data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"/>
                             <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"/>
                             <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"/>
-                        </svg><legend class="settings-menu_list-legend">About</legend></li>
+                        </svg><legend class="settings-menu_list-legend">${language.settings.about.title}</legend></li>
                     </ul>
                 </div>
                     <div class="settings-menu_content">
@@ -341,89 +342,90 @@ class SETTINGS_MENU_MANAGER {
             general: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">General</h5>
+                    <h5 id="category-name">${language.settings.general.categories.general}</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Change shortcuts limit</legend>
-                        <p>This feature requieres to reload this page.</p>
+                        <legend>${language.settings.general.shortcutsLimit.legend}</legend>
+                        <p>${language.settings.general.shortcutsLimit.p}</p>
                         <select class="option-select" name="shortcuts" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">Default (8)</option>
+                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">${language.commonWords.default} (8)</option>
                             <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="6">6</option>
                             <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="3">3</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">Clean (0)</option>
+                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">${language.commonWords.clean} (0)</option>
                         </select>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Select search engine</legend>
-                        <p>Change the default search engine.</p>
+                        <legend>${language.settings.general.searchEngine.legend}</legend>
+                        <p>${language.settings.general.searchEngine.p}</p>
                         <select class="option-select" name="search-engine" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">Default (Google)</option>
+                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q=">Bing</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://you.com/search?q=">You search engine</option>
                         </select>
                     </div>
                     <div class="option">
-                        <legend>Open seach on NewTab</legend>
-                        <p>Make every seach you made open in new tabs.</p>
+                        <legend>${language.settings.general.searchInNewTab.legend}</legend>
+                        <p>${language.settings.general.searchInNewTab.p}</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("general", "open_search_in_newTab")}" data-category="general" data-preference="open_search_in_newTab" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Set weather city</legend>
-                        <p class="full-space">Change your preferred city to display the weather.</p>
+                        <legend>${language.settings.general.weatherCity.legend}</legend>
+                        <p class="full-space">${language.settings.general.weatherCity.p}</p>
                         <div class="option-buttons">
-                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="Write the name of your city" data-promtDesc=" " data-category="general" data-preference="weather_city" value="Manual Set">
-                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="Auto Set">
+                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.weather.title}" data-promtDesc="${language.prompts.weather.desc}" data-category="general" data-preference="weather_city" value="${language.settings.general.weatherCity.manualSetButton}">
+                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="${language.settings.general.weatherCity.autoSetButton}">
                         </div>
                     </div>
                     <div class="option">
-                        <legend>Change app language</legend>
-                        <p>Chose your prefered lang to use.</p>
+                        <legend>${language.settings.general.appLanguage.legend}</legend>
+                        <p>${language.settings.general.appLanguage.p}</p>
                         <select class="option-select" name="app-lang" id="">
                             <option>--</option>
-                            <option data-category="general" data-preference="lang" data-value="en">Default (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="en">${language.commonWords.default} (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="es">Spanish (Español)</option>
                         </select>
                     </div>
-                    <legend class="subtitle">Extra</legend>
+                    <legend class="subtitle">${language.settings.general.categories.extra}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Export settings</legend>
-                        <p>Export your settings to use them in another browser.</p>
-                        <button id="importExportConfig" data-mode="exportSettings" data-obj="settings">Export</button>
+                        <legend>${language.settings.general.exportSettings.legend}</legend>
+                        <p>${language.settings.general.exportSettings.p}</p>
+                        <button id="importExportConfig" data-mode="exportSettings" data-obj="settings">${language.settings.general.exportSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Export shortcuts</legend>
-                        <p>Export all your shortcuts.</p>
-                        <button id="importExportConfig" data-mode="exportSettings" data-obj="shortcuts">Export</button>
+                        <legend>${language.settings.general.exportShortcuts.legend}</legend>
+                        <p>${language.settings.general.exportShortcuts.p}</p>
+                        <button id="importExportConfig" data-mode="exportSettings" data-obj="shortcuts">${language.settings.general.exportShortcuts.button}</button>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Import settings</legend>
-                        <p>Import your custom settings to use.</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import settings" data-promtDesc="insert your settings string" data-obj="settings" data-placeholder="Ex: {General: {}, Appearance: {}}">Import</button>
+                        <legend>${language.settings.general.importSettings.legend}</legend>
+                        <p>${language.settings.general.importSettings.p}</p>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="${language.prompts.importSettings.title}" data-promtDesc="${language.prompts.importSettings.desc}" data-obj="settings" data-placeholder="Ex: {General: {}, Appearance: {}}">${language.settings.general.importSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Import shortcuts</legend>
-                        <p>Import shortcuts from other place.</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-placeholder="Ex: [{id: 1}, {id: 2}...]" data-obj="shortcuts">Import</button>
+                        <legend>${language.settings.general.importShortcuts.legend}</legend>
+                        <p>${language.settings.general.importShortcuts.p}</p>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="${language.prompts.importShortcuts.title}" data-promtDesc="${language.prompts.importShortcuts.desc}" data-placeholder="Ex: [{id: 1}, {id: 2}...]" data-obj="shortcuts">${language.settings.general.importShortcuts.button}</button>
                     </div>
-                    <legend class="subtitle">Reset app values</legend>
+                    <legend class="subtitle">${language.settings.general.categories.resetAppValues}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Reset settings</legend>
-                        <button data-mode="reset" data-obj="settings">Reset</button>
+                        <legend>${language.settings.general.resetSettings.legend}</legend>
+                        <button data-mode="reset" data-obj="settings">${language.settings.general.resetSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Delete all shortcuts</legend>
-                        <button data-mode="reset" data-obj="shortcuts" >Delete all</button>
+                        <legend>${language.settings.general.deleteShortcuts.legend}</legend>
+                        <button data-mode="reset" data-obj="shortcuts" >${language.settings.general.deleteShortcuts.button}</button>
                     </div>
                 </div>
             </div>
@@ -431,26 +433,26 @@ class SETTINGS_MENU_MANAGER {
             appearance: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">Appearance</h5>
+                    <h5 id="category-name">${language.settings.appearance.categories.appearance}</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Theme</legend>
-                        <p>Select your favourite theme for the app</p>
+                        <legend>${language.settings.appearance.theme.legend}</legend>
+                        <p>${language.settings.appearance.theme.p}</p>
                         <select class="option-select">
                             <option>--</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="light">Light</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="dark">Dark</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme1">Custom theme 1</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme2">Custom theme 2</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="light">${language.settings.appearance.theme.select.light}</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="dark">${language.settings.appearance.theme.select.dark}</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme1">${language.settings.appearance.theme.select.custom1}</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme2">${language.settings.appearance.theme.select.custom2}</option>
                         </select>
                     </div>
                     <div class="option">
-                        <legend>Current background:</legend>
+                        <legend>${language.settings.appearance.backgrounds.legend}</legend>
                         <img id="user-currentBG" src="${sManager.getValue("appearance", "background")}">
                         <details id="backgroundsSummary">
-                            <summary>More backgrounds</summary>
+                            <summary>${language.settings.appearance.backgrounds.summary}</summary>
                             <div class="backgrounds-container">
                                 <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/1.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.webp">
                                 <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/2.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.webp">
@@ -464,34 +466,34 @@ class SETTINGS_MENU_MANAGER {
                                 <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
                             </div>
                         </details>
-                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="Set custom background URL" data-promtDesc="Paste the url of your background" data-category="appearance" data-preference="background" type="button" value="Set custom background url">
+                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" data-category="appearance" data-preference="background" type="button" value="${language.settings.appearance.backgrounds.button}">
                     </div>
                     <div class="option">
-                        <legend>Set blur strength</legend>
-                        <p>Adjust the blur to your liking</p>
+                        <legend>${language.settings.appearance.blurStrenght.legend}</legend>
+                        <p>${language.settings.appearance.blurStrenght.p}</p>
                         <input data-mode="set" data-category="appearance" data-preference="blur" id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", "blur")}">
                     </div>
                     <details>
-                        <summary>Related options</summary>
+                        <summary>${language.settings.appearance.relatedOptions.summary}</summary>
                         <div class="option">
-                            <legend>Change context menu opacity</legend>
-                            <p>Make more transparent or opaque the shortcuts context menu</p>
+                            <legend>${language.settings.appearance.relatedOptions.content.contextMenu.legend}</legend>
+                            <p>${language.settings.appearance.relatedOptions.content.contextMenu.p}</p>
                             <input data-mode="set" data-category="appearance" data-preference="shortcutsPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "shortcutsPopUpOpacity")}">
                         </div>
                         <div class="option">
-                            <legend>Change favourites content opacity</legend>
-                            <p>Make more transparent or opaque the favourites container (this only affects to the background of the container)</p>
+                            <legend>${language.settings.appearance.relatedOptions.content.favouritesContent.legend}</legend>
+                            <p>${language.settings.appearance.relatedOptions.content.favouritesContent.p}</p>
                             <input data-mode="set" data-category="appearance" data-preference="mainContentBgOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "mainContentBgOpacity")}">
                         </div><div class="option">
-                            <legend>Change weather popUp opacity</legend>
-                            <p>Make more transparent or opaque the weather popUp</p>
+                            <legend>${language.settings.appearance.relatedOptions.content.weatherPopUp.legend}</legend>
+                            <p>${language.settings.appearance.relatedOptions.content.weatherPopUp.p}</p>
                             <input data-mode="set" data-category="appearance" data-preference="weatherPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "weatherPopUpOpacity")}">
                         </div>
                     </details>
                     <hr>
                     <div class="option">
-                        <legend>Change date format</legend>
-                        <p>Select a diferent format to display the date</p>
+                        <legend>${language.settings.appearance.dateFormat.legend}</legend>
+                        <p>${language.settings.appearance.dateFormat.p}</p>
                         <select class="option-select" name="date-format" id="">
                             <option>--</option>
                             <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="normalDate">${language.settings.appearance.dateFormat.select.dmy}</option>
@@ -500,25 +502,25 @@ class SETTINGS_MENU_MANAGER {
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Highligh top content items</legend>
-                        <p>Add an transparent background to the top content items (Weather, Settings button, Hour)</p>
+                        <legend>${language.settings.appearance.highlightTopContentItems.legend}</legend>
+                        <p>${language.settings.appearance.highlightTopContentItems.p}</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "top_itemsBg")}" data-category="appearance" data-preference="top_itemsBg" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
                     <div class="option">
-                        <legend>Invert top content font colour</legend>
-                        <p>If your background doesn't matches with the font colour, you can invert the colour</p>
+                        <legend>${language.settings.appearance.invertFontColour.legend}</legend>
+                        <p>${language.settings.appearance.invertFontColour.p}</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "invert_top_items_colour")}" data-category="appearance" data-preference="invert_top_items_colour" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
-                    <legend class="subtitle">Advanced options</legend>
+                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Create custom theme</legend>
-                        <p>You can create your own colour theme. You can only create 2 themes.</p>
-                        <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">Let's Go</button>
+                        <legend>${language.settings.appearance.customTheme.legend}</legend>
+                        <p>${language.settings.appearance.customTheme.p}</p>
+                        <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">${language.settings.appearance.customTheme.button}</button>
                     </div>
                 </div>
             </div>
@@ -556,29 +558,27 @@ class SETTINGS_MENU_MANAGER {
             about: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">About</h5>
+                    <h5 id="category-name">${language.settings.about.categories.about}</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Missing features</legend>
-                        <p class="full-space">This app still in development so features like <u><b>lang selection, custom style import, Keyblinds and other features are not avalilable yet</u></b></p>
+                        <legend>${language.settings.about.missingFeatures.legend}</legend>
+                        <p class="full-space">${language.settings.about.missingFeatures.p}</u></b></p>
                     </div>
                     <div class="option">
-                        <legend>What's new?</legend>
+                        <legend>${language.settings.about.whatsNew.legend}</legend>
                         <ul class="full-space">
-                            <li>More customization with Theme Editor!</li>
-                            <li>New popUps behavior</li>
-                            <li>Compressed wallpapers to reduce loading time</li>                            
+                            ${language.settings.about.whatsNew.list}                           
                         </ul>
                     </div>
                     <div class="option">
-                        <legend>Your current settings</legend>
+                        <legend>${language.settings.about.currentSettings.legend}</legend>
                         <code class="full-space settingsMenu_code">${JSON.stringify(this.config.general)}\n${JSON.stringify(this.config.appearance)}</code>
                     </div>
                     <div class="option">
-                        <legend>App info:</legend>
-                        <p>Version: ${this.config.general.version} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                        <legend>${language.settings.about.appInfo.legend}</legend>
+                        <p>${language.settings.about.appInfo.version}</p>
                     </div>
                 </div>
             </div>
@@ -596,12 +596,12 @@ class SETTINGS_MENU_MANAGER {
                     <div>
                         <div class="settings-menu_content-top">
                             <div title="Back to appearance category">
-                                <svg id="submenus-backButon" data-alert="false" data-mode="change-menu" data-category="appearance" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg id="submenus-backButon" data-alert="false" data-mode="change-menu" data-category="appearance" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="6.28918" y="0.642029" width="2" height="7" rx="1" transform="rotate(60 6.28918 0.642029)" fill="#CFCFCF"/>
                                     <rect x="7.28918" y="6.62592" width="2" height="7" rx="1" transform="rotate(120 7.28918 6.62592)" fill="#CFCFCF"/>
                                 </svg>
                             </div>
-                            <h5 id="category-name">Customize app theme</h5>
+                            <h5 id="category-name">${language.submenus.themeCreator.title}</h5>
                             <hr>
                         </div>
                         <div class="settings-menu_category-content">
@@ -611,16 +611,16 @@ class SETTINGS_MENU_MANAGER {
                             </div>
                             <div class="option theme-editor_actions">
                                 <div id="theme-editor_selectedTheme">
-                                    <p>Selected theme:</p>
+                                    <p>${language.submenus.themeCreator.editorActions.p}</p>
                                     <select class="option-select">
-                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme1">Custom theme 1</option>
-                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme2">Custom theme 2</option>
+                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme1">${language.submenus.themeCreator.editorActions.select.customTheme1}</option>
+                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme2">${language.submenus.themeCreator.editorActions.select.customTheme2}</option>
                                     </select>
                                 </div>
                                 <div id="theme-editor_actions">
-                                    <button id="themeEditorActions_preview" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="livePreview" data-active="false">Preview</button>
-                                    <button disabled="true" id="themeEditorActions_saveTheme" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="saveTheme">Save</button>
-                                    <button disabled="true" id="themeEditorActions_cancel" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="restoreTheme">Cancel</button>
+                                    <button id="themeEditorActions_preview" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="livePreview" data-active="false">${language.submenus.themeCreator.editorActions.buttons.preview}</button>
+                                    <button disabled="true" id="themeEditorActions_saveTheme" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="saveTheme">${language.submenus.themeCreator.editorActions.buttons.save}</button>
+                                    <button disabled="true" id="themeEditorActions_cancel" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="restoreTheme">${language.submenus.themeCreator.editorActions.buttons.cancel}</button>
                                 </div>
                             </div>
                             <div class="option" style="display: flex;align-items: center;">
@@ -629,7 +629,7 @@ class SETTINGS_MENU_MANAGER {
                                     <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"></circle>
                                     <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"></circle>
                                 </svg> 
-                                <p id="selectedStyleStatus" style="margin: 0 0 0 5px;">You can use live preview to see how beautiful is your theme</p>
+                                <p id="selectedStyleStatus" style="margin: 0 0 0 5px;">${language.submenus.themeCreator.previewAdvisorDefault}</p>
                             </div>
                             <hr>
                         </div>
@@ -681,7 +681,7 @@ class SETTINGS_MENU_MANAGER {
                             document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "true"))
                             this.subMenus.customizeTheme.previewEnabled = "true"
                             
-                            document.getElementById("selectedStyleStatus").textContent = `Live preview is enabled!, your previous theme will be saved in case of you wan to restore your previous theme`
+                            document.getElementById("selectedStyleStatus").textContent = `${language.submenus.themeCreator.previewAdvisorActive}`
                             document.getElementById("selectedStyleStatus").style.color = "var(--important-text-colour)"
                             
                             return sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.editedTheme)                       
@@ -690,7 +690,7 @@ class SETTINGS_MENU_MANAGER {
                             document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "false"))
                             this.subMenus.customizeTheme.previewEnabled = "false"
                             
-                            document.getElementById("selectedStyleStatus").textContent = `You can use live preview to see how beautiful is your theme`
+                            document.getElementById("selectedStyleStatus").textContent = `${language.submenus.themeCreator.previewAdvisorDefault}`
                             document.getElementById("selectedStyleStatus").style.color = "var(--main-content-font)"
                             document.getElementById("themeEditorActions_preview").setAttribute("data-active", "false")
                             
@@ -704,14 +704,14 @@ class SETTINGS_MENU_MANAGER {
                         this.subMenus.customizeTheme.insertContent(target.dataset.value)
                     },
                     "saveTheme": () => {
-                        showAlert("Are you shure that you want to save your changes?", "This action will overwite your previous theme!")
+                        showAlert(language.alerts.saveTheme.title, language.alerts.saveTheme.desc)
                             .then(() => {
                                 this.subMenus.customizeTheme.themeBackup = null
                             })
                             .catch((err) => {return})
                     },
                     "restoreTheme": () => {
-                        showAlert("Do you want to restore your previous theme?", "By doing this all the changes you made will be restored!")
+                        showAlert(language.alerts.restoreTheme.title, language.alerts.restoreTheme.desc)
                             .then(() => {
                                 showNotification("The theme was restored", "You wont be able to restore your changes")
                                 sManager.saveSettings("customThemes", "customTheme1", this.subMenus.customizeTheme.themeBackup)
@@ -761,7 +761,7 @@ class SETTINGS_MENU_MANAGER {
                     let target = document.getElementById("closeSettingsBtn")
                     await showAlert(target.dataset.alerttitle, target.dataset.alertdesc)
                         .then(() => {
-                            showNotification("Live theme preview is enabled!", "if you refresh the app your changes will be lost!")
+                            showNotification(language.notifications.info.livePreviewOn.title, language.notifications.info.livePreviewOn.desc)
                             document.getElementById("closeSettingsBtn").setAttribute("data-alert", "false")
                             this.menuInteractions["close-menu"]()
                         })
@@ -1123,10 +1123,10 @@ class SETTINGS_MENU_MANAGER {
             main: `
             <div class="settings-menu">
                 <div class="settings-menu_list">
-                    <img data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" data-mode="close-menu" alt="close menu" title="Close menu" width="25px" height="25px">
-                    <h4>Settings</h4>
+                    <img data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" data-mode="close-menu" alt="close menu" title="Close menu" width="25px" height="25px">
+                    <h4>${language.settings.title}</h4>
                     <ul id="settings-list" >
-                        <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <li data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="13" cy="13" r="7.5" stroke="#2F2F2F" stroke-width="5"/>
                             <path d="M10.5234 0.510996C10.5674 0.217284 10.8197 0 11.1167 0H14.8833C15.1803 0 15.4326 0.217284 15.4766 0.510996L15.8966 3.311C15.9511 3.67376 15.6701 4 15.3033 4H10.6967C10.3299 4 10.0489 3.67376 10.1034 3.311L10.5234 0.510996Z" fill="#2F2F2F"/>
                             <path d="M15.4766 25.489C15.4326 25.7827 15.1803 26 14.8833 26L11.1167 26C10.8197 26 10.5674 25.7827 10.5234 25.489L10.1034 22.689C10.0489 22.3262 10.3299 22 10.6967 22L15.3033 22C15.6701 22 15.9511 22.3262 15.8966 22.689L15.4766 25.489Z" fill="#2F2F2F"/>
@@ -1134,15 +1134,15 @@ class SETTINGS_MENU_MANAGER {
                             <path d="M3.42256 21.3894C3.14617 21.4981 2.83184 21.3882 2.68334 21.131L0.800056 17.869C0.651557 17.6118 0.713577 17.2847 0.94591 17.0997L3.16078 15.3359C3.44774 15.1074 3.87075 15.1876 4.05416 15.5053L6.35744 19.4947C6.54086 19.8124 6.3988 20.2188 6.05743 20.3531L3.42256 21.3894Z" fill="#2F2F2F"/>
                             <path d="M25.0541 17.0996C25.2864 17.2846 25.3484 17.6118 25.1999 17.869L23.3167 21.1309C23.1682 21.3881 22.8538 21.498 22.5774 21.3893L19.9426 20.353C19.6012 20.2188 19.4591 19.8123 19.6426 19.4947L21.9458 15.5053C22.1293 15.1876 22.5523 15.1074 22.8392 15.3359L25.0541 17.0996Z" fill="#2F2F2F"/>
                             <path d="M0.94591 8.90038C0.713576 8.71537 0.651557 8.38822 0.800056 8.13101L2.68334 4.86906C2.83184 4.61186 3.14617 4.50199 3.42256 4.61069L6.05743 5.64696C6.3988 5.78122 6.54086 6.18766 6.35745 6.50533L4.05416 10.4947C3.87075 10.8124 3.44774 10.8926 3.16078 10.6641L0.94591 8.90038Z" fill="#2F2F2F"/>
-                        </svg><legend class="settings-menu_list-legend">General</legend></li>
-                        <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="appearance" id="settings_appearance"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        </svg><legend class="settings-menu_list-legend">${language.settings.general.title}</legend></li>
+                        <li data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" data-mode="change-menu" data-category="appearance" id="settings_appearance"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.1924 3.80761C20.9852 2.60045 19.5521 1.64288 17.9749 0.989565C16.3976 0.336254 14.7072 -2.8491e-07 13 0C11.2928 2.84911e-07 9.60235 0.336256 8.02511 0.989567C6.44788 1.64288 5.01477 2.60045 3.80761 3.80761C2.60045 5.01478 1.64288 6.44788 0.989565 8.02512C0.336254 9.60235 -3.59534e-07 11.2928 0 13C3.59534e-07 14.7072 0.336256 16.3977 0.989567 17.9749C1.64288 19.5521 2.60045 20.9852 3.80761 22.1924L13 13L22.1924 3.80761Z" fill="#2F2F2F"/>
                             <mask id="path-2-inside-1_415_44" fill="white">
                                 <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z"/>
                             </mask>
                             <path d="M3.80761 22.1924C5.01478 23.3995 6.44788 24.3571 8.02512 25.0104C9.60235 25.6637 11.2928 26 13 26C14.7072 26 16.3977 25.6637 17.9749 25.0104C19.5521 24.3571 20.9852 23.3995 22.1924 22.1924C23.3996 20.9852 24.3571 19.5521 25.0104 17.9749C25.6637 16.3976 26 14.7072 26 13C26 11.2928 25.6637 9.60235 25.0104 8.02511C24.3571 6.44788 23.3995 5.01477 22.1924 3.80761L13 13L3.80761 22.1924Z" fill="white" stroke="#2F2F2F" stroke-width="0.2" mask="url(#path-2-inside-1_415_44)"/>
-                        </svg><legend class="settings-menu_list-legend">Appearance</legend></li>
-                        <li style="display: none;" data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" style="display: innerit;" data-mode="change-menu" data-category="keybinds" id="settings_keybinds"><svg width="37" height="22" viewBox="0 0 37 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        </svg><legend class="settings-menu_list-legend">${language.settings.appearance.title}</legend></li>
+                        <li style="display: none;" data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" style="display: innerit;" data-mode="change-menu" data-category="keybinds" id="settings_keybinds"><svg width="37" height="22" viewBox="0 0 37 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="35" height="20" rx="1" stroke="#2F2F2F" stroke-width="2" stroke-linejoin="round"/>
                             <rect x="8" y="14" width="21" height="4" rx="1" fill="#222222"/>
                             <rect x="30" y="14" width="4" height="4" rx="1" fill="#2F2F2F"/>
@@ -1158,11 +1158,11 @@ class SETTINGS_MENU_MANAGER {
                             <rect x="3" y="9" width="6" height="4" rx="1" fill="#2F2F2F"/>
                             <rect x="3" y="4" width="4" height="4" rx="1" fill="#2F2F2F"/>
                         </svg><legend class="settings-menu_list-legend">Keybinds</legend></li>
-                        <li data-alert="false" data-alerttitle="You have unsaved changes!" data-alertdesc="If you close this menu preview mode will be enabled, if you refresh the app the theme will be lost!" data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <li data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" data-mode="change-menu" data-category="about" id="settings_about"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"/>
                             <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"/>
                             <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"/>
-                        </svg><legend class="settings-menu_list-legend">About</legend></li>
+                        </svg><legend class="settings-menu_list-legend">${language.settings.about.title}</legend></li>
                     </ul>
                 </div>
                     <div class="settings-menu_content">
@@ -1171,89 +1171,90 @@ class SETTINGS_MENU_MANAGER {
             general: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">General</h5>
+                    <h5 id="category-name">${language.settings.general.categories.general}</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Change shortcuts limit</legend>
-                        <p>This feature requieres to reload this page.</p>
+                        <legend>${language.settings.general.shortcutsLimit.legend}</legend>
+                        <p>${language.settings.general.shortcutsLimit.p}</p>
                         <select class="option-select" name="shortcuts" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">Default (8)</option>
+                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">${language.commonWords.default} (8)</option>
                             <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="6">6</option>
                             <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="3">3</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">Clean (0)</option>
+                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">${language.commonWords.clean} (0)</option>
                         </select>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Select search engine</legend>
-                        <p>Change the default search engine.</p>
+                        <legend>${language.settings.general.searchEngine.legend}</legend>
+                        <p>${language.settings.general.searchEngine.p}</p>
                         <select class="option-select" name="search-engine" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">Default (Google)</option>
+                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q=">Bing</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
                             <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://you.com/search?q=">You search engine</option>
                         </select>
                     </div>
                     <div class="option">
-                        <legend>Open seach on NewTab</legend>
-                        <p>Make every seach you made open in new tabs.</p>
+                        <legend>${language.settings.general.searchInNewTab.legend}</legend>
+                        <p>${language.settings.general.searchInNewTab.p}</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("general", "open_search_in_newTab")}" data-category="general" data-preference="open_search_in_newTab" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Set weather city</legend>
-                        <p class="full-space">Change your preferred city to display the weather.</p>
+                        <legend>${language.settings.general.weatherCity.legend}</legend>
+                        <p class="full-space">${language.settings.general.weatherCity.p}</p>
                         <div class="option-buttons">
-                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="Write the name of your city" data-promtDesc=" " data-category="general" data-preference="weather_city" value="Manual Set">
-                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="Auto Set">
+                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.weather.title}" data-promtDesc="${language.prompts.weather.desc}" data-category="general" data-preference="weather_city" value="${language.settings.general.weatherCity.manualSetButton}">
+                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="${language.settings.general.weatherCity.autoSetButton}">
                         </div>
                     </div>
                     <div class="option">
-                        <legend>Change app language</legend>
-                        <p>Chose your prefered lang to use.</p>
+                        <legend>${language.settings.general.appLanguage.legend}</legend>
+                        <p>${language.settings.general.appLanguage.p}</p>
                         <select class="option-select" name="app-lang" id="">
                             <option>--</option>
-                            <option data-category="general" data-preference="lang" data-value="en">Default (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="en">${language.commonWords.default} (English)</option>
+                            <option data-category="general" data-mode="set" data-preference="lang" data-value="es">Spanish (Español)</option>
                         </select>
                     </div>
-                    <legend class="subtitle">Extra</legend>
+                    <legend class="subtitle">${language.settings.general.categories.extra}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Export settings</legend>
-                        <p>Export your settings to use them in another browser.</p>
-                        <button id="importExportConfig" data-mode="exportSettings" data-obj="settings">Export</button>
+                        <legend>${language.settings.general.exportSettings.legend}</legend>
+                        <p>${language.settings.general.exportSettings.p}</p>
+                        <button id="importExportConfig" data-mode="exportSettings" data-obj="settings">${language.settings.general.exportSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Export shortcuts</legend>
-                        <p>Export all your shortcuts.</p>
-                        <button id="importExportConfig" data-mode="exportSettings" data-obj="shortcuts">Export</button>
+                        <legend>${language.settings.general.exportShortcuts.legend}</legend>
+                        <p>${language.settings.general.exportShortcuts.p}</p>
+                        <button id="importExportConfig" data-mode="exportSettings" data-obj="shortcuts">${language.settings.general.exportShortcuts.button}</button>
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Import settings</legend>
-                        <p>Import your custom settings to use.</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import settings" data-promtDesc="insert your settings string" data-obj="settings" data-placeholder="Ex: {General: {}, Appearance: {}}">Import</button>
+                        <legend>${language.settings.general.importSettings.legend}</legend>
+                        <p>${language.settings.general.importSettings.p}</p>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="${language.prompts.importSettings.title}" data-promtDesc="${language.prompts.importSettings.desc}" data-obj="settings" data-placeholder="Ex: {General: {}, Appearance: {}}">${language.settings.general.importSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Import shortcuts</legend>
-                        <p>Import shortcuts from other place.</p>
-                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="Import shortcuts" data-promtDesc="insert your settings string" data-placeholder="Ex: [{id: 1}, {id: 2}...]" data-obj="shortcuts">Import</button>
+                        <legend>${language.settings.general.importShortcuts.legend}</legend>
+                        <p>${language.settings.general.importShortcuts.p}</p>
+                        <button id="importExportConfig" data-mode="importSettings" data-promtTitle="${language.prompts.importShortcuts.title}" data-promtDesc="${language.prompts.importShortcuts.desc}" data-placeholder="Ex: [{id: 1}, {id: 2}...]" data-obj="shortcuts">${language.settings.general.importShortcuts.button}</button>
                     </div>
-                    <legend class="subtitle">Reset app values</legend>
+                    <legend class="subtitle">${language.settings.general.categories.resetAppValues}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Reset settings</legend>
-                        <button data-mode="reset" data-obj="settings">Reset</button>
+                        <legend>${language.settings.general.resetSettings.legend}</legend>
+                        <button data-mode="reset" data-obj="settings">${language.settings.general.resetSettings.button}</button>
                     </div>
                     <div class="option">
-                        <legend>Delete all shortcuts</legend>
-                        <button data-mode="reset" data-obj="shortcuts" >Delete all</button>
+                        <legend>${language.settings.general.deleteShortcuts.legend}</legend>
+                        <button data-mode="reset" data-obj="shortcuts" >${language.settings.general.deleteShortcuts.button}</button>
                     </div>
                 </div>
             </div>
@@ -1261,26 +1262,26 @@ class SETTINGS_MENU_MANAGER {
             appearance: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">Appearance</h5>
+                    <h5 id="category-name">${language.settings.appearance.categories.appearance}</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Theme</legend>
-                        <p>Select your favourite theme for the app</p>
+                        <legend>${language.settings.appearance.theme.legend}</legend>
+                        <p>${language.settings.appearance.theme.p}</p>
                         <select class="option-select">
                             <option>--</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="light">Light</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="dark">Dark</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme1">Custom theme 1</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme2">Custom theme 2</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="light">${language.settings.appearance.theme.select.light}</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="dark">${language.settings.appearance.theme.select.dark}</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme1">${language.settings.appearance.theme.select.custom1}</option>
+                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme2">${language.settings.appearance.theme.select.custom2}</option>
                         </select>
                     </div>
                     <div class="option">
-                        <legend>Current background:</legend>
+                        <legend>${language.settings.appearance.backgrounds.legend}</legend>
                         <img id="user-currentBG" src="${sManager.getValue("appearance", "background")}">
                         <details id="backgroundsSummary">
-                            <summary>More backgrounds</summary>
+                            <summary>${language.settings.appearance.backgrounds.summary}</summary>
                             <div class="backgrounds-container">
                                 <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/1.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.webp">
                                 <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/2.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.webp">
@@ -1294,34 +1295,34 @@ class SETTINGS_MENU_MANAGER {
                                 <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
                             </div>
                         </details>
-                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="Set custom background URL" data-promtDesc="Paste the url of your background" data-category="appearance" data-preference="background" type="button" value="Set custom background url">
+                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" data-category="appearance" data-preference="background" type="button" value="${language.settings.appearance.backgrounds.button}">
                     </div>
                     <div class="option">
-                        <legend>Set blur strength</legend>
-                        <p>Adjust the blur to your liking</p>
+                        <legend>${language.settings.appearance.blurStrenght.legend}</legend>
+                        <p>${language.settings.appearance.blurStrenght.p}</p>
                         <input data-mode="set" data-category="appearance" data-preference="blur" id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", "blur")}">
                     </div>
                     <details>
-                        <summary>Related options</summary>
+                        <summary>${language.settings.appearance.relatedOptions.summary}</summary>
                         <div class="option">
-                            <legend>Change context menu opacity</legend>
-                            <p>Make more transparent or opaque the shortcuts context menu</p>
+                            <legend>${language.settings.appearance.relatedOptions.content.contextMenu.legend}</legend>
+                            <p>${language.settings.appearance.relatedOptions.content.contextMenu.p}</p>
                             <input data-mode="set" data-category="appearance" data-preference="shortcutsPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "shortcutsPopUpOpacity")}">
                         </div>
                         <div class="option">
-                            <legend>Change favourites content opacity</legend>
-                            <p>Make more transparent or opaque the favourites container (this only affects to the background of the container)</p>
+                            <legend>${language.settings.appearance.relatedOptions.content.favouritesContent.legend}</legend>
+                            <p>${language.settings.appearance.relatedOptions.content.favouritesContent.p}</p>
                             <input data-mode="set" data-category="appearance" data-preference="mainContentBgOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "mainContentBgOpacity")}">
                         </div><div class="option">
-                            <legend>Change weather popUp opacity</legend>
-                            <p>Make more transparent or opaque the weather popUp</p>
+                            <legend>${language.settings.appearance.relatedOptions.content.weatherPopUp.legend}</legend>
+                            <p>${language.settings.appearance.relatedOptions.content.weatherPopUp.p}</p>
                             <input data-mode="set" data-category="appearance" data-preference="weatherPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "weatherPopUpOpacity")}">
                         </div>
                     </details>
                     <hr>
                     <div class="option">
-                        <legend>Change date format</legend>
-                        <p>Select a diferent format to display the date</p>
+                        <legend>${language.settings.appearance.dateFormat.legend}</legend>
+                        <p>${language.settings.appearance.dateFormat.p}</p>
                         <select class="option-select" name="date-format" id="">
                             <option>--</option>
                             <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="normalDate">D/M/Y</option>
@@ -1330,25 +1331,25 @@ class SETTINGS_MENU_MANAGER {
                     </div>
                     <hr>
                     <div class="option">
-                        <legend>Highligh top content items</legend>
-                        <p>Add an transparent background to the top content items (Weather, Settings button, Hour)</p>
+                        <legend>${language.settings.appearance.highlightTopContentItems.legend}</legend>
+                        <p>${language.settings.appearance.highlightTopContentItems.p}</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "top_itemsBg")}" data-category="appearance" data-preference="top_itemsBg" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
                     <div class="option">
-                        <legend>Invert top content font colour</legend>
-                        <p>If your background doesn't matches with the font colour, you can invert the colour</p>
+                        <legend>${language.settings.appearance.invertFontColour.legend}</legend>
+                        <p>${language.settings.appearance.invertFontColour.p}</p>
                         <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "invert_top_items_colour")}" data-category="appearance" data-preference="invert_top_items_colour" data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
-                    <legend class="subtitle">Advanced options</legend>
+                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions}</legend>
                     <hr>
                     <div class="option">
-                        <legend>Create custom theme</legend>
-                        <p>You can create your own colour theme. You can only create 2 themes.</p>
-                        <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">Let's Go</button>
+                        <legend>${language.settings.appearance.customTheme.legend}</legend>
+                        <p>${language.settings.appearance.customTheme.p}</p>
+                        <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">${language.settings.appearance.customTheme.button}</button>
                     </div>
                 </div>
             </div>
@@ -1386,29 +1387,27 @@ class SETTINGS_MENU_MANAGER {
             about: `
             <div>
                 <div class="settings-menu_content-top">
-                    <h5 id="category-name">About</h5>
+                    <h5 id="category-name">${language.settings.about.categories.about}</h5>
                     <hr>
                 </div>
                 <div class="settings-menu_category-content">
                     <div class="option">
-                        <legend>Missing features</legend>
-                        <p class="full-space">This app still in development so features like <u><b>lang selection, custom style import, Keyblinds and other features are not avalilable yet</u></b></p>
+                        <legend>${language.settings.about.missingFeatures.legend}</legend>
+                        <p class="full-space">${language.settings.about.missingFeatures.p}</u></b></p>
                     </div>
                     <div class="option">
-                        <legend>What's new?</legend>
+                        <legend>${language.settings.about.whatsNew.legend}</legend>
                         <ul class="full-space">
-                            <li>More customization with Theme Editor!</li>
-                            <li>New popUps behavior</li>
-                            <li>Compressed wallpapers to reduce loading time</li>  
+                            ${language.settings.about.whatsNew.list}                           
                         </ul>
                     </div>
                     <div class="option">
-                        <legend>Your current settings</legend>
-                        <code class="full-space settingsMenu_code" >${JSON.stringify(this.config.general)}\n${JSON.stringify(this.config.appearance)}</code>
+                        <legend>${language.settings.about.currentSettings.legend}</legend>
+                        <code class="full-space settingsMenu_code">${JSON.stringify(this.config.general)}\n${JSON.stringify(this.config.appearance)}</code>
                     </div>
                     <div class="option">
-                        <legend>App info:</legend>
-                        <p>Version: ${this.config.general.version} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽</p>
+                        <legend>${language.settings.about.appInfo.legend}</legend>
+                        <p>${language.settings.about.appInfo.version}</p>
                     </div>
                 </div>
             </div>
