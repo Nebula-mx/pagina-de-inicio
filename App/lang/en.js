@@ -100,6 +100,7 @@ export default {
     "search": {
         "searchUsing": "Search using:"
     },
+    
     "settings": {
         "title": "Settings",
         "general": {
@@ -204,7 +205,11 @@ export default {
             },
             "dateFormat": {
                 "legend": "Date format",
-                "p": "Select your favourite format (requires reload)"
+                "p": "Select your favourite format (requires reload)",
+                "select": {
+                    "dmy": "D/M/Y",
+                    "fulldate": "Day of week, day of month, month, year"
+                }
             },
             "highlightTopContentItems": {
                 "legend": "Highlight top content items",
@@ -232,7 +237,8 @@ export default {
             "whatsNew": {
                 "legend": "What's new?",
                 "list": `
-                    <li>Nothing xd</li>
+                    <li>Now Spanish language is available! Thanks to Fabri by helping to this 💜</li>
+                    <li>Recent colours are now working on the Colour picker</li>
                 `
             },
             "currentSettings": {
@@ -261,6 +267,18 @@ export default {
             },
             "previewAdvisorDefault": "You can use Live preview to see how beautiful is your theme!",
             "previewAdvisorActive": "Live preview is enabled!, your previous theme will be saved in case of you wan to restore your previous theme."
+        }
+    },
+    "colourPicker": {
+        "top": {
+            "p": "Select colour",
+            "buttons": {
+                "cancel": "Cancel",
+                "save": "Save"
+            }
+        },
+        "recentSwatches": {
+            "legend": "Recent colours"
         }
     }
 }

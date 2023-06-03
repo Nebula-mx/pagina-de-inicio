@@ -1,16 +1,20 @@
+import { sManager } from "../Components/loadSettings.js"
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
+
 class COLOUR_PICKER {
   constructor(mouseUpSelectorsHandler, mouseDownSelectorsHandler, mouseMoveSelectorsHandler, clicksHandler){
-      this.$root = document.getElementById("root")
-      this.$topBg = document.querySelector(".top-bg")
-      this.$dynamicStyle = document.getElementById("dynamic-style2")
-      this.targetElement = null
-      this.saveAndExitFunction = null
-      this.currentColourFormat = "rgb"
-      this.selectedColours = []
-      this.mouseUpSelectorsHandler = mouseUpSelectorsHandler
-      this.mouseDownSelectorsHandler = mouseDownSelectorsHandler
-      this.mouseMoveSelectorsHandler = mouseMoveSelectorsHandler
-      this.clicksHandler = clicksHandler  
+        this.$root = document.getElementById("root")
+        this.$topBg = document.querySelector(".top-bg")
+        this.$dynamicStyle = document.getElementById("dynamic-style2")
+        this.targetElement = null
+        this.saveAndExitFunction = null
+        this.currentColourFormat = "rgb"
+        this.selectedColours = []
+        this.mouseUpSelectorsHandler = mouseUpSelectorsHandler
+        this.mouseDownSelectorsHandler = mouseDownSelectorsHandler
+        this.mouseMoveSelectorsHandler = mouseMoveSelectorsHandler
+        this.clicksHandler = clicksHandler  
         this.style = `
             .colourPicker {
                 display: grid;
@@ -181,8 +185,9 @@ class COLOUR_PICKER {
                 margin: 5px;
                 border-radius: var(--global-border-radius);            
             }
-            
-            
+            .colourPicker #colourPicker_main #colourPicker_main-content #recentColoursSwatches .ColoursSwatches[data-mode="clickableswatch"]{
+                cursor: pointer;
+            }
             @media (min-width: 544px) {
                 .colourPicker #colourPicker_main #colourPicker_main-content {
                     grid-column: 2/3;
@@ -201,10 +206,10 @@ class COLOUR_PICKER {
         this.html = `
             <div class="colourPicker">
             <div id="colourPicker_top">
-                <p>Select colour</p>
+                <p>${language.colourPicker.top.p}</p>
                 <div id="colourPicker_top-buttons">
-                    <button data-mode="closeMenu">Cancel</button>
-                    <button data-mode="save&exit">Save</button>
+                    <button data-mode="closeMenu">${language.colourPicker.top.buttons.cancel}</button>
+                    <button data-mode="save&exit">${language.colourPicker.top.buttons.save}</button>
                 </div>
             </div>
             <div id="colourPicker_main">
@@ -234,7 +239,7 @@ class COLOUR_PICKER {
                     </div>
                     <div id="formatValues"></div>
                     <div id="recentColoursSwatches">
-                        <legend>Recent colours</legend>
+                        <legend>${language.colourPicker.recentSwatches.legend}</legend>
                         <div class="ColoursSwatches"></div>
                         <div class="ColoursSwatches"></div>
                         <div class="ColoursSwatches"></div>
@@ -318,7 +323,6 @@ class COLOUR_PICKER {
                 getValue: (value) => {
                     let [r, g, b, a] = this.formatsStyles.rgb.getValue(value)
                     let [H, S, L, A] = [0, 0, 0, 0]
-                    console.info(a)
                     const red = r / 255;
                     const green = g / 255;
                     const blue = b / 255;
@@ -328,9 +332,11 @@ class COLOUR_PICKER {
                     
                     L = (max + min)/2                    
                     S = (L <= 0.5) ? (max - min)/(max + min) : (max - min)/(2.0 - max - min)
+                    if(Number.isNaN(S)) S = 1
                     
                     if(Math.max(red, green, blue) === red) {
                         H = (60 * ((green - blue) / (max - min))) % 360;
+                        if(Number.isNaN(H)) H = 300
                     }else if(Math.max(red, green, blue) === green) {
                         H = (60 * ((blue - red) / (max - min)) + 120) % 360;
                     }else if(Math.max(red, green, blue) === blue) {
@@ -338,7 +344,6 @@ class COLOUR_PICKER {
                     }
                     if(H <= 0) H += 360
                     A = (a/255)*100
-                    console.log(A)
                     //console.info(H, S, L, A)
                     return [Math.round(H), Math.round(S *100)+"%", Math.round(L *100)+"%", Math.round(A)+"%"]
                 },
@@ -400,7 +405,6 @@ class COLOUR_PICKER {
             "save&exit": () => {
                 if(this.selectedColour === null) return
                 this.selectedColours.push(this.selectedColour)
-                console.log(this.selectedColours)
                 this.interactions.closeMenu()
                 return this.saveAndExitFunction({
                     0: this.selectedColour,
@@ -420,6 +424,16 @@ class COLOUR_PICKER {
                 let colour = this.formatsStyles[e.target.dataset.format].getValue(this.selectedColour)
                 
                 this.insertColourFormat(colour, {name: e.target.dataset.format})
+            },
+            "clickableswatch": (e) => {
+                let colour = e.target.dataset.colour
+                let format = this.getFormat(colour)
+                let colourValues = this.formatsStyles[format.name].getValue(colour)
+                this.interactions.changecolorformat({target: {dataset: {format: this.getFormat(colour).name}}})
+                this.updatePreviousAndCurrentColours(colourValues, format)
+                this.loadHueValues(colourValues, format)
+                this.loadAlphavalue(colourValues, format)
+                this.insertColourFormat(colourValues, format)
             }
         }
     }
@@ -495,14 +509,13 @@ class COLOUR_PICKER {
         colorContext.fillRect(0, 0, colorCanvas.width, colorCanvas.height)
     }
     loadAlphavalue(colour = [], format) {
-        console.log(colour, format)
-        
         const alphaCanvas = document.getElementById("colourPicker-alpha")
         const alphaContext = alphaCanvas.getContext("2d", { willReadFrequently: true })
         const colorAlpha =alphaContext.createLinearGradient(alphaCanvas.width/2, 0, alphaCanvas.width/2, alphaCanvas.height)
         const alphaPreviousValue = colour[3]
         alphaContext.clearRect(0, 0, alphaCanvas.width, alphaCanvas.height)
         colour[3] = (this.currentColourFormat === "#") ? "ff" : "100%"
+        console.log(`${format.name}${format.leftParenthesis}${colour.join(format.separator)}${format.rightParenthesis}`)
         colorAlpha.addColorStop(0, `${format.name}${format.leftParenthesis}${colour.join(format.separator)}${format.rightParenthesis}`)
         colorAlpha.addColorStop(0.1, `${format.name}${format.leftParenthesis}${colour.join(format.separator)}${format.rightParenthesis}`)
         colour[3] = (this.currentColourFormat === "#") ? "00" : "0"
@@ -528,6 +541,8 @@ class COLOUR_PICKER {
         this.selectedColours.forEach((c, i) => {
             if(i+1 > document.querySelectorAll(".ColoursSwatches").length) return
             document.getElementById("recentColoursSwatches").children[i+1].style.backgroundColor = c
+            document.getElementById("recentColoursSwatches").children[i+1].setAttribute("data-mode", "clickableswatch")
+            document.getElementById("recentColoursSwatches").children[i+1].setAttribute("data-colour", `${c}}`)
         })
         document.querySelectorAll("#colourPicker_main-selectorsContainer > div canvas").forEach(node => node.addEventListener("mousedown", this.mouseDownSelectorsHandler))
         document.querySelector(`[data-format="${this.currentColourFormat}"]`).classList.add("selectedFormat")
@@ -558,7 +573,7 @@ function colourPickerSelectorsMouseMove(e) {
         
         button.style.top = `${e.layerY - (button.offsetHeight*1.5)}px`
         button.style.left = `${e.layerX - (button.offsetWidth/3)}px`
-        button.style.backgroundColor = `rgb(${imageData.data[0]}, ${imageData.data[1]}, ${imageData.data[2]})`
+        button.style.backgroundColor = `rgba(${imageData.data[0]}, ${imageData.data[1]}, ${imageData.data[2]}, 255)`
         
         colourPicker.selectedColour = `rgba(${imageData.data[0]}, ${imageData.data[1]}, ${imageData.data[2]}, 255)`
         colourPicker.selectedColourCoords = {x: e.layerX, y: e.layerY}

@@ -129,7 +129,7 @@ export default {
             },
             "appLanguage": {
                 "legend": "Cambiar idioma de la aplicación",
-                "p": "Elige el idioma que prefieras utilizar."
+                "p": "Elige el idioma que prefieras utilizar. (Requiere recargar la pagina)"
             },
             "exportSettings": {
                 "legend": "Exportar ajustes",
@@ -204,7 +204,11 @@ export default {
             },
             "dateFormat": {
                 "legend": "Formato de fecha",
-                "p": "Selecciona el formato de fecha preferido (requiere recargar la pagina)"
+                "p": "Selecciona el formato de fecha preferido (requiere recargar la pagina)",
+                "select": {
+                    "dmy": "D/M/A",
+                    "fulldate": "Dia de la semana, dia del mes, mes, año"
+                }
             },
             "highlightTopContentItems": {
                 "legend": "Resaltar el contenido superior",
@@ -232,7 +236,8 @@ export default {
             "whatsNew": {
                 "legend": "¿Que hay de nuevo?",
                 "list": `
-                    <li>ps nada xd</li>
+                    <li>¡Ahora el Español esta disponible! Gracias a Fabri por ayudar en esto 💜</li>
+                    <li>Ahora se pueden seleccionar los colores recientes en el Selector de colores</li>
                 `
             },
             "currentSettings": {
@@ -261,6 +266,18 @@ export default {
             },
             "previewAdvisorDefault": "Puedes usar la vista previa en vivo para ver que tan bonito es tu tema",
             "previewAdvisorActive": "¡La vista previa esta activa!. Tu tema anterior ha sido guardado en caso de que desees restaurar el anterior"
+        }
+    },
+    "colourPicker": {
+        "top": {
+            "p": "Seleccionar color",
+            "buttons": {
+                "cancel": "Cancelar",
+                "save": "Guardar"
+            }
+        },
+        "recentSwatches": {
+            "legend": "Colores recientes"
         }
     }
 }
