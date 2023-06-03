@@ -6,6 +6,9 @@ import { getWeather } from "./Weather.js";
 import { colourPicker } from "../Helpers/colourPicker.js";
 import { App } from "./App.js" 
 
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
+
 export let openedMenu; //this variable is used to validate if a menu is opened, its useful when prompts or alerts are required
 
 class SETTINGS_MENU_MANAGER {
