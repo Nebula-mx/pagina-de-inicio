@@ -7,7 +7,6 @@ if(!localStorage.getItem("updated_settings")){
 class settingsManager {
     constructor(){
         this.config = null,
-        this.lang = null,
         this.defaultSettings = {
             "general": {
                 "shortcuts_limit": 8,
@@ -135,7 +134,6 @@ class settingsManager {
         }
     }
     async loadModules(){
-        document.getElementById("settings").firstElementChild.textContent = this.lang.settings.title
         themeManager.startModule()
     }
     updateSettings(mode){
@@ -172,8 +170,6 @@ class settingsManager {
                 showNotification("Your settings have been restored", "The settings object was corrut")
             }
         }
-        let lang = this.config.general.lang
-        this.lang = (await import(`../lang/${lang}.js`)).default;
     }
     loadConfig(){
         this.testSettingsStatus().then(() => this.loadModules())

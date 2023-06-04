@@ -1,3 +1,4 @@
+import { sManager } from "../Components/loadSettings.js"
 import { popUpsManager } from "../Helpers/popUpsManager.js";
 import { showAlert } from "../Helpers/showAlert.js";
 import { closePromt } from "../Helpers/showPrompt.js";
@@ -6,6 +7,10 @@ import { getWeather } from "./Weather.js";
 import { Search } from "./Search.js";
 import { settingsMenuManager } from "./SettingsMenu.js"
 import { shortcuts_manager } from "./ShortcutsManager.js"
+const lang = sManager.getValue("general", "lang");
+const language = (await import(`../lang/${lang}.js`)).default;
+
+document.getElementById("settings").children[0].textContent = language.settings.title
 
 export function App(){
     Clock()
