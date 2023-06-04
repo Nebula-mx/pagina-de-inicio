@@ -135,8 +135,6 @@ class settingsManager {
         }
     }
     async loadModules(){
-        let lang = this.config.general.lang
-        this.lang = (await import(`../lang/${lang}.js`)).default;
         document.getElementById("settings").firstElementChild.textContent = this.lang.settings.title
         themeManager.startModule()
     }
@@ -174,6 +172,10 @@ class settingsManager {
                 showNotification("Your settings have been restored", "The settings object was corrut")
             }
         }
+        console.log("holes")    
+        let lang = this.config.general.lang
+        this.lang = (await import(`../lang/${lang}.js`)).default;
+        console.log(this.lang)
     }
     loadConfig(){
         this.testSettingsStatus().then(() => this.loadModules())
