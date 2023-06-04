@@ -515,7 +515,6 @@ class COLOUR_PICKER {
         const alphaPreviousValue = colour[3]
         alphaContext.clearRect(0, 0, alphaCanvas.width, alphaCanvas.height)
         colour[3] = (this.currentColourFormat === "#") ? "ff" : "100%"
-        console.log(`${format.name}${format.leftParenthesis}${colour.join(format.separator)}${format.rightParenthesis}`)
         colorAlpha.addColorStop(0, `${format.name}${format.leftParenthesis}${colour.join(format.separator)}${format.rightParenthesis}`)
         colorAlpha.addColorStop(0.1, `${format.name}${format.leftParenthesis}${colour.join(format.separator)}${format.rightParenthesis}`)
         colour[3] = (this.currentColourFormat === "#") ? "00" : "0"

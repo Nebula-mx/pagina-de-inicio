@@ -683,7 +683,6 @@ class SETTINGS_MENU_MANAGER {
                             
                             return sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.editedTheme)                       
                         } else if(this.subMenus.customizeTheme.previewEnabled === "true"){
-                            console.log(this.subMenus.customizeTheme.previousTheme)
                             document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "false"))
                             this.subMenus.customizeTheme.previewEnabled = "false"
                             
