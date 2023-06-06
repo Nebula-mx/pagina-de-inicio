@@ -1,6 +1,6 @@
+import { sManager } from "../../settingsManager.js"
 import { errorAnimShake } from "../Helpers/Animations.js";
 import { showNotification } from "../Helpers/showNotification.js";
-import { sManager } from "./loadSettings.js";
 const lang = sManager.getValue("general", "lang");
 const language = (await import(`../lang/${lang}.js`)).default;
 

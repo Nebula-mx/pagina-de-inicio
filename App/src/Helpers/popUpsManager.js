@@ -1,5 +1,5 @@
+import { sManager } from "../../settingsManager.js"
 import { weatherData } from "../Components/Weather.js"
-import { sManager } from "../Components/loadSettings.js"
 const lang = sManager.getValue("general", "lang");
 const language = (await import(`../lang/${lang}.js`)).default;
 

@@ -1,4 +1,4 @@
-import { sManager } from "../Components/loadSettings.js"
+import { sManager } from "../../settingsManager.js"
 
 export default {
     "commonWords": {

@@ -1,4 +1,4 @@
-import { sManager } from "./loadSettings.js";
+import { sManager } from "../../settingsManager.js"
 const lang = sManager.getValue("general", "lang");
 const language = (await import(`../lang/${lang}.js`)).default;
 

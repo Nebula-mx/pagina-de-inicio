@@ -1,4 +1,4 @@
-import { sManager } from "../index.js"
+import { sManager } from "../../settingsManager.js"
 import { popUpsManager } from "../Helpers/popUpsManager.js";
 import { showAlert } from "../Helpers/showAlert.js";
 import { closePromt } from "../Helpers/showPrompt.js";
@@ -10,12 +10,11 @@ import { shortcuts_manager } from "./ShortcutsManager.js"
 const lang = sManager.getValue("general", "lang");
 const language = (await import(`../lang/${lang}.js`)).default;
 
-document.getElementById("settings").children[0].textContent = language.settings.title
-
-export function App(){
+export function mainView(){
     Clock()
     getWeather()
     shortcuts_manager.testShortcutsStatus()
+    document.getElementById("settings").children[0].textContent = language.settings.title
 }
 const MainClickableElements = {
     "shortcut-icon": (ref) => {

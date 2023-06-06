@@ -1,4 +1,4 @@
-import { sManager } from "./loadSettings.js";
+import { sManager } from "../../settingsManager.js"
 
 export function deleteShortcut(target){
     const $favourites = document.querySelector(".favourites"),
