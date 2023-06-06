@@ -1,4 +1,4 @@
-import { sManager } from "../Components/loadSettings.js"
+import { sManager } from "../index.js"
 import { popUpsManager } from "../Helpers/popUpsManager.js";
 import { showAlert } from "../Helpers/showAlert.js";
 import { closePromt } from "../Helpers/showPrompt.js";
