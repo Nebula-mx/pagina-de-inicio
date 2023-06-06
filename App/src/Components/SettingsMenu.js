@@ -1,4 +1,5 @@
-import { sManager } from "./loadSettings.js";
+import { sManager } from "../../settingsManager.js";
+import { refreshModules } from "./App.js";
 import { showAlert } from "../Helpers/showAlert.js";
 import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
@@ -796,6 +797,7 @@ class SETTINGS_MENU_MANAGER {
                 if(target.dataset.preference === "autoSet-weather_city") return getWeather("auto")
                 if(target.dataset.promt === "true") value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder})
                 sManager.saveSettings(target.dataset.category, target.dataset.preference, parseInt(target.value) || value || target.dataset.value || target.value)
+                refreshModules()
                 this.updateMenusContent()
             },
             "toggle": (target) => {
@@ -808,6 +810,7 @@ class SETTINGS_MENU_MANAGER {
                     toggleElement.dataset.active = "true";
 
                     sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.activevalue);
+                    refreshModules()
                     this.updateMenusContent()                    
                     return;
                 }
@@ -819,6 +822,7 @@ class SETTINGS_MENU_MANAGER {
                     toggleElement.dataset.active = "false";
 
                     sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.offvalue);
+                    refreshModules()
                     this.updateMenusContent()                     
                     return;
                 }

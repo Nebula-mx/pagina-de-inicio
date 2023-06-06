@@ -1,13 +1,9 @@
-import { showNotification } from "../Helpers/showNotification.js"
-import { themeManager } from "./Settings/loadTheme.js"
-
 if(!localStorage.getItem("updated_settings")){
     localStorage.setItem("updated_settings", "false")
 }
 class settingsManager {
     constructor(){
         this.config = null,
-        this.lang = null,
         this.defaultSettings = {
             "general": {
                 "shortcuts_limit": 8,
@@ -134,12 +130,12 @@ class settingsManager {
             }
         }
     }
-    async loadModules(){
-        let lang = this.config.general.lang
-        this.lang = (await import(`../lang/${lang}.js`)).default;
-        document.getElementById("settings").firstElementChild.textContent = this.lang.settings.title
-        themeManager.startModule()
-    }
+    // async loadModules(){
+    //     let lang = this.config.general.lang
+    //     this.lang = (await import(`../lang/${lang}.js`)).default;
+    //     document.getElementById("settings").firstElementChild.textContent = this.lang.settings.title
+    //     themeManager.startModule()
+    // }
     updateSettings(mode){
         if(mode === "start"){
             let newSettings = JSON.parse(JSON.stringify(this.defaultSettings))
@@ -159,7 +155,7 @@ class settingsManager {
         }
         return
     }
-    async testSettingsStatus(){
+    testSettingsStatus(){
         if(!localStorage.getItem("settings")){
             localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
             this.config = this.defaultSettings
@@ -171,12 +167,12 @@ class settingsManager {
                 console.log(err)
                 this.config = this.defaultSettings
                 localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
-                showNotification("Your settings have been restored", "The settings object was corrut")
+                return {title:"Your settings have been restored", description:"The settings object was corrut"}
             }
         }
     }
     loadConfig(){
-        this.testSettingsStatus().then(() => this.loadModules())
+        this.testSettingsStatus()
     }
 
     //settings managment
@@ -214,17 +210,17 @@ class settingsManager {
     }
     async exportSettings(obj){
         navigator.clipboard.writeText(localStorage.getItem(obj))
-        showNotification(`Your ${obj} have been exported!`, "Now you can paste the string to import your settings in other place")
+        // showNotification(`Your ${obj} have been exported!`, "Now you can paste the string to import your settings in other place")
     }
     async importSettings(obj, str){
         localStorage.setItem(obj, str)
         localStorage.setItem("updated_settings", "false")
-        showNotification(`Your ${obj} have been imported!`, "The app will reload in 3 secconds to apply the changes")
+        // showNotification(`Your ${obj} have been imported!`, "The app will reload in 3 secconds to apply the changes")
         setTimeout(() => location.reload(), 3100)
     }
     async resetValue(obj){
         localStorage.removeItem(obj)
-        showNotification(`Your ${obj} have been reset`, "The app will reload in 3 secconds")
+        // showNotification(`Your ${obj} have been reset`, "The app will reload in 3 secconds")
         setTimeout(() => location.reload(), 3100)
     }
 }

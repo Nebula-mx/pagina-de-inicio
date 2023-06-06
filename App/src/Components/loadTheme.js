@@ -1,4 +1,4 @@
-import { sManager } from "../loadSettings.js"
+import { sManager } from "../../settingsManager.js"
 
 class THEME_MANAGER {
     constructor(){
