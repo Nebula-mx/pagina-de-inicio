@@ -7,7 +7,7 @@ import { getWeather } from "./Weather.js";
 import { Search } from "./Search.js";
 import { settingsMenuManager } from "./SettingsMenu.js"
 import { shortcuts_manager } from "./ShortcutsManager.js"
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 export function mainView(){

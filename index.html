@@ -37,6 +37,8 @@
         }
         
         body {
+            display: flex;
+            justify-content: center;
             /* reset styles */
             margin: 0;
             padding: 0;
@@ -49,13 +51,14 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-
-            /* formating grid */
-            display: grid;
-            grid-template-rows: 45vh 55vh;
+            backdrop-filter: blur(var(--body-backgroundBlur));
             
             /* extra */
             user-select: none;
+        }
+        main {
+            display: grid;
+            grid-template-rows: 45vh 55vh;
         }
         .notification {
             display: flex;
@@ -246,7 +249,7 @@
             cursor: pointer;
         }
         #top-content {
-            grid-row: 0;
+            grid-row: 0/2;
             width: 100%;
             height: 100%;
             display: flex;
@@ -397,22 +400,27 @@
         #top-content #settings p:hover {
             text-decoration: underline;
         }
-        #top-content #date {
+        #top-content #hourContainer {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        #top-content #hourContainer #date {
             background-color: transparent;
             position: relative;
-            place-self: center;
-            padding: 10px 20px;
-            margin-top: 10px;
+            padding: 2%;
             border-radius: var(--global-border-radius);
         }
-        #top-content #date h2 {
+        #top-content #hourContainer #date h2 {
             display: initial;
             width: fit-content;
             font-size: clamp(min(2.2rem), 7vw, max(4rem));
             text-align: center;
             margin: 0;
         }
-        #top-content #date p {
+        #top-content #hourContainer #date p {
             width: fit-content;
             font-size: clamp(min(.8rem), 6vw, max(1.3rem));
             margin: auto;
@@ -424,9 +432,10 @@
             /* justify-content: center; */
             flex-direction: column;
             align-items: center;
-            grid-row: 2;
-            width: 100%;
-            height: 55vh;
+            place-content: center;
+            grid-row: 2/3;
+            width: 100vw;
+            height: 100%;
             padding-top: 48px;
             color: var(--main-content-font);
             background-color: var(--main-content-light-bg);
@@ -442,7 +451,7 @@
         #main-content .search-form :first-child {
             background-color: var(--main-content-light-searchBox);
             padding: 21px;
-            height: 53px;
+            height: clamp(43px, 5vw, 53px);
             width: 100%;
             max-width: 500px;
             border-radius: var(--global-border-radius) 0px 0px var(--global-border-radius);
@@ -452,7 +461,9 @@
             color: var(--main-content-font);
         }
         #main-content .search-form :last-child {
-            padding: 5px 5px 5px 10px;
+            width: clamp(20px, 3vw, 33px);
+            height: 100%;
+            padding: 0 1%;
             background: var(--main-content-light-searchBtn);
             border-radius: 0px var(--global-border-radius) var(--global-border-radius) 0px;
         }
@@ -581,7 +592,7 @@
             body {
                 grid-template-rows: 40vh 60vh;
             }
-            #top-content #date {
+            #top-content #hourContainer #date {
                 margin: auto 0 auto 0;
             }
             #main-content .search-form {
@@ -612,9 +623,11 @@
                     <img  id="settings-opener" class="settings-button" src="./App/Assets/Images/General.svg" alt="Settings btn" title="open settings">
                 </div>
             </div>
-            <div id="date" data-containerBG>
-                <h2 data-hour>00:00</h2>
-                <p data-date>00/00/00</p>
+            <div id="hourContainer">
+                <div id="date" data-containerBG>
+                    <h2 data-hour>00:00</h2>
+                    <p data-date>00/00/00</p>
+                </div>
             </div>
         </div>
         <div id="main-content">

@@ -1,7 +1,7 @@
 import { sManager } from "../../settingsManager.js"
 import { errorAnimShake } from "../Helpers/Animations.js";
 import { showNotification } from "../Helpers/showNotification.js";
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 class SHORTCUTS_MANAGER {
@@ -10,14 +10,14 @@ class SHORTCUTS_MANAGER {
         this.$dynamicStyle = document.getElementById("dynamic-style")
         this.shortcuts = null
         this.shortcutsContainer = document.querySelector(".shortcutsContainer")
-        this.shortcutsLimit = sManager.getValue("general", "shortcuts_limit")
+        this.shortcutsLimit = sManager.getValue("general", ["shortcuts_limit"])
         this.shortcutsLenght = parseInt(localStorage.getItem("shortcutsNumber"))
         this.$shortcutTemplate = document.getElementById("shortcut-template").content        
     }
     testShortcutsLenght(){
         let newShortcutsArr = JSON.parse(localStorage.getItem("shortcuts"))
         if(newShortcutsArr === null) return
-        let sLimit = parseInt(sManager.getValue("general", "shortcuts_limit"))
+        let sLimit = parseInt(sManager.getValue("general", ["shortcuts_limit"]))
         let sLenght = newShortcutsArr.length
         
         if(sLenght > sLimit) {

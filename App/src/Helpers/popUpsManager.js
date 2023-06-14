@@ -1,6 +1,6 @@
 import { sManager } from "../../settingsManager.js"
 import { weatherData } from "../Components/Weather.js"
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 const popUpsElements = {

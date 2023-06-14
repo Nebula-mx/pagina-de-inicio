@@ -1,7 +1,7 @@
 import { sManager } from "../../settingsManager.js"
 import { getContent } from "../Helpers/Loader.js"
 import { showNotification } from "../Helpers/showNotification.js"
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 const $temp = document.querySelector("[data-weatherState]"),

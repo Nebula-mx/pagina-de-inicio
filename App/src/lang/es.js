@@ -164,7 +164,10 @@ export default {
             "title": "Apariencia",
             "categories": {
                 "appearance": "Apariencia",
-                "advancedOptions": "Opciones avanzadas"
+                "advancedOptions": {
+                    "title": "Opciones avanzadas",
+                    "editRootContent": "Editar contenido principal"
+                }
             },
             "theme": {
                 "legend": "Tema",
@@ -245,7 +248,7 @@ export default {
             },
             "appInfo": {
                 "legend": "Informacion de la pagina",
-                "version": `Version: ${sManager.getValue("general", "version")} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
+                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
             }
         }
     },

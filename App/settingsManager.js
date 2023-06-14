@@ -3,7 +3,7 @@ if(!localStorage.getItem("updated_settings")){
 }
 class settingsManager {
     constructor(){
-        this.config = null,
+        this.config = null
         this.defaultSettings = {
             "general": {
                 "shortcuts_limit": 8,
@@ -16,13 +16,42 @@ class settingsManager {
             "appearance": {
                 "theme": "light",
                 "background": "App/Assets/Images/Backgrounds/1.webp",
+                "backgroundBlur": 0,
                 "blur": 8,
                 "shortcutsPopUpOpacity": 89,
                 "weatherPopUpOpacity": 85,
                 "mainContentBgOpacity": 65,
                 "dateFormat": "normalDate",
                 "top_itemsBg": "false",
-                "invert_top_items_colour": "true"
+                "invert_top_items_colour": "true",
+                "mainPageItems": {
+                    contentRatio: {
+                        id: "main",
+                        topPercentaje: 45  
+                    },
+                    weatherContainer: {
+                        id: "#weather",
+                        display: "flex",
+                        displayOn: true,                        
+                        position: "inhetit",
+                        placeSelf: "flex-start",
+                    },
+                    location: {
+                        id: "#weather-location",
+                        displayOn: true,
+                        display: "block",
+                    },
+                    temp: {
+                        id: "#openWeatherPopUp",
+                        display: "block",
+                        displayOn: true                        
+                    },
+                    weatherIcon: {
+                        id: ".weatherImg",
+                        display: "block",
+                        displayOn: true                    
+                    }
+                }
             },
             "customThemes": {
                 "customTheme1": {
@@ -130,12 +159,6 @@ class settingsManager {
             }
         }
     }
-    // async loadModules(){
-    //     let lang = this.config.general.lang
-    //     this.lang = (await import(`../lang/${lang}.js`)).default;
-    //     document.getElementById("settings").firstElementChild.textContent = this.lang.settings.title
-    //     themeManager.startModule()
-    // }
     updateSettings(mode){
         if(mode === "start"){
             let newSettings = JSON.parse(JSON.stringify(this.defaultSettings))
@@ -150,7 +173,7 @@ class settingsManager {
             }
             newSettings.general.version = this.defaultSettings.general.version
             localStorage.setItem("settings", JSON.stringify(newSettings))
-            localStorage.setItem("updated_settings", "true")
+            localStorage.setItem("updated_settings", "false")
             this.config = newSettings
         }
         return
@@ -177,18 +200,22 @@ class settingsManager {
 
     //settings managment
 
-    getValue(key, option){
+    getValue(category, keys = []){
         if(!this.config) this.loadConfig()
         try {
-            return this.config[key][option]
+            let value = this.config[category]
+            keys.forEach((item => {
+                value = value[item]
+            }))
+            return value
         } catch(err) {
-            console.error(err, " :", key, option)
-            console.info(this.config)
-            return this.defaultSettings[key][option]
+            console.error(err, " :", category, keys)
+            let value = this.defaultSettings[category]
+            keys.forEach((item => {
+                value = value[item]
+            }))
+            return value
         }
-    }
-    getSubObjectValue(category, obj, key) {
-        return this.config[category][obj][key]
     }
     getFullSettings(){
         try {
@@ -198,27 +225,31 @@ class settingsManager {
             return this.defaultSettings
         }
     }
-    async saveSettings(category, option, value){
-        if(category instanceof Array){
-            this.config[category[0]][category[1]][option] = value
+    saveSettings(category, keys = [], value){
+        let obj = this.config[category]
+        try {
+            keys.forEach(((item, i) => {
+                if(i === (keys.length -1)) {
+                    return obj[item] = value;
+                }
+                obj = obj[item]
+            }))
+            obj = value
             localStorage.setItem("settings", JSON.stringify(this.config))
-            return this.loadConfig()        
-        }
-        this.config[category][option] = value
-        localStorage.setItem("settings", JSON.stringify(this.config))
-        this.loadConfig()
+            this.loadConfig()
+        }catch(err){return console.log(err)}
     }
-    async exportSettings(obj){
+    exportSettings(obj){
         navigator.clipboard.writeText(localStorage.getItem(obj))
         // showNotification(`Your ${obj} have been exported!`, "Now you can paste the string to import your settings in other place")
     }
-    async importSettings(obj, str){
+    importSettings(obj, str){
         localStorage.setItem(obj, str)
         localStorage.setItem("updated_settings", "false")
         // showNotification(`Your ${obj} have been imported!`, "The app will reload in 3 secconds to apply the changes")
         setTimeout(() => location.reload(), 3100)
     }
-    async resetValue(obj){
+    resetValue(obj){
         localStorage.removeItem(obj)
         // showNotification(`Your ${obj} have been reset`, "The app will reload in 3 secconds")
         setTimeout(() => location.reload(), 3100)

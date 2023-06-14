@@ -165,7 +165,10 @@ export default {
             "title": "Appearance",
             "categories": {
                 "appearance": "Appearance",
-                "advancedOptions": "Advanced options"
+                "advancedOptions": {
+                    "title": "Advanced options",
+                    "editRootContent": "Edit main content"
+                }
             },
             "theme": {
                 "legend": "Theme",
@@ -246,7 +249,7 @@ export default {
             },
             "appInfo": {
                 "legend": "App info:",
-                "version": `Version: ${sManager.getValue("general", "version")} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽  <br> Thanks to <a href="https://github.com/Fabrisdev">Fabri</a> by helping with the translation 💜`
+                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽  <br> Thanks to <a href="https://github.com/Fabrisdev">Fabri</a> by helping with the translation 💜`
             }
         }
     },

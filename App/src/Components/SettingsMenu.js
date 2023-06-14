@@ -5,7 +5,7 @@ import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
 import { getWeather } from "./Weather.js";
 import { colourPicker } from "../Helpers/colourPicker.js";
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 export let openedMenu; //this variable is used to validate if a menu is opened, its useful when prompts or alerts are required
@@ -39,7 +39,7 @@ class SETTINGS_MENU_MANAGER {
                     background-color: var(--settings-menu-light-list);
                     padding: clamp(min(10px), 3vw, max(26px));
                     border: var(--settings-menu-list-border);
-                    border-radius: 10px 0 0 10px;
+                    border-radius: var(--global-border-radius) 0 0 var(--global-border-radius);
                     width: clamp(min(42px), 30%, max(258px));
                     height: 100%;
                 }
@@ -87,10 +87,10 @@ class SETTINGS_MENU_MANAGER {
                     background-color: var(--settings-menu-light-content);
                     width: clamp(min(196px), 100vw, max(720px));
                     padding: clamp(min(10px), 3vw, max(26px));
-                    border-radius: 0 10px 10px 0;
+                    border-radius: 0 var(--global-border-radius) var(--global-border-radius) 0;
                     height: 100%;
                     overflow-y: auto;
-                    overflow-x: hiden;
+                    overflow-x: hidden;
                 }
                 .settings-menu .settings-menu_content .settings-menu_content-top h5{
                     text-align: center;
@@ -186,13 +186,16 @@ class SETTINGS_MENU_MANAGER {
                     place-self: end;
                     align-self: center;
                     align-items: center;
-                    width: 42px;
-                    height: 17px;
+                    width: clamp(23px, 5vw, 42px);
+                    height: clamp(6px, 3vw, 17px);
                     padding: 4px;
                     background-color: var(--settings-menu-toggleBg);
                     border-radius: 20px;
                     cursor: pointer;
                     transition: ease-in-out 0.5s;
+                }
+                .settings-menu .settings-menu_content .settings-menu_category-content .option-toggle.containerWithButton{
+                    grid-row: 1/2;
                 }
                 .settings-menu .settings-menu_content .settings-menu_category-content .option .option-toggle[data-active="true"]{
                     background-color: var(--settings-menu-active-toggle);
@@ -206,8 +209,8 @@ class SETTINGS_MENU_MANAGER {
                     justify-content: end;
                 }
                 .settings-menu .settings-menu_content .settings-menu_category-content .option .option-toggle .option-toggle_circle{
-                    width: 17px;
-                    height: 17px;
+                    width: clamp(6px, 2vw, 17px);
+                    height: clamp(6px, 2vw, 17px);
                     background-color: var(--settings-menu-option-toggleCircle);
                     border-radius: 50%;
                 }
@@ -226,6 +229,11 @@ class SETTINGS_MENU_MANAGER {
                     grid-row: 1/3;
                     place-self: center;
                     width: 80%;
+                }
+                .settings-menu .settings-menu_content .settings-menu_category-content button.containerWithButton {
+                    grid-row: 2/3;
+                    grid-column: 1/3;
+                    margin-top: 1em;
                 }
                 .settings-menu .settings-menu_content .settings-menu_content-top #submenus-backButon {
                     position: relative;
@@ -349,10 +357,10 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.general.shortcutsLimit.p}</p>
                         <select class="option-select" name="shortcuts" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">${language.commonWords.default} (8)</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="6">6</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="3">3</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">${language.commonWords.clean} (0)</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="8">${language.commonWords.default} (8)</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="6">6</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="3">3</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="0">${language.commonWords.clean} (0)</option>
                         </select>
                     </div>
                     <hr>
@@ -361,16 +369,16 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.general.searchEngine.p}</p>
                         <select class="option-select" name="search-engine" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q=">Bing</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://you.com/search?q=">You search engine</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://www.bing.com/search?q=">Bing</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://you.com/search?q=">You search engine</option>
                         </select>
                     </div>
                     <div class="option">
                         <legend>${language.settings.general.searchInNewTab.legend}</legend>
                         <p>${language.settings.general.searchInNewTab.p}</p>
-                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("general", "open_search_in_newTab")}" data-category="general" data-preference="open_search_in_newTab" data-activevalue="true" data-offValue="false">
+                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("general", ["open_search_in_newTab"])}" data-category="general" data-keys='["open_search_in_newTab"]' data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
@@ -379,8 +387,8 @@ class SETTINGS_MENU_MANAGER {
                         <legend>${language.settings.general.weatherCity.legend}</legend>
                         <p class="full-space">${language.settings.general.weatherCity.p}</p>
                         <div class="option-buttons">
-                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.weather.title}" data-promtDesc="${language.prompts.weather.desc}" data-category="general" data-preference="weather_city" value="${language.settings.general.weatherCity.manualSetButton}">
-                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="${language.settings.general.weatherCity.autoSetButton}">
+                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.weather.title}" data-promtDesc="${language.prompts.weather.desc}" data-category="general" data-keys='["weather_city"]' value="${language.settings.general.weatherCity.manualSetButton}">
+                            <input type="button" data-mode="set" data-category="general" data-keys='["autoSet-weather_city"]' value="${language.settings.general.weatherCity.autoSetButton}">
                         </div>
                     </div>
                     <div class="option">
@@ -388,8 +396,8 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.general.appLanguage.p}</p>
                         <select class="option-select" name="app-lang" id="">
                             <option>--</option>
-                            <option data-category="general" data-mode="set" data-preference="lang" data-value="en">${language.commonWords.default} (English)</option>
-                            <option data-category="general" data-mode="set" data-preference="lang" data-value="es">Spanish (Español)</option>
+                            <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="en">${language.commonWords.default} (English)</option>
+                            <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="es">Spanish (Español)</option>
                         </select>
                     </div>
                     <legend class="subtitle">${language.settings.general.categories.extra}</legend>
@@ -440,52 +448,57 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.appearance.theme.p}</p>
                         <select class="option-select">
                             <option>--</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="light">${language.settings.appearance.theme.select.light}</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="dark">${language.settings.appearance.theme.select.dark}</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme1">${language.settings.appearance.theme.select.custom1}</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme2">${language.settings.appearance.theme.select.custom2}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="light">${language.settings.appearance.theme.select.light}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="dark">${language.settings.appearance.theme.select.dark}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="customTheme1">${language.settings.appearance.theme.select.custom1}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="customTheme2">${language.settings.appearance.theme.select.custom2}</option>
                         </select>
                     </div>
                     <div class="option">
                         <legend>${language.settings.appearance.backgrounds.legend}</legend>
-                        <img id="user-currentBG" src="${sManager.getValue("appearance", "background")}">
+                        <img id="user-currentBG" src="${sManager.getValue("appearance", ["background"])}">
                         <details id="backgroundsSummary">
                             <summary>${language.settings.appearance.backgrounds.summary}</summary>
                             <div class="backgrounds-container">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/1.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/2.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/3.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/3.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/4.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/4.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/5.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/5.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/6.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/6.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/7.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/7.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/8.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/8.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/9.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/9.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/1.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/2.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/3.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/3.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/4.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/4.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/5.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/5.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/6.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/6.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/7.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/7.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/8.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/8.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/9.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/9.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
                             </div>
                         </details>
-                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" data-category="appearance" data-preference="background" type="button" value="${language.settings.appearance.backgrounds.button}">
+                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" data-category="appearance" data-keys="['background']" type="button" value="${language.settings.appearance.backgrounds.button}">
+                    </div>
+                    <div class="option">
+                        <legend>Background blur</legend>
+                        <p>Chose the intensity of the blur in your background</p>
+                        <input data-mode="set" data-category="appearance" data-keys='["backgroundBlur"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["backgroundBlur"])}">
                     </div>
                     <div class="option">
                         <legend>${language.settings.appearance.blurStrenght.legend}</legend>
                         <p>${language.settings.appearance.blurStrenght.p}</p>
-                        <input data-mode="set" data-category="appearance" data-preference="blur" id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", "blur")}">
+                        <input data-mode="set" data-category="appearance" data-keys='["blur"]' id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", ["blur"])}">
                     </div>
                     <details>
                         <summary>${language.settings.appearance.relatedOptions.summary}</summary>
                         <div class="option">
                             <legend>${language.settings.appearance.relatedOptions.content.contextMenu.legend}</legend>
                             <p>${language.settings.appearance.relatedOptions.content.contextMenu.p}</p>
-                            <input data-mode="set" data-category="appearance" data-preference="shortcutsPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "shortcutsPopUpOpacity")}">
+                            <input data-mode="set" data-category="appearance" data-keys='["shortcutsPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["shortcutsPopUpOpacity"])}">
                         </div>
                         <div class="option">
                             <legend>${language.settings.appearance.relatedOptions.content.favouritesContent.legend}</legend>
                             <p>${language.settings.appearance.relatedOptions.content.favouritesContent.p}</p>
-                            <input data-mode="set" data-category="appearance" data-preference="mainContentBgOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "mainContentBgOpacity")}">
+                            <input data-mode="set" data-category="appearance" data-keys='["mainContentBgOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["mainContentBgOpacity"])}">
                         </div><div class="option">
                             <legend>${language.settings.appearance.relatedOptions.content.weatherPopUp.legend}</legend>
                             <p>${language.settings.appearance.relatedOptions.content.weatherPopUp.p}</p>
-                            <input data-mode="set" data-category="appearance" data-preference="weatherPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "weatherPopUpOpacity")}">
+                            <input data-mode="set" data-category="appearance" data-keys='["weatherPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["weatherPopUpOpacity"])}">
                         </div>
                     </details>
                     <hr>
@@ -494,31 +507,55 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.appearance.dateFormat.p}</p>
                         <select class="option-select" name="date-format" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="normalDate">${language.settings.appearance.dateFormat.select.dmy}</option>
-                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="fullDate">${language.settings.appearance.dateFormat.select.fulldate}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["dateFormat"]' data-value="normalDate">${language.settings.appearance.dateFormat.select.dmy}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["dateFormat"]' data-value="fullDate">${language.settings.appearance.dateFormat.select.fulldate}</option>
                         </select>
                     </div>
                     <hr>
                     <div class="option">
                         <legend>${language.settings.appearance.highlightTopContentItems.legend}</legend>
                         <p>${language.settings.appearance.highlightTopContentItems.p}</p>
-                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "top_itemsBg")}" data-category="appearance" data-preference="top_itemsBg" data-activevalue="true" data-offValue="false">
+                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["top_itemsBg"])}" data-category="appearance" data-keys='["top_itemsBg"]' data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
                     <div class="option">
                         <legend>${language.settings.appearance.invertFontColour.legend}</legend>
                         <p>${language.settings.appearance.invertFontColour.p}</p>
-                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "invert_top_items_colour")}" data-category="appearance" data-preference="invert_top_items_colour" data-activevalue="true" data-offValue="false">
+                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["invert_top_items_colour"])}" data-category="appearance" data-keys='["invert_top_items_colour"]' data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
-                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions}</legend>
+                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions.title}</legend>
                     <hr>
                     <div class="option">
                         <legend>${language.settings.appearance.customTheme.legend}</legend>
                         <p>${language.settings.appearance.customTheme.p}</p>
                         <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">${language.settings.appearance.customTheme.button}</button>
+                    </div>
+                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions.editRootContent}</legend>
+                    <hr>                    
+                    <div class="option">
+                        <legend>Content display ratio</legend>
+                        <p>Chose the ratio of the content. more space for top content or more space for bottom content</p>
+                        <input data-mode="set" data-category="appearance" data-keys='["mainPageItems", "contentRatio", "topPercentaje"]' id="blur-range" type="range" min="30" max="70" value="${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}">
+                    </div>
+                    <hr>
+                    <div class="option">
+                        <legend>Weather info</legend>
+                        <p>Show or hide weather info</p>
+                        <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "display"]' data-activevalue="flex" data-offValue="none">
+                            <div class="option-toggle_circle" data-mode="toggle"></div>
+                        </div>
+                        <button class="containerWithButton">Open more settings</button>
+                    </div>
+                    <div class="option">
+                        <legend>Settings buttons</legend>
+                        <p>Show or hide the settings buttons</p>
+                        <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["invert_top_items_colour"])}" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "display"]' data-activevalue="flex" data-offValue="none">
+                            <div class="option-toggle_circle" data-mode="toggle"></div>
+                        </div>
+                        <button class="containerWithButton">Open more settings</button>
                     </div>
                 </div>
             </div>
@@ -637,7 +674,7 @@ class SETTINGS_MENU_MANAGER {
                     let $container = document.querySelector(".settings-menu_category-content"),
                         $fragment = document.createDocumentFragment(),
                         $contentContainer = document.createElement("div"),
-                        inputRangeValues = { //if the input tyoe is range, there are their max values
+                        inputRangeValues = { //if the input type is range, there are their max values
                             "Global border radius": 10,
                             "Blur strenght": 40,
                             "Settings menu invert icons colour intensity": 100,
@@ -654,20 +691,20 @@ class SETTINGS_MENU_MANAGER {
         
                             $optionContainer.classList.add("option")
                             $optionTitle.textContent = key
-                            $optionDesc.textContent = `Current value: ${sManager.getSubObjectValue("customThemes", theme, key)}`
+                            $optionDesc.textContent = `Current value: ${sManager.getValue("customThemes", [theme, key])}`
                             $optionContainer.appendChild($optionTitle)
                             $optionContainer.appendChild($optionDesc)
                             
-                            if(/(rgb(a?)|hsl(a?)|#)/.test(sManager.getSubObjectValue("customThemes", theme, key))) { //this if validates the data type to use certain input type
-                                $input = `<div class="colourPicker-clickableSwatches" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" value="${sManager.getSubObjectValue("customThemes", theme, key)}" style="background-color: ${sManager.getSubObjectValue('customThemes', theme, key)};" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showColourPicker" data-value="${sManager.getSubObjectValue("customThemes", theme, key)}"></div>`
-                            } else {$input = `<input type="range" data-subSetting="true" data-mode="set" data-category="customThemes" data-subObj="${theme}" data-preference="${key}" min="0" max="${inputRangeValues[key]}" value="${sManager.getSubObjectValue("customThemes", theme, key)}">`}
+                            if(/(rgb(a?)|hsl(a?)|#)/.test(sManager.getValue("customThemes", [theme, key]))) { //this "if" validates the data type to use certain input type
+                                $input = `<div class="colourPicker-clickableSwatches" data-category="customThemes" data-keys='["${theme}", "${key}"]' value="${sManager.getValue("customThemes", [theme, key])}" style="background-color: ${sManager.getValue('customThemes', [theme, key])};" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showColourPicker" data-value="${sManager.getValue("customThemes", [theme, key])}"></div>`
+                            } else {$input = `<input type="range" data-subSetting="true" data-mode="set" data-category="customThemes" data-keys='["${theme}", "${key}"]' min="0" max="${inputRangeValues[key]}" value="${sManager.getValue("customThemes", [theme, key])}">`}
                             $optionContainer.insertAdjacentHTML("beforeend", $input)
                             $fragment.appendChild($optionContainer)
                     }
                     $contentContainer.appendChild($fragment)
                     $container.appendChild($contentContainer)
-                    this.subMenus.customizeTheme.previousTheme = sManager.getValue("appearance", "theme")
-                    if(this.subMenus.customizeTheme.previewEnabled === "true" || sManager.getValue("appearance", "theme").includes("customTheme")) {
+                    this.subMenus.customizeTheme.previousTheme = sManager.getValue("appearance", ["theme"])
+                    if(this.subMenus.customizeTheme.previewEnabled === "true" || sManager.getValue("appearance", ["theme"]).includes("customTheme")) {
                         this.subMenus.customizeTheme.previewEnabled = "false"
                         this.subMenus.customizeTheme.submenuInteractions.livePreview()
                     }
@@ -682,9 +719,9 @@ class SETTINGS_MENU_MANAGER {
                             document.getElementById("selectedStyleStatus").textContent = `${language.submenus.themeCreator.previewAdvisorActive}`
                             document.getElementById("selectedStyleStatus").style.color = "var(--important-text-colour)"
                             
-                            return sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.editedTheme)                       
+                            sManager.saveSettings("appearance", ["theme"], this.subMenus.customizeTheme.editedTheme)
+                            return refreshModules()
                         } else if(this.subMenus.customizeTheme.previewEnabled === "true"){
-                            console.log(this.subMenus.customizeTheme.previousTheme)
                             document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "false"))
                             this.subMenus.customizeTheme.previewEnabled = "false"
                             
@@ -692,7 +729,8 @@ class SETTINGS_MENU_MANAGER {
                             document.getElementById("selectedStyleStatus").style.color = "var(--main-content-font)"
                             document.getElementById("themeEditorActions_preview").setAttribute("data-active", "false")
                             
-                            sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.previousTheme)
+                            sManager.saveSettings("appearance", ["theme"], this.subMenus.customizeTheme.previousTheme)
+                            refreshModules()
                         }
                     },
                     "showThemeValue": (target) => {
@@ -712,23 +750,25 @@ class SETTINGS_MENU_MANAGER {
                         showAlert(language.alerts.restoreTheme.title, language.alerts.restoreTheme.desc)
                             .then(() => {
                                 showNotification("The theme was restored", "You wont be able to restore your changes")
-                                sManager.saveSettings("customThemes", "customTheme1", this.subMenus.customizeTheme.themeBackup)
-                                sManager.saveSettings("appearance", "theme", this.subMenus.customizeTheme.previousTheme)                    
+                                sManager.saveSettings("customThemes", [sManager.getValue("appearance", ["theme"])], this.subMenus.customizeTheme.themeBackup)
+                                sManager.saveSettings("appearance", ["theme", this.subMenus.customizeTheme.previousTheme])
                             }) .catch((err) => {return})
                     },
                     "useColour": (obj)=> {
-                        let target = obj[1]
+                        const target = obj[1]
+                        console.log(target.dataset)
                         target.style.backgroundColor = obj[0]
                         target.previousElementSibling.textContent = `Current value: ${obj[0]}`
                         target.dataset.value = obj[0]
-                        sManager.saveSettings([target.dataset.category, target.dataset.subobj], target.dataset.preference, obj[0])
+                        sManager.saveSettings(target.dataset.category, JSON.parse(target.dataset.keys), obj[0])
+                        refreshModules()
                     },
                     "showColourPicker": (target) => {
                         colourPicker.openMenu(target, this.subMenus.customizeTheme.submenuInteractions.useColour)
                     },
                     "openGuide": () => {
-                        let $container = document.querySelector(".settings-menu_content"),
-                            $content = `
+                        const $container = document.querySelector(".settings-menu_content");
+                        const $content = `
                                 <div>
                                     <div class="settings-menu_content-top">
                                         <h5 id="category-name">How to use the Theme editor</h5>
@@ -756,7 +796,7 @@ class SETTINGS_MENU_MANAGER {
         this.menuInteractions = {
             "close-menu": async () => {
                 if(document.getElementById("closeSettingsBtn").getAttribute("data-alert") === "true") {
-                    let target = document.getElementById("closeSettingsBtn")
+                    const target = document.getElementById("closeSettingsBtn")
                     await showAlert(target.dataset.alerttitle, target.dataset.alertdesc)
                         .then(() => {
                             showNotification(language.notifications.info.livePreviewOn.title, language.notifications.info.livePreviewOn.desc)
@@ -792,16 +832,15 @@ class SETTINGS_MENU_MANAGER {
                 }
             },
             "set": async (target) => {
-                let value; 
-                if(target.dataset.subsetting === "true") return sManager.saveSettings([target.dataset.category, target.dataset.subobj], target.dataset.preference, target.value)
-                if(target.dataset.preference === "autoSet-weather_city") return getWeather("auto")
-                if(target.dataset.promt === "true") value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, target.dataset.preference) || target.dataset.placeholder})
-                sManager.saveSettings(target.dataset.category, target.dataset.preference, parseInt(target.value) || value || target.dataset.value || target.value)
+                let keys = JSON.parse(target.dataset.keys)
+                if(target.dataset.keys.includes("autoSet-weather_city")) getWeather("auto")
+                if(target.dataset.promt === "true") value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, JSON.parse(target.dataset.keys)) || [target.dataset.placeholder]})
+                sManager.saveSettings(target.dataset.category, keys, parseInt(target.value) || target.dataset.value || target.value)
                 refreshModules()
                 this.updateMenusContent()
             },
             "toggle": (target) => {
-                let toggleElement = target
+                let toggleElement = target;
                 if(target.dataset.active === "false") {
                     if(target.classList.contains("option-toggle_circle")){
                         toggleElement = target.parentNode;
@@ -809,7 +848,7 @@ class SETTINGS_MENU_MANAGER {
                     toggleElement.firstElementChild.dataset.active = "true";
                     toggleElement.dataset.active = "true";
 
-                    sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.activevalue);
+                    sManager.saveSettings(toggleElement.dataset.category, JSON.parse(toggleElement.dataset.keys), toggleElement.dataset.activevalue);
                     refreshModules()
                     this.updateMenusContent()                    
                     return;
@@ -821,7 +860,7 @@ class SETTINGS_MENU_MANAGER {
                     toggleElement.firstElementChild.dataset.active = "false";
                     toggleElement.dataset.active = "false";
 
-                    sManager.saveSettings(toggleElement.dataset.category, toggleElement.dataset.preference, toggleElement.dataset.offvalue);
+                    sManager.saveSettings(toggleElement.dataset.category, JSON.parse(toggleElement.dataset.keys), toggleElement.dataset.offvalue);
                     refreshModules()
                     this.updateMenusContent()                     
                     return;
@@ -837,6 +876,7 @@ class SETTINGS_MENU_MANAGER {
             },
             "exportSettings": (target) => {
                 sManager.exportSettings(target.dataset.obj)
+                showNotification(`Your ${target.dataset.obj} have been exported`, `The ${target.dataset.obj} object is now on your clipboard`)
             },
             "importSettings": async (target) => {
                 let str = await showPromt({title: `Insert your ${target.dataset.obj} string`, desc: "", placeholder: target.dataset.placeholder})
@@ -871,7 +911,7 @@ class SETTINGS_MENU_MANAGER {
                     background-color: var(--settings-menu-light-list);
                     padding: clamp(min(10px), 3vw, max(26px));
                     border: var(--settings-menu-list-border);
-                    border-radius: 10px 0 0 10px;
+                    border-radius: var(--global-border-radius) 0 0 var(--global-border-radius);
                     width: clamp(min(42px), 30%, max(258px));
                     height: 100%;
                 }
@@ -919,10 +959,10 @@ class SETTINGS_MENU_MANAGER {
                     background-color: var(--settings-menu-light-content);
                     width: clamp(min(196px), 100vw, max(720px));
                     padding: clamp(min(10px), 3vw, max(26px));
-                    border-radius: 0 10px 10px 0;
+                    border-radius: 0 var(--global-border-radius) var(--global-border-radius) 0;
                     height: 100%;
                     overflow-y: auto;
-                    overflow-x: hiden;
+                    overflow-x: hidden;
                 }
                 .settings-menu .settings-menu_content .settings-menu_content-top h5{
                     text-align: center;
@@ -1018,8 +1058,8 @@ class SETTINGS_MENU_MANAGER {
                     place-self: end;
                     align-self: center;
                     align-items: center;
-                    width: 42px;
-                    height: 17px;
+                    width: clamp(23px, 5vw, 42px);
+                    height: clamp(6px, 2vw, 17px);
                     padding: 4px;
                     background-color: var(--settings-menu-toggleBg);
                     border-radius: 20px;
@@ -1038,8 +1078,8 @@ class SETTINGS_MENU_MANAGER {
                     justify-content: end;
                 }
                 .settings-menu .settings-menu_content .settings-menu_category-content .option .option-toggle .option-toggle_circle{
-                    width: 17px;
-                    height: 17px;
+                    width: clamp(6px, 3vw, 17px);
+                    height: clamp(6px, 3vw, 17px);
                     background-color: var(--settings-menu-option-toggleCircle);
                     border-radius: 50%;
                 }
@@ -1181,10 +1221,10 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.general.shortcutsLimit.p}</p>
                         <select class="option-select" name="shortcuts" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="8">${language.commonWords.default} (8)</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="6">6</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="3">3</option>
-                            <option data-mode="set" data-category="general" data-preference="shortcuts_limit" data-value="0">${language.commonWords.clean} (0)</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="8">${language.commonWords.default} (8)</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="6">6</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="3">3</option>
+                            <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="0">${language.commonWords.clean} (0)</option>
                         </select>
                     </div>
                     <hr>
@@ -1193,16 +1233,16 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.general.searchEngine.p}</p>
                         <select class="option-select" name="search-engine" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://www.bing.com/search?q=">Bing</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
-                            <option data-mode="set" data-category="general" data-preference="search_engine" data-value="https://you.com/search?q=">You search engine</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://www.bing.com/search?q=">Bing</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
+                            <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://you.com/search?q=">You search engine</option>
                         </select>
                     </div>
                     <div class="option">
                         <legend>${language.settings.general.searchInNewTab.legend}</legend>
                         <p>${language.settings.general.searchInNewTab.p}</p>
-                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("general", "open_search_in_newTab")}" data-category="general" data-preference="open_search_in_newTab" data-activevalue="true" data-offValue="false">
+                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("general", ["open_search_in_newTab"])}" data-category="general" data-keys='["open_search_in_newTab"]' data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
@@ -1211,8 +1251,8 @@ class SETTINGS_MENU_MANAGER {
                         <legend>${language.settings.general.weatherCity.legend}</legend>
                         <p class="full-space">${language.settings.general.weatherCity.p}</p>
                         <div class="option-buttons">
-                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.weather.title}" data-promtDesc="${language.prompts.weather.desc}" data-category="general" data-preference="weather_city" value="${language.settings.general.weatherCity.manualSetButton}">
-                            <input type="button" data-mode="set" data-category="general" data-preference="autoSet-weather_city" value="${language.settings.general.weatherCity.autoSetButton}">
+                            <input type="button" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.weather.title}" data-promtDesc="${language.prompts.weather.desc}" data-category="general" data-keys='["weather_city"]' value="${language.settings.general.weatherCity.manualSetButton}">
+                            <input type="button" data-mode="set" data-category="general" data-keys='["autoSet-weather_city"]' value="${language.settings.general.weatherCity.autoSetButton}">
                         </div>
                     </div>
                     <div class="option">
@@ -1220,8 +1260,8 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.general.appLanguage.p}</p>
                         <select class="option-select" name="app-lang" id="">
                             <option>--</option>
-                            <option data-category="general" data-mode="set" data-preference="lang" data-value="en">${language.commonWords.default} (English)</option>
-                            <option data-category="general" data-mode="set" data-preference="lang" data-value="es">Spanish (Español)</option>
+                            <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="en">${language.commonWords.default} (English)</option>
+                            <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="es">Spanish (Español)</option>
                         </select>
                     </div>
                     <legend class="subtitle">${language.settings.general.categories.extra}</legend>
@@ -1272,52 +1312,57 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.appearance.theme.p}</p>
                         <select class="option-select">
                             <option>--</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="light">${language.settings.appearance.theme.select.light}</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="dark">${language.settings.appearance.theme.select.dark}</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme1">${language.settings.appearance.theme.select.custom1}</option>
-                            <option data-mode="set" data-category="appearance" data-preference="theme" data-value="customTheme2">${language.settings.appearance.theme.select.custom2}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="light">${language.settings.appearance.theme.select.light}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="dark">${language.settings.appearance.theme.select.dark}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="customTheme1">${language.settings.appearance.theme.select.custom1}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="customTheme2">${language.settings.appearance.theme.select.custom2}</option>
                         </select>
                     </div>
                     <div class="option">
                         <legend>${language.settings.appearance.backgrounds.legend}</legend>
-                        <img id="user-currentBG" src="${sManager.getValue("appearance", "background")}">
+                        <img id="user-currentBG" src="${sManager.getValue("appearance", ["background"])}">
                         <details id="backgroundsSummary">
                             <summary>${language.settings.appearance.backgrounds.summary}</summary>
                             <div class="backgrounds-container">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/1.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/2.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/3.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/3.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/4.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/4.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/5.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/5.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/6.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/6.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/7.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/7.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/8.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/8.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/9.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/9.webp">
-                                <img data-mode="set" data-category="appearance" data-preference="background" data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/1.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/2.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/3.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/3.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/4.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/4.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/5.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/5.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/6.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/6.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/7.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/7.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/8.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/8.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/9.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/9.webp">
+                                <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
                             </div>
                         </details>
-                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" data-category="appearance" data-preference="background" type="button" value="${language.settings.appearance.backgrounds.button}">
+                        <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" data-category="appearance" data-keys="['background']" type="button" value="${language.settings.appearance.backgrounds.button}">
+                    </div>
+                    <div class="option">
+                        <legend>Background blur</legend>
+                        <p>Chose the intensity of the blur in your background</p>
+                        <input data-mode="set" data-category="appearance" data-keys='["backgroundBlur"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["backgroundBlur"])}">
                     </div>
                     <div class="option">
                         <legend>${language.settings.appearance.blurStrenght.legend}</legend>
                         <p>${language.settings.appearance.blurStrenght.p}</p>
-                        <input data-mode="set" data-category="appearance" data-preference="blur" id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", "blur")}">
+                        <input data-mode="set" data-category="appearance" data-keys='["blur"]' id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", ["blur"])}">
                     </div>
                     <details>
                         <summary>${language.settings.appearance.relatedOptions.summary}</summary>
                         <div class="option">
                             <legend>${language.settings.appearance.relatedOptions.content.contextMenu.legend}</legend>
                             <p>${language.settings.appearance.relatedOptions.content.contextMenu.p}</p>
-                            <input data-mode="set" data-category="appearance" data-preference="shortcutsPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "shortcutsPopUpOpacity")}">
+                            <input data-mode="set" data-category="appearance" data-keys='["shortcutsPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["shortcutsPopUpOpacity"])}">
                         </div>
                         <div class="option">
                             <legend>${language.settings.appearance.relatedOptions.content.favouritesContent.legend}</legend>
                             <p>${language.settings.appearance.relatedOptions.content.favouritesContent.p}</p>
-                            <input data-mode="set" data-category="appearance" data-preference="mainContentBgOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "mainContentBgOpacity")}">
+                            <input data-mode="set" data-category="appearance" data-keys='["mainContentBgOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["mainContentBgOpacity"])}">
                         </div><div class="option">
                             <legend>${language.settings.appearance.relatedOptions.content.weatherPopUp.legend}</legend>
                             <p>${language.settings.appearance.relatedOptions.content.weatherPopUp.p}</p>
-                            <input data-mode="set" data-category="appearance" data-preference="weatherPopUpOpacity" id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", "weatherPopUpOpacity")}">
+                            <input data-mode="set" data-category="appearance" data-keys='["weatherPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["weatherPopUpOpacity"])}">
                         </div>
                     </details>
                     <hr>
@@ -1326,31 +1371,55 @@ class SETTINGS_MENU_MANAGER {
                         <p>${language.settings.appearance.dateFormat.p}</p>
                         <select class="option-select" name="date-format" id="">
                             <option>--</option>
-                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="normalDate">D/M/Y</option>
-                            <option data-mode="set" data-category="appearance" data-preference="dateFormat" data-value="fullDate">Day of week, Day of month, month, Year</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["dateFormat"]' data-value="normalDate">${language.settings.appearance.dateFormat.select.dmy}</option>
+                            <option data-mode="set" data-category="appearance" data-keys='["dateFormat"]' data-value="fullDate">${language.settings.appearance.dateFormat.select.fulldate}</option>
                         </select>
                     </div>
                     <hr>
                     <div class="option">
                         <legend>${language.settings.appearance.highlightTopContentItems.legend}</legend>
                         <p>${language.settings.appearance.highlightTopContentItems.p}</p>
-                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "top_itemsBg")}" data-category="appearance" data-preference="top_itemsBg" data-activevalue="true" data-offValue="false">
+                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["top_itemsBg"])}" data-category="appearance" data-keys='["top_itemsBg"]' data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
                     <div class="option">
                         <legend>${language.settings.appearance.invertFontColour.legend}</legend>
                         <p>${language.settings.appearance.invertFontColour.p}</p>
-                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", "invert_top_items_colour")}" data-category="appearance" data-preference="invert_top_items_colour" data-activevalue="true" data-offValue="false">
+                        <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["invert_top_items_colour"])}" data-category="appearance" data-keys='["invert_top_items_colour"]' data-activevalue="true" data-offValue="false">
                             <div class="option-toggle_circle" data-mode="toggle"></div>
                         </div>
                     </div>
-                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions}</legend>
+                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions.title}</legend>
                     <hr>
                     <div class="option">
                         <legend>${language.settings.appearance.customTheme.legend}</legend>
                         <p>${language.settings.appearance.customTheme.p}</p>
                         <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">${language.settings.appearance.customTheme.button}</button>
+                    </div>
+                    <legend class="subtitle">${language.settings.appearance.categories.advancedOptions.editRootContent}</legend>
+                    <hr>                    
+                    <div class="option">
+                        <legend>Content display ratio</legend>
+                        <p>Chose the ratio of the content. more space for top content or more space for bottom content</p>
+                        <input data-mode="set" data-category="appearance" data-keys='["weatherPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["weatherPopUpOpacity"])}">
+                    </div>
+                    <hr>
+                    <div class="option">
+                        <legend>Weather info</legend>
+                        <p>Show or hide weather info</p>
+                        <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance")}" data-category="appearance" data-subObj="" data-keys='["invert_top_items_colour"]' data-activevalue="true" data-offValue="false">
+                            <div class="option-toggle_circle" data-mode="toggle"></div>
+                        </div>
+                        <button class="containerWithButton">Open more settings</button>
+                    </div>
+                    <div class="option">
+                        <legend>Settings buttons</legend>
+                        <p>Show or hide the settings buttons</p>
+                        <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["invert_top_items_colour"])}" data-category="appearance" data-keys='["invert_top_items_colour"]' data-activevalue="true" data-offValue="false">
+                            <div class="option-toggle_circle" data-mode="toggle"></div>
+                        </div>
+                        <button class="containerWithButton">Open more settings</button>
                     </div>
                 </div>
             </div>
@@ -1424,7 +1493,7 @@ class SETTINGS_MENU_MANAGER {
         this.apliedMenuStatus = true
         openedMenu = true
         document.querySelector(".settings-menu").addEventListener("click", this.ClickHandler)
-        document.querySelector(".settings-menu").addEventListener("change", this.SelectHandler)
+        document.querySelector(".settings-menu").addEventListener("input", this.SelectHandler)
     }
     async showCategory(cat){
         let content = this.menuContent
