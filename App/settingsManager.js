@@ -1,163 +1,12 @@
+import { defaultSettings } from "./Assets/data/defaultSettings.js"
+
 if(!localStorage.getItem("updated_settings")){
     localStorage.setItem("updated_settings", "false")
 }
 class settingsManager {
     constructor(){
-        this.config = null
-        this.defaultSettings = {
-            "general": {
-                "shortcuts_limit": 8,
-                "search_engine": "https://www.google.com/search?q=",
-                "open_search_in_newTab": "false",
-                "weather_city": "Mexico-City",
-                "lang": "en",
-                "version": "0.9.6"
-            },
-            "appearance": {
-                "theme": "light",
-                "background": "App/Assets/Images/Backgrounds/1.webp",
-                "backgroundBlur": 0,
-                "blur": 8,
-                "shortcutsPopUpOpacity": 89,
-                "weatherPopUpOpacity": 85,
-                "mainContentBgOpacity": 65,
-                "dateFormat": "normalDate",
-                "top_itemsBg": "false",
-                "invert_top_items_colour": "true",
-                "mainPageItems": {
-                    contentRatio: {
-                        id: "main",
-                        topPercentaje: 45  
-                    },
-                    weatherContainer: {
-                        id: "#weather",
-                        display: "flex",
-                        displayOn: true,                        
-                        position: "inhetit",
-                        placeSelf: "flex-start",
-                    },
-                    location: {
-                        id: "#weather-location",
-                        displayOn: true,
-                        display: "block",
-                    },
-                    temp: {
-                        id: "#openWeatherPopUp",
-                        display: "block",
-                        displayOn: true                        
-                    },
-                    weatherIcon: {
-                        id: ".weatherImg",
-                        display: "block",
-                        displayOn: true                    
-                    }
-                }
-            },
-            "customThemes": {
-                "customTheme1": {
-                    "Global border radius": 5,
-                    "Blur strenght": 8,
-                    "Top content font colour": "rgba(255, 255, 255, 255)",
-                    "Highlight top content items bg": "rgba(0, 0, 0, 51)",
-                    "Weather popUp Bg colour": "rgba(0, 0, 0, 216)",
-                    "Important text colour": "rgb(236, 141, 141)",
-                    
-                    "Input type color border colour": "rgba(47, 47, 47, 255)",
-                    
-                    "Main content font colour": "rgba(255, 255, 255, 255)",
-                    "Main content Bg colour": "rgba(0, 0, 0, 165)",
-                    "Main content Search box Bg colour": "rgba(0, 0, 0, 204)",
-                    "Main content Search btn Bg colour": "rgba(0, 0, 0, 255)",
-                    "Shortcuts Bg colour": "rgba(0, 0, 0, 153)",
-                    
-                    "Buttons Bg colour": "rgba(39, 39, 39, 255)",
-                    "Buttons border colour": "rgba(255, 255, 255, 15)",
-                    "Buttons font colour": "rgba(255, 255, 255, 255)",
-                    "Buttons hover colour": "rgba(55, 55, 55, 255)",
-                    "Buttons active Bg colour": "rgba(28, 28, 28, 255)",
-                    
-                    "Alerts top content Bg": "rgba(13, 13, 13, 255)",
-                    "Alerts actions container Bg": "rgba(19, 19, 19, 255)",
-                    
-                    "Context menu Bg colour": "rgba(16, 16, 16, 255)",
-                    "Context menu items Bg colour": "rgb(0, 0, 0)",
-                    "Context menu items hover colour": "rgba(0, 0, 0, 255)",
-                    
-                    "Shortcuts form Bg colour": "rgba(17, 17, 17, 255)",
-                    "Shortcuts form inputs Bg colour": "rgba(34, 34, 34, 221)",
-                    "Shortcuts form inputs border colour": "rgba(47, 47, 47, 255)",
-                    "Shortcuts form buttons bg": "rgba(34, 34, 34, 221)",
-                    "Shortcuts form button hover bg": "rgba(38, 38, 38, 255)",
-                    "Shortcuts form button active bg": "rgba(28, 28, 28, 255)",
-                    
-                    "Settings menu liks colour": "rgba(95, 13, 132, 255)",
-                    "Settings menu categories list Bg colour": "rgba(7, 7, 7, 196)",
-                    "Settings menu categories items Bg": "rgba(40, 40, 40, 102)",
-                    "Settings menu categories items hover Bg": "rgba(34, 34, 34, 255)",
-                    "Settings menu main content Bg": "rgba(0, 0, 0, 255)",
-                    "Settings menu options Bg colour": "rgba(14, 14, 14, 255)",
-                    "Settings menu details Bg colour": "rgba(6, 6, 6, 255)",
-                    "Settings menu selects Bg colour": "rgba(39, 39, 39, 255)",
-                    "Settings menu off toggle Bg": "rgba(39, 39, 39, 255)",
-                    "Settings menu toggle circle Bg colour": "rgba(255, 255, 255, 255)",
-                    "Settings menu active toggle Bg": "rgba(124, 121, 255, 255)",
-                    "Settings menu code Bg colour": "rgba(0, 0, 0, 255)",
-                    "Settings menu invert icons colour intensity": "100%"
-                },
-                "customTheme2": {
-                    "Global border radius": 5,
-                    "Blur strenght": 8,
-                    "Top content font colour": "rgba(255, 255, 255, 255)",
-                    "Highlight top content items bg": "rgba(0, 0, 0, 51)",
-                    "Weather popUp Bg colour": "rgba(0, 0, 0, 216)",
-                    "Important text colour": "rgb(236, 141, 141)",
-                    
-                    "Input type color border colour": "rgba(47, 47, 47, 255)",
-                    
-                    "Main content font colour": "rgba(255, 255, 255, 255)",
-                    "Main content Bg colour": "rgba(0, 0, 0, 165)",
-                    "Main content Search box Bg colour": "rgba(0, 0, 0, 204)",
-                    "Main content Search btn Bg colour": "rgba(0, 0, 0, 255)",
-                    "Shortcuts Bg colour": "rgba(0, 0, 0, 153)",
-                    
-                    "Buttons Bg colour": "rgba(39, 39, 39, 255)",
-                    "Buttons border colour": "rgba(255, 255, 255, 15)",
-                    "Buttons font colour": "rgba(255, 255, 255, 255)",
-                    "Buttons hover colour": "rgba(55, 55, 55, 255)",
-                    "Buttons active Bg colour": "rgba(28, 28, 28, 255)",
-                    
-                    "Alerts top content Bg": "rgba(13, 13, 13, 255)",
-                    "Alerts actions container Bg": "rgba(19, 19, 19, 255)",
-                    
-                    "Context menu Bg colour": "rgba(16, 16, 16, 255)",
-                    "Context menu items Bg colour": "rgb(0, 0, 0)",
-                    "Context menu items hover colour": "rgba(0, 0, 0, 255)",
-                    
-                    "Window BG colour": "rgba(0, 0, 0, 255)",
-                    
-                    "Shortcuts form Bg colour": "rgba(17, 17, 17, 255)",
-                    "Shortcuts form inputs Bg colour": "rgba(34, 34, 34, 221)",
-                    "Shortcuts form inputs border colour": "rgba(47, 47, 47, 255)",
-                    "Shortcuts form buttons bg": "rgba(34, 34, 34, 221)",
-                    "Shortcuts form button hover bg": "rgba(38, 38, 38, 255)",
-                    "Shortcuts form button active bg": "rgba(28, 28, 28, 255)",
-                    
-                    "Settings menu liks colour": "rgba(95, 13, 132, 255)",
-                    "Settings menu categories list Bg colour": "rgba(7, 7, 7, 196)",
-                    "Settings menu categories items Bg": "rgba(40, 40, 40, 102)",
-                    "Settings menu categories items hover Bg": "rgba(34, 34, 34, 255)",
-                    "Settings menu main content Bg": "rgba(0, 0, 0, 255)",
-                    "Settings menu options Bg colour": "rgba(14, 14, 14, 255)",
-                    "Settings menu details Bg colour": "rgba(6, 6, 6, 255)",
-                    "Settings menu selects Bg colour": "rgba(39, 39, 39, 255)",
-                    "Settings menu off toggle Bg": "rgba(39, 39, 39, 255)",
-                    "Settings menu toggle circle Bg colour": "rgba(255, 255, 255, 255)",
-                    "Settings menu active toggle Bg": "rgba(124, 121, 255, 255)",
-                    "Settings menu code Bg colour": "rgba(0, 0, 0, 255)",
-                    "Settings menu invert icons colour intensity": "100%"
-                }
-            }
-        }
+        this.config = null;
+        this.defaultSettings = defaultSettings;
     }
     updateSettings(mode){
         if(mode === "start"){
@@ -168,6 +17,12 @@ class settingsManager {
             }
             for(let key in this.config){
                 for(let option in this.config[key]){
+                    if(typeof(newSettings[key][option]) === "object"){
+                        for(let prop in newSettings[key][option]){
+                            newSettings[key][option][prop] = this.config[key][option][prop]
+                        }
+                        continue;
+                    }
                     newSettings[key][option] = this.config[key][option]
                 }
             }
@@ -210,6 +65,7 @@ class settingsManager {
             return value
         } catch(err) {
             console.error(err, " :", category, keys)
+            console.log(category)
             let value = this.defaultSettings[category]
             keys.forEach((item => {
                 value = value[item]
@@ -241,17 +97,14 @@ class settingsManager {
     }
     exportSettings(obj){
         navigator.clipboard.writeText(localStorage.getItem(obj))
-        // showNotification(`Your ${obj} have been exported!`, "Now you can paste the string to import your settings in other place")
     }
     importSettings(obj, str){
         localStorage.setItem(obj, str)
         localStorage.setItem("updated_settings", "false")
-        // showNotification(`Your ${obj} have been imported!`, "The app will reload in 3 secconds to apply the changes")
         setTimeout(() => location.reload(), 3100)
     }
     resetValue(obj){
         localStorage.removeItem(obj)
-        // showNotification(`Your ${obj} have been reset`, "The app will reload in 3 secconds")
         setTimeout(() => location.reload(), 3100)
     }
 }

@@ -8,6 +8,7 @@ class SHORTCUTS_MANAGER {
     constructor() {
         this.$root = document.getElementById("root")
         this.$dynamicStyle = document.getElementById("dynamic-style")
+        this.apliedShortcuts = false
         this.shortcuts = null
         this.shortcutsContainer = document.querySelector(".shortcutsContainer")
         this.shortcutsLimit = sManager.getValue("general", ["shortcuts_limit"])
@@ -32,7 +33,7 @@ class SHORTCUTS_MANAGER {
         }        
     }
     async loadShortcuts() {
-        if(this.shortcuts === null) return
+        if(this.shortcuts === null || this.apliedShortcuts) return
         try {
             const $fragment = document.createDocumentFragment()
             this.shortcuts.forEach((el, i) => {
@@ -49,6 +50,7 @@ class SHORTCUTS_MANAGER {
             this.shortcutsContainer.append($fragment)
             this.shortcutsLenght = this.shortcutsContainer.children.length -1
             localStorage.setItem("shortcutsNumber", this.shortcutsLenght)
+            this.apliedShortcuts = true
             if(this.shortcuts.length == sManager.config.general["shortcuts_limit"]) return document.getElementById("add-shortcut").style.display = "none"
         } catch (error) {
             if(error.message === "shortcutsLimitReached"){

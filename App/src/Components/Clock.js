@@ -20,11 +20,13 @@ export function Clock(){
         previousHour = hour.getMinutes()
     }
 
-    setInterval(clock, 1000)
-    setInterval( ()=> {
-        let date = new Date()
-        if(previousDate === staticDate.getDate()) return
-        $date.textContent = dateFormats[sManager.getValue("appearance", ["dateFormat"])]
-        previousDate = date.getDate()
-    }, 1000)
+    if(sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "displayOn"]) !== false) {
+        setInterval(clock, 1000)
+        setInterval( ()=> {
+            let date = new Date()
+            if(previousDate === staticDate.getDate()) return
+            $date.textContent = dateFormats[sManager.getValue("appearance", ["dateFormat"])]
+            previousDate = date.getDate()
+        }, 1000)
+    }
 }

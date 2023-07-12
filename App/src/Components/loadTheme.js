@@ -52,8 +52,21 @@ class THEME_MANAGER {
                 if(prop === "topPercentaje"){
                     let rest = (100 - properties[prop])
                     document.querySelector(properties.id).style.gridTemplateRows = `${properties[prop]}vh ${rest}vh`
+                    continue;
                 }
                 try{
+                    if(properties[prop] instanceof Object){
+                        for(let key in properties[prop]){
+                            if(key === "id" || key === "displayOn") continue;
+                            if(key === "size") {
+                                document.querySelector(properties[prop].id).style.width = `${properties[prop][key]}px`
+                                document.querySelector(properties[prop].id).style.height = `${properties[prop][key]}px`
+                                continue;
+                            }
+                            document.querySelector(properties[prop].id).style[key] = properties[prop][key]
+                        }
+                        continue;
+                    }
                     document.querySelector(properties.id).style[prop] = properties[prop]
                 }catch{
                     properties = sManager.defaultSettings.appearance.mainPageItems[keys]
@@ -88,6 +101,11 @@ class THEME_MANAGER {
                     --top-content-weather-PopUp-BG: rgba(255, 255, 255, ${sManager.getValue("appearance", ["weatherPopUpOpacity"])}%);
                     --important-text-colour: rgba(191, 0, 0, 1);
                     
+                    --window-titleBar-bg: rgba(255, 255, 255, 64%);
+                    --window-titleBar-title: rgba(0, 0, 0, 255);
+                    --window-content-bg: rgba(255, 255, 255, 255);
+                    --window-content-title: rgba(0, 0, 0, 255);
+                    
                     --colourPicker-topBg: #FFFFFF;
                     --colourPicker-topColor: #000;
                     --colourPicker-topButtonsBG: #F3F3F3;
@@ -103,6 +121,7 @@ class THEME_MANAGER {
                     --colourPicker_mainContent-defaultColorSwatches: #D9D9D9;
 
                     --inputs-colour_border_colour: rgba(168, 168, 168, 1);
+                    --input-bgColour: rgba(255, 255, 255, 255);
                                                             
                     --light-button-theme: rgb(255, 255, 255); 
                     --light-button-border: rgba(0, 0, 0, 0.15);
@@ -161,6 +180,11 @@ class THEME_MANAGER {
                     --global-border-radius: 5px;
                     --important-text-colour: rgba(236, 110, 110, 1);
                     
+                    --window-titleBar-bg: rgba(0, 0, 0, 64%);
+                    --window-titleBar-title: rgba(255, 255, 255, 255);
+                    --window-content-bg: rgba(0, 0, 0, 255);
+                    --window-content-title: rgba(255, 255, 255, 255);
+                    
                     --colourPicker-topBg: rgba(0, 0, 0, 1);
                     --colourPicker-topColor: #fff;
                     --colourPicker-topButtonsBG: #252525;
@@ -180,6 +204,7 @@ class THEME_MANAGER {
                     --top-content-weather-PopUp-BG: rgba(0, 0, 0, ${sManager.getValue("appearance", ["weatherPopUpOpacity"])}%);
     
                     --inputs-colour_border_colour: rgba(47, 47, 47, 1);
+                    --input-bgColour: rgba(45, 45, 45, 255);
                     
                     --main-content-font: #fff;
                     --main-content-light-bg: rgba(0, 0, 0, ${sManager.getValue("appearance", ["mainContentBgOpacity"])}%);
@@ -231,6 +256,11 @@ class THEME_MANAGER {
                     --important-text-colour: ${sManager.getValue("customThemes", ["customTheme1", "Important text colour"])};
                     --global-border-radius: ${sManager.getValue("customThemes", ["customTheme1", "Global border radius"])}px;
                     
+                    --window-titleBar-bg: rgba(0, 0, 0, 64%);
+                    --window-titleBar-title: rgba(255, 255, 255, 255);
+                    --window-content-bg: rgba(0, 0, 0, 255);
+                    --window-content-title: rgba(255, 255, 255, 255);
+                    
                     --colourPicker-topBg: rgba(0, 0, 0, 1);
                     --colourPicker-topColor: #fff;
                     --colourPicker-topButtonsBG: #252525;
@@ -250,6 +280,7 @@ class THEME_MANAGER {
                     --top-content-weather-PopUp-BG: ${sManager.getValue("customThemes", ["customTheme1", "Weather popUp Bg colour"])};
 
                     --inputs-colour_border_colour: ${sManager.getValue("customThemes", ["customTheme1", "Input type color border colour"])};
+                    --input-bgColour: rgba(45, 45, 45, 255);
                             
                     --main-content-font: ${sManager.getValue("customThemes", ["customTheme1", "Main content font colour"])};
                     --main-content-light-bg: ${sManager.getValue("customThemes", ["customTheme1", "Main content Bg colour"])};
@@ -300,6 +331,11 @@ class THEME_MANAGER {
                     --global-border-radius: ${sManager.getValue("customThemes", ["customTheme2", "Global border radius"])}px;
                     --important-text-colour: ${sManager.getValue("customThemes", ["customTheme2", "Important text colour"])};                    
                     
+                    --window-titleBar-bg: rgba(0, 0, 0, 64%);
+                    --window-titleBar-title: rgba(255, 255, 255, 255);
+                    --window-content-bg: rgba(0, 0, 0, 255);
+                    --window-content-title: rgba(255, 255, 255, 255);
+                    
                     --colourPicker-topBg: rgba(0, 0, 0, 1);
                     --colourPicker-topColor: #fff;
                     --colourPicker-topButtonsBG: #252525;
@@ -319,6 +355,7 @@ class THEME_MANAGER {
                     --top-content-weather-PopUp-BG: ${sManager.getValue("customThemes", ["customTheme2", "Weather popUp Bg colour"])};
 
                     --inputs-colour_border_colour: ${sManager.getValue("customThemes", ["customTheme2", "Input type color border colour"])};
+                    --input-bgColour: rgba(45, 45, 45, 255);
                             
                     --main-content-font: ${sManager.getValue("customThemes", ["customTheme2", "Main content font colour"])};
                     --main-content-light-bg: ${sManager.getValue("customThemes", ["customTheme2", "Main content Bg colour"])};

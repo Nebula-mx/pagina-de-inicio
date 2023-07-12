@@ -7,6 +7,7 @@ import { getWeather } from "./Weather.js";
 import { Search } from "./Search.js";
 import { settingsMenuManager } from "./SettingsMenu.js"
 import { shortcuts_manager } from "./ShortcutsManager.js"
+import { createWindow } from "../Helpers/windowsManager.js";
 const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
@@ -34,12 +35,13 @@ const MainClickableElements = {
     "context-menu_newTab": (ref) => window.open(ref.parentNode.parentNode.parentNode.parentNode.querySelector("[data-url]").getAttribute("data-url")),
 
     "settings-opener": () => {
+        if(createWindow.apliedWindow === true) createWindow.actions.closeMenu()
         location.hash = "#/settings/general"
         settingsMenuManager.showMenu()
         settingsMenuManager.showCategory("general")
     },
     "weather": (target) => popUpsManager.showPopUp("weatherPopUp", target.parentNode),
-    "closePrompt": () => closePromt(),
+    "closePrompt": () => closePromt()
 }
 document.addEventListener("click", async(e) => {
     if(MainClickableElements.hasOwnProperty(e.target.parentNode.id)){

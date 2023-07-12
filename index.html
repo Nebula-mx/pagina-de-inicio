@@ -191,8 +191,7 @@
             font-family: "Montserrat", sans-serif;
             background-color: var(--light-button-theme);
             border: solid 1px var(--light-button-border);
-            box-shadow: 0px 1px rgba(0, 0, 0, .10);
-            font-size: clamp(min(.4em), 3vw, max(.8em));
+            font-size: clamp(0px, 3vw, .8em);
             border-radius: 8px;
             padding: 0.5em .8em;
             width: fit-content;
@@ -214,6 +213,15 @@
             opacity: 40%;
             cursor: not-allowed;
         }
+        input[type="number"] {
+            background-color: var(--input-bgColour);
+            width: clamp(0px, 8vw, 64px);
+            padding: 0.8%;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: var(--global-border-radius);
+            font-size: clamp(0px, 2vw, 16px);
+            color: var(--light-button-fontColor);
+        }
         input[type="color"],
         .colourPicker-clickableSwatches {
             background: none;
@@ -233,7 +241,45 @@
             border-radius: 50%;
             border: 2px solid var(--inputs-colour_border_colour);
         }
-
+        input[type="number"]::-webkit-inner-spin-button {
+            background-color: aqua;
+        }
+        .window {
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            width: clamp(0px, 90vw, 400px);
+            max-height: 250px;
+            z-index: 9;
+        }
+        .window #window-titleBar{
+            display: flex;
+            background-color: var(--window-titleBar-bg);
+            justify-content: space-between;
+            padding: clamp(0px, 3%, 12px);
+            align-items: center;
+            border-radius: var(--global-border-radius) var(--global-border-radius) 0 0;
+            backdrop-filter: blur(var(--blur-strenght));
+            font-weight: 700;
+        }
+        .window #window-titleBar legend{
+            color: var(--window-titleBar-title);
+            font-size: clamp(0px, 2.4vw, 1rem);
+        }
+        .window #window-titleBar div {
+            display: flex;
+            align-items: center;
+        }
+        .window #window-content {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--window-content-bg);
+            padding: clamp(0px, 3%, 12px);
+            max-height: 200px;
+            border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
         select {
             background-color: var(--settings-menu-light-selects);
             width: auto;
@@ -291,6 +337,7 @@
             padding: 12px;
             top: 0;
             margin: 5.4rem 2rem;
+            max-width: 350px;
             backdrop-filter: blur(var(--blur-strenght));
                 -webkit-backdrop-filter: blur(var(--blur-strenght));
             background-color: var(--top-content-weather-PopUp-BG);
@@ -555,6 +602,7 @@
             opacity: 40%;
         }
         summary {
+            font-size: clamp(0px, 2.4vw, 1rem);
             cursor: pointer;
         }
         details {
@@ -615,18 +663,18 @@
         <div id="top-content">
             <div class="top-content_top">
                 <div id="weather" data-containerBG>
-                    <img class="weatherImg" id="openWeatherPopUp" src="./App/Assets/Images/weather 1.svg" alt="weather-img">
-                    <p id="openWeatherPopUp" data-weatherState>Getting weather...</p><p id="weather-location"></p>
+                    <img class="weatherImg" id="openWeatherPopUp" src="" alt="weather-img">
+                    <p id="openWeatherPopUp" data-weatherState></p><p id="weather-location"></p>
                 </div>
                 <div id="settings" data-containerBG>
-                    <p id="settings-opener" ></p>
+                    <p id="settings-opener"></p>
                     <img  id="settings-opener" class="settings-button" src="./App/Assets/Images/General.svg" alt="Settings btn" title="open settings">
                 </div>
             </div>
             <div id="hourContainer">
                 <div id="date" data-containerBG>
-                    <h2 data-hour>00:00</h2>
-                    <p data-date>00/00/00</p>
+                    <h2 data-hour></h2>
+                    <p data-date></p>
                 </div>
             </div>
         </div>
