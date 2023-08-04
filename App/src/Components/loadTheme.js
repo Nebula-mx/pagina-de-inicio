@@ -11,93 +11,57 @@ class THEME_MANAGER {
             "Edg": "App/Assets/Images/Edge.png",
             "Chrome": "App/Assets/Images/Chrome.png"
         }
-        this.objectsThemes = {
-            "top_itemsBg": {
-                "true": () => {
-                    document.querySelectorAll("[data-containerBG]").forEach(el => {
-                        el.style.backgroundColor = "var(--top-items-BG)"
-                    })
-                },
-                "false": () => {
-                    document.querySelectorAll("[data-containerBG]").forEach(el => {
-                        el.style.backgroundColor = "transparent"
-                    })
-                }
-            },
-            "invert_top_items_colour": {
-                "true": () => {
-                    document.querySelectorAll("[data-containerbg] p, h2, #settings img").forEach(el => {
-                        el.style.filter = "invert(100%)"
-                    })
-                },
-                "false": () => {
-                    document.querySelectorAll("[data-containerbg] p, h2, #settings img").forEach(el => {
-                        el.style.filter = "invert(0)"
-                    })
-                }
-            }
-        }
     }
-    aplyTheme(){
-        this.$cssvariables.innerHTML = this.themes[sManager.getValue("appearance", ["theme"])]
-        this.$root.style.backgroundImage = `url(${sManager.getValue("appearance", ["background"])})`
-        
-        for (let obj in this.objectsThemes) {
-            this.objectsThemes[obj][sManager.getValue("appearance", [obj])]()
-        }
-        for(let keys in sManager.config.appearance.mainPageItems){
-            for(let prop in sManager.config.appearance.mainPageItems[keys]){
-                let properties = sManager.config.appearance.mainPageItems[keys]
-                if(prop === "id" || prop === "displayOn") {continue;}
-                if(prop === "topPercentaje"){
-                    let rest = (100 - properties[prop])
-                    document.querySelector(properties.id).style.gridTemplateRows = `${properties[prop]}vh ${rest}vh`
+    aplyMainPageItemsValues(){
+        let mpiObj = sManager.getValue("appearance", ["mainPageItems"]);
+        for(let obj in mpiObj){
+            const currentObj = mpiObj[obj];
+            for(let prop in currentObj){
+                if(prop === "id" || prop === "activeModule" || prop === "displayOn" || prop === "topPercentage" || prop === "containerOpacity" || prop === "blurActive") continue;
+                if(typeof(currentObj[prop]) === "object"){
+                    const subProp = currentObj[prop]
+                    for(let key in subProp){
+                        if(key === "id" || key === "activeModule" || key === "displayOn" || key === "topPercentage" || key === "containerOpacity" || key === "blurActive") continue;
+                        if(document.querySelectorAll(subProp.id) instanceof NodeList && document.querySelectorAll(subProp.id).length >= 3){
+                            document.querySelectorAll(subProp.id).forEach(el => el.style[key] = subProp[key])
+                            continue;
+                        }               
+                        document.querySelector(subProp.id).style[key] = subProp[key]
+                    }
                     continue;
                 }
-                try{
-                    if(properties[prop] instanceof Object){
-                        for(let key in properties[prop]){
-                            if(key === "id" || key === "displayOn") continue;
-                            if(key === "size") {
-                                document.querySelector(properties[prop].id).style.width = `${properties[prop][key]}px`
-                                document.querySelector(properties[prop].id).style.height = `${properties[prop][key]}px`
-                                continue;
-                            }
-                            document.querySelector(properties[prop].id).style[key] = properties[prop][key]
-                        }
-                        continue;
-                    }
-                    document.querySelector(properties.id).style[prop] = properties[prop]
-                }catch{
-                    properties = sManager.defaultSettings.appearance.mainPageItems[keys]
-                    document.querySelector(properties.id).style[prop] = properties[prop]
-                }
+                document.querySelector(currentObj.id).style[prop] = currentObj[prop]
             }
         }
-        if(!localStorage.getItem("browser")){
-            for(let fvn in this.favicons){
-                if(navigator.userAgent.includes(fvn)){
-                this.$favicon.href = this.favicons[fvn]
-                localStorage.setItem("browser", fvn)
-                break;
-               }
-            }
-        }else{
-            if(this.favicons.hasOwnProperty(localStorage.getItem("browser"))){
-                this.$favicon.href = this.favicons[localStorage.getItem("browser")]
+        mpiObj = null;
+    }
+    aplyTheme(){
+        this.$cssvariables.innerHTML = this.themes[sManager.getValue("appearance", ["theme"])];
+        this.$root.style.backgroundImage = `url(${sManager.getValue("appearance", ["background"])})`;
+        this.aplyMainPageItemsValues()
+        this.themes = null;
+        if(localStorage.getItem("browser")) {
+            this.$favicon.href = this.favicons[localStorage.getItem("browser")]
+        } else {
+            for(let nav in this.favicons){
+                if(navigator.userAgent.includes(nav)){
+                    this.$favicon.href = this.favicons[nav]
+                    localStorage.setItem("browser", nav)
+                }
             }
         }
     }
     startModule(){
-        //this method exist because this make a call to the sManager, and this class is started before sManager so this can make an error when starting the app
+        //This method exist just because the dynamic values need to be updated with every change the user makes
         this.themes = {
             light: `
                 :root{
                     --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
                     --blur-strenght: ${sManager.getValue("appearance", ["blur"])}px;
                     --global-border-radius: 5px;
-                    --top-items-BG: rgba(0, 0, 0, 0.2);
+                    --top-items-BG: ${sManager.getValue("appearance", ["top_itemsBg", "value"])};
                     --top-content-weather-PopUp-BG: rgba(255, 255, 255, ${sManager.getValue("appearance", ["weatherPopUpOpacity"])}%);
                     --important-text-colour: rgba(191, 0, 0, 1);
                     
@@ -130,9 +94,10 @@ class THEME_MANAGER {
                     --light-button-active: rgb(235, 235, 235);
         
                     --top-content-light-fontColor: #000;
+                    --top-content-invert: ${sManager.getValue("appearance", ["invert_top_items_colour", "value"])};
                     --main-content-font: #000;
-                    --main-content-light-bg: rgba(255, 255, 255, ${sManager.getValue("appearance", ["mainContentBgOpacity"])}%);
-        
+                    --main-content-light-bg: rgba(255, 255, 255, ${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "containerOpacity"])});
+                    
                     --main-content-light-searchBox: #ffffffb3; 
                     --main-content-light-searchBtn: #FFFFFF;
                     --main-content-light-icon-bg: rgba(255, 255, 255, 0.50);
@@ -176,6 +141,7 @@ class THEME_MANAGER {
                 :root {
                     --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
                     --blur-strenght: ${sManager.getValue("appearance", ["blur"])}px;
                     --global-border-radius: 5px;
                     --important-text-colour: rgba(236, 110, 110, 1);
@@ -200,14 +166,15 @@ class THEME_MANAGER {
                     --colourPicker_mainContent-defaultColorSwatches: #060606;
     
                     --top-content-light-fontColor: #000;
-                    --top-items-BG: rgba(0, 0, 0, 0.2);
+                    --top-items-BG: ${sManager.getValue("appearance", ["top_itemsBg", "value"])};
                     --top-content-weather-PopUp-BG: rgba(0, 0, 0, ${sManager.getValue("appearance", ["weatherPopUpOpacity"])}%);
+                    --top-content-invert: ${sManager.getValue("appearance", ["invert_top_items_colour", "value"])};
     
                     --inputs-colour_border_colour: rgba(47, 47, 47, 1);
                     --input-bgColour: rgba(45, 45, 45, 255);
                     
                     --main-content-font: #fff;
-                    --main-content-light-bg: rgba(0, 0, 0, ${sManager.getValue("appearance", ["mainContentBgOpacity"])}%);
+                    --main-content-light-bg: rgba(0, 0, 0, ${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "containerOpacity"])});
                     --main-content-light-searchBox: rgba(21, 21, 21, 0.8);
                     --main-content-light-searchBtn: rgb(0, 0, 0);
                     --main-content-light-icon-bg: rgba(0, 0, 0, 0.6);
@@ -252,6 +219,7 @@ class THEME_MANAGER {
                 :root {
                     --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
                     --blur-strenght: ${sManager.getValue("customThemes", ["customTheme1", "Blur strenght"])}px;
                     --important-text-colour: ${sManager.getValue("customThemes", ["customTheme1", "Important text colour"])};
                     --global-border-radius: ${sManager.getValue("customThemes", ["customTheme1", "Global border radius"])}px;
@@ -278,6 +246,7 @@ class THEME_MANAGER {
                     --top-content-light-fontColor: ${sManager.getValue("customThemes", ["customTheme1", "Top content font colour"])};
                     --top-items-BG: ${sManager.getValue("customThemes", ["customTheme1", "Highlight top content items bg"])};
                     --top-content-weather-PopUp-BG: ${sManager.getValue("customThemes", ["customTheme1", "Weather popUp Bg colour"])};
+                    --top-content-invert: ${sManager.getValue("appearance", ["invert_top_items_colour", "value"])};
 
                     --inputs-colour_border_colour: ${sManager.getValue("customThemes", ["customTheme1", "Input type color border colour"])};
                     --input-bgColour: rgba(45, 45, 45, 255);
@@ -327,6 +296,7 @@ class THEME_MANAGER {
                 :root {
                     --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
                     --blur-strenght: ${sManager.getValue("customThemes", ["customTheme2", "Blur strenght"])}px;
                     --global-border-radius: ${sManager.getValue("customThemes", ["customTheme2", "Global border radius"])}px;
                     --important-text-colour: ${sManager.getValue("customThemes", ["customTheme2", "Important text colour"])};                    
@@ -353,6 +323,7 @@ class THEME_MANAGER {
                     --top-content-light-fontColor: ${sManager.getValue("customThemes", ["customTheme2", "Top content font colour"])};
                     --top-items-BG: ${sManager.getValue("customThemes", ["customTheme2", "Highlight top content items bg"])};
                     --top-content-weather-PopUp-BG: ${sManager.getValue("customThemes", ["customTheme2", "Weather popUp Bg colour"])};
+                    --top-content-invert: ${sManager.getValue("appearance", ["invert_top_items_colour", "value"])};
 
                     --inputs-colour_border_colour: ${sManager.getValue("customThemes", ["customTheme2", "Input type color border colour"])};
                     --input-bgColour: rgba(45, 45, 45, 255);

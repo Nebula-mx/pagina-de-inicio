@@ -9,7 +9,7 @@ const $temp = document.querySelector("[data-weatherState]"),
 
 export let weatherData;
 export async function getWeather(mode) {
-    if(sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "displayOn"]) === false) return
+    //if(sManager.getValue("appearance", ["mainPageItems", "weather", "activeModule"]) === false) return
     if(mode === "auto") {
         showNotification("This may take a few minutes...", "We use High accuracy mode to get your position.")
         navigator.geolocation.getCurrentPosition((async (pos) => {

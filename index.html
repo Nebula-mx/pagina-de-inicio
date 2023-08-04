@@ -14,7 +14,61 @@
             font-style: normal;
             font-weight: normal;
         }
-
+        @font-face {
+            font-family: "DancingScript";
+            src: url(./App/Assets/fonts/DancingScript-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "IBMPlexMono";
+            src: url(./App/Assets/fonts/IBMPlexMono-Regular.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "LibreBaskerville";
+            src: url(./App/Assets/fonts/LibreBaskerville-Regular.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "NixieOne";
+            src: url(./App/Assets/fonts/NixieOne-Regular.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "OpenSans";
+            src: url(./App/Assets/fonts/OpenSans-VariableFont_wdth,wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "Playfair";
+            src: url(./App/Assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "Poppins";
+            src: url(./App/Assets/fonts/Poppins-Light.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "Raleway";
+            src: url(./App/Assets/fonts/Raleway-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "RobotoMono";
+            src: url(./App/Assets/fonts/RobotoMono-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        
         /* width */
         ::-webkit-scrollbar {
         width: 7px;
@@ -58,7 +112,7 @@
         }
         main {
             display: grid;
-            grid-template-rows: 45vh 55vh;
+            grid-template-rows: var(--body-gridValues);
         }
         .notification {
             display: flex;
@@ -288,7 +342,7 @@
             padding: 4px;
             border-radius: var(--global-border-radius);
             border: 1px solid var(--settings-menu-light-selects);
-            color: var(--main-content-light-font);
+            color: var(--main-content-font);
             font-family: "Montserrat", sans-serif;
             font-weight: 600;
             font-size: clamp(3px, 3vw, 13px);
@@ -319,7 +373,7 @@
             height: 33px;
         }
         .top-content_top #weather {
-            background-color: transparent;
+            background-color: var(--top-items-BG);
             grid-column: 1/2;
             padding: 10px;
             border-radius: var(--global-border-radius);
@@ -327,6 +381,7 @@
         }
         .top-content_top #weather > p {
             margin-left: 10px;
+            filter: var(--top-content-invert);
         }
         .top-content_top #weather:hover {
             text-decoration: underline;
@@ -435,10 +490,11 @@
             margin: 0;
         }
         #top-content #settings {
-            background-color: transparent;
+            background-color: var(--top-items-BG);
             grid-column: 3/4;
             padding: 10px;
             border-radius: var(--global-border-radius);
+            filter: var(--top-content-invert);
             cursor: pointer;
         }
         #top-content #settings p {
@@ -455,10 +511,13 @@
             align-items: center;
         }
         #top-content #hourContainer #date {
-            background-color: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--top-items-BG);
             position: relative;
-            padding: 2%;
             border-radius: var(--global-border-radius);
+            filter: var(--top-content-invert);
         }
         #top-content #hourContainer #date h2 {
             display: initial;

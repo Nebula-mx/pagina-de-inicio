@@ -93,7 +93,10 @@ class settingsManager {
             obj = value
             localStorage.setItem("settings", JSON.stringify(this.config))
             this.loadConfig()
-        }catch(err){return console.log(err)}
+        }catch(err){
+            console.log(category)
+            return console.log(err)
+        }
     }
     exportSettings(obj){
         navigator.clipboard.writeText(localStorage.getItem(obj))

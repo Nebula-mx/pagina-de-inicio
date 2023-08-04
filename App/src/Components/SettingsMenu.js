@@ -235,9 +235,10 @@ class SETTINGS_MENU_MANAGER {
             },
             "set": async (target) => {
                 let keys = JSON.parse(target.dataset.keys)
-                if(target.dataset.keys.includes("autoSet-weather_city")) getWeather("auto")
+                let value = null;
+                if(target.dataset.keys.includes("autoSet-weather_city")) return getWeather("auto")
                 if(target.dataset.promt === "true") value = await showPromt({title: target.dataset.promttitle, desc:target.dataset.promtdesc, placeholder: sManager.getValue(target.dataset.category, keys) || [target.dataset.placeholder]})
-                sManager.saveSettings(target.dataset.category, keys, parseInt(target.value) || target.dataset.value || target.value)
+                sManager.saveSettings(target.dataset.category, keys, (target.dataset.unit) ? `${target.value}${target.dataset.unit}` : parseInt(target.value) || value || target.dataset.value || target.value)
                 refreshModules()
                 this.updateMenusContent()
             },
@@ -331,6 +332,7 @@ class SETTINGS_MENU_MANAGER {
                             display: flex;
                             grid-column: 1/3;
                             justify-content: space-between;
+                            margin-bottom: clamp(0px, 2%, 1rem);
                         }
                         .window #window-content .onWindowOption p{
                             grid-row: 2/3;
@@ -431,48 +433,68 @@ class SETTINGS_MENU_MANAGER {
                             grid-column: 2/3;
                             grid-row: 1/3;
                             place-self: center;
-                            width: 80%;
+                            width: 40%;
                         }
                     `
                     const optionsHTML = {
                         "weatherContainerOptions": `
                             <legend class="window-categoryTitle">Edit weather container</legend>
                             <div class="onWindowOption">
-                                <legend>Disable module</legend>
+                                <legend>Active module</legend>
                                 <p>This will turn off Weather module and the element will be removed</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "displayOn"])}" data-specificonroute='["mainPageItems", "weatherContainer", "displayOn"]'data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "display"]' data-activevalue="flex" data-offValue="none">
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "activeModule"])}" data-category="appearance" data-keys='["mainPageItems", "weather", "activeModule"]' data-activevalue="true" data-offValue="false">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
+                                </div>
+                                <hr>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font size</legend>
+                                    <input type="range" min="0" max="32" value="value="${sManager.getValue("appearance", ["mainPageItems", "weather", "fontSize"])}"" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "weather", "fontSize"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font family</legend>
+                                    <select class="option-select">
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="Montserrat">Montserrat</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="DancingScript">Dancing script</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="IBMPlexMono">IBM Plex Mono</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="LibreBaskerville">Libre Baskerville</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="Nixie One">Nixie One</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="OpenSans">OpenSans</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="Playfair">Playfair</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="Poppins">Poppins</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="Raleway">Raleway</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="RobotoMono">Roboto Mono</option>
+                                    </select>
                                 </div>
                             </div>
                             <hr>
                             <div class="onWindowOption">
                                 <legend>Display status icon</legend>
                                 <p>Show or hide the weather status icon</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "weatherIcon", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "weatherIcon", "display"]' data-activevalue="block" data-offValue="none">
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "icon", "displayOn"])}" data-specificonroute='["mainPageItems", "weather", "icon", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "weather", "icon", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
                                     <legend class="optionProperty-title">Order</legend>
-                                    <input type="number" min="0" max="1" value="0" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "weatherIcon", "order"]'></input>
+                                    <input type="number" min="0" max="2" value="${sManager.getValue("appearance", ["mainPageItems", "weather", "icon", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "icon", "order"]'></input>
                                 </div>
                             </div>
                             <div class="onWindowOption">
                                 <legend>Display temperature</legend>
                                 <p>Show or hide the temperature information</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "temp", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "temp", "display"]' data-activevalue="flex" data-offValue="none">
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "temp", "displayOn"])}" data-specificonroute='["mainPageItems", "weather", "temp", "displayOn"]' data-category="appearance" data-specificonroute='["mainPageItems", "weather", "temp", "displayOn"]' data-keys='["mainPageItems", "weather", "temp", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
                                     <legend class="optionProperty-title">Order</legend>
-                                    <input type="number" min="0" max="1" value="0" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "weatherIcon", "order"]'></input>
+                                    <input type="number" min="0" max="1" value="value="${sManager.getValue("appearance", ["mainPageItems", "weather", "temp", "order"])}"" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "temp", "order"]'></input>
                                 </div>
                             </div>
                             <div class="onWindowOption">
                                 <legend>Display location</legend>
                                 <p>Show or hide the weather location</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "location", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "location", "display"]' data-activevalue="flex" data-offValue="none">
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "location", "displayOn"])}" data-specificonroute='["mainPageItems", "weather", "location", "displayOn"]' data-category="appearance" data-specificonroute='["mainPageItems", "weather", "location", "displayOn"]' data-keys='["mainPageItems", "weather", "location", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                             </div>
@@ -482,48 +504,254 @@ class SETTINGS_MENU_MANAGER {
                             <div class="onWindowOption">
                                 <legend>Display "settings"</legend>
                                 <p>Show or hide the "Settings" text</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "display"]' data-activevalue="block" data-offValue="none" data-roea='["mainPageItems", "settingsOpener", "settingsIcon", "display"]' data-roearv="block" data-roeavalue="false">
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "displayOn"])}" data-specificonroute='["mainPageItems", "settingsOpener", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "display"]' data-activevalue="block" data-offValue="none" data-roea='["mainPageItems", "settingsOpener", "icon", "display"]' data-roearv="block" data-roeavalue="false">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
                                     <legend class="optionProperty-title">Order</legend>
-                                    <input type="number" min="0" max="1" value="0" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "order"]'></input>
+                                    <input type="number" min="0" max="1" value="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "order"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font size</legend>
+                                    <input type="range" min="0" max="32" value="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "settingsOpener", "fontSize"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font family</legend>
+                                    <select class="option-select">
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="Montserrat">Montserrat</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="DancingScript">Dancing script</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="IBMPlexMono">IBM Plex Mono</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="LibreBaskerville">Libre Baskerville</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="Nixie One">Nixie One</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="OpenSans">OpenSans</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="Playfair">Playfair</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="Poppins">Poppins</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="Raleway">Raleway</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="RobotoMono">Roboto Mono</option>
+                                    </select>
                                 </div>
                             </div>
                             <hr>
                             <div class="onWindowOption">
                                 <legend>Display icon</legend>
                                 <p>Show or hide the settings icon. you can only select one item to hide, if you hide this item, the "Settings" text will be displayed and vice versa</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "temp", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "settingsIcon", "display"]' data-activevalue="block" data-offValue="none" data-roea='["mainPageItems", "settingsOpener", "display"]' data-roearv="block" data-roeavalue="false">
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "icon", "displayOn"])}" data-specificonroute='["mainPageItems", "settingsOpener", "icon", "displayOn"]' data-category="appearance" data-specificonvalue='["mainPageItems", "settingsOpener", "icon", "displayOn"]' data-keys='["mainPageItems", "settingsOpener", "icon", "display"]' data-activevalue="block" data-offValue="none" data-roea='["mainPageItems", "settingsOpener", "display"]' data-roearv="block" data-roeavalue="false">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
                                     <legend class="optionProperty-title">Size</legend>
-                                    <input type="range" min="0" max="128" value="32" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "settingsIcon", "size"]'></input>
+                                    <input type="range" min="0" max="128" value="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "icon", "width"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "settingsOpener", "icon", "width"]'></input>
                                 </div>
                             </div>
                         `,
-                        "dateOptions": `
-                            <legend class="window-categoryTitle">Edit Date and Hour elements</legend>
+                        "dateAndHour": `
+                            <legend class="window-categoryTitle">Edit date and hour</legend>
                             <div class="onWindowOption">
-                                <legend>Disable module</legend>
-                                <p>By turning of this module, the date and hour will not work until you turn on again this module.</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "hour", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "display"]' data-activevalue="block" data-offValue="none">
+                                <legend>Active module</legend>
+                                <p>By turning off this module the Date and hour element will be removed</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "activeModule"])}" data-specificonroute='["mainPageItems", "dateAndHour", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "display"]' data-activevalue="block" data-offValue="none">
+                                    <div class="option-toggle_circle" data-mode="toggle"></div>
+                                </div>
+                            </div>
+                            <div class="onWindowOption">
+                                <legend>Content orientation</legend>
+                                <p>Chose between a vertical or horizontal orientation</p>
+                                <select class="option-select">
+                                    <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "flexDirection"]' data-value="column">Vertical</option>
+                                    <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "flexDirection"]' data-value="row">Horizontal</option>
+                                </select>
+                                <hr>
+                                <div class="optionProperty">
+                                    <legend>Items margin</legend>
+                                    <input type="range" min="0" max="32" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "date", "margin"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "dateAndHour", "date", "margin"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend>Align items</legend>
+                                    <select class="option-select">
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "alignItems"]' data-value="flex-start">Start</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "alignItems"]' data-value="center">Center</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "alignItems"]' data-value="baseline">Baseline</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="onWindowOption">
+                                <legend>Display hour</legend>
+                                <p>By turning this off the hour will be hidden</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "hour", "displayOn"])}" data-specificonroute='["mainPageItems", "dateAndHour", "hour", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Order</legend>
-                                    <input type="number" min="0" max="1" value="0" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", ]'></input>
+                                    <legend class="optionProperty-title">Font size</legend>
+                                    <input type="range" min="0" max="128" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "hour", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "dateAndHour", "hour", "fontSize"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font size</legend>
-                                    <input type="number" min="0" max="1" value="64" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "order"]'></input>
+                                    <legend class="optionProperty-title">Font family</legend>
+                                    <select class="option-select">
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="Montserrat">Montserrat</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="DancingScript">Dancing script</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="IBMPlexMono">IBM Plex Mono</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="LibreBaskerville">Libre Baskerville</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="Nixie One">Nixie One</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="OpenSans">OpenSans</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="Playfair">Playfair</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="Poppins">Poppins</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="Raleway">Raleway</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="RobotoMono">Roboto Mono</option>
+                                    </select>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Order</legend>
+                                    <input type="number" min="0" max="1" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "hour", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "order"]'></input>
                                 </div>
                             </div>
-                            <hr>
+                            <div class="onWindowOption">
+                                <legend>Display date</legend>
+                                <p>By turning this off the date will be hidden</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "date", "displayOn"])}" data-specificonroute='["mainPageItems", "dateAndHour", "date", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "display"]' data-activevalue="block" data-offValue="none">
+                                    <div class="option-toggle_circle" data-mode="toggle"></div>
+                                </div>
+                                <hr>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font size</legend>
+                                    <input type="range" min="0" max="128" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "date", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "dateAndHour", "date", "fontSize"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font family</legend>
+                                    <select class="option-select">
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="Montserrat">Montserrat</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="DancingScript">Dancing script</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="IBMPlexMono">IBM Plex Mono</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="LibreBaskerville">Libre Baskerville</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="Nixie One">Nixie One</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="OpenSans">OpenSans</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="Playfair">Playfair</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="Poppins">Poppins</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="Raleway">Raleway</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="RobotoMono">Roboto Mono</option>
+                                    </select>
+                                </div>
+                            </div>
+                        `,
+                        mainContentSettings: `
+                            <legend class="window-categoryTitle">Container</legend>
+                            <div class="onWindowOption">
+                                <legend>Display the container</legend>
+                                <p>Show or hide the main content</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "displayOn"])}" data-specificonroute='["mainPageItems", "mainContent", "searchBar", "activeModule"]' data-category="appearance" data-keys='["mainPageItems", "mainContent","container", "display"]' data-activevalue="flex" data-offValue="none">
+                                    <div class="option-toggle_circle" data-mode="toggle"></div>
+                                </div>
+                                <hr>
+                                <div class="optionProperty">
+                                    <legend>Opacity</legend>
+                                    <input type="range" min="0" max="100" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "containerOpacity"])}" data-mode="set" data-category="appearance" data-unit="%" data-keys='["mainPageItems", "mainContent", "container", "containerOpacity"]'></input>                                    
+                                </div>
+                                <div class="optionProperty">
+                                    <legend>Pagging top</legend>
+                                    <input type="range" min="0" max="48px" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "paddingTop"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "container", "paddingTop"]'></input>                                    
+                                </div>
+                                <div class="optionProperty">
+                                    <legend>Backdrop blur</legend>
+                                    <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "blurActive"])}" data-category="appearance" data-specificonroute='["mainPageItems", "mainContent", "container", "blurActive"]' data-keys='["mainPageItems", "mainContent","container", "backdropFilter"]' data-activevalue="blur(var(--blur-strenght))" data-offValue="none">
+                                        <div class="option-toggle_circle" data-mode="toggle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <legend class="window-categoryTitle">Search bar</legend>
+                            <div class="onWindowOption">
+                                <legend>Display search bar</legend>
+                                <p>By turning this off the search bar will be hidden.</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchBar", "activeModule"])}" data-specificonroute='["mainPageItems", "mainContent", "searchBar", "activeModule"]' data-category="appearance" data-keys='["mainPageItems", "mainContent","searchBar", "display"]' data-activevalue="flex" data-offValue="none">
+                                    <div class="option-toggle_circle" data-mode="toggle"></div>
+                                </div>
+                                <hr>
+                                <div class="optionProperty">
+                                    <legend>By modifying width and height values you are replacing responsive values by static values</legend>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Bar width</legend>
+                                    <input type="range" min="0" max="100" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchBar", "width"])}" data-mode="set" data-category="appearance" data-unit="%" data-keys='["mainPageItems", "mainContent", "searchBar", "width"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Bar height</legend>
+                                    <input type="range" min="27" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchForm", "height"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "searchForm", "height"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Bar padding</legend>
+                                    <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchForm", "padding"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "searchForm", "padding"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Icon size</legend>
+                                    <input type="range" min="0" max="48" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchButton", "width"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "searchButton", "width"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font family</legend>
+                                    <select class="option-select">
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="Montserrat">Montserrat</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="DancingScript">Dancing script</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="IBMPlexMono">IBM Plex Mono</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="LibreBaskerville">Libre Baskerville</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="Nixie One">Nixie One</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="OpenSans">OpenSans</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="Playfair">Playfair</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="Poppins">Poppins</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="Raleway">Raleway</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="RobotoMono">Roboto Mono</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="onWindowOption">
+                                <legend>Show shortcuts icons</legend>
+                                <p>Show or hide the shortcuts icons</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "displayOn"])}" data-specificonroute='["mainPageItems", "mainContent", "shortcutsImages", "displayOn"]' data-category="appearance"  data-keys='["mainPageItems", "mainContent", "shortcutsImages", "display"]' data-activevalue="block" data-offValue="none">
+                                    <div class="option-toggle_circle" data-mode="toggle"></div>
+                                </div>
+                                <hr>
+                                <div class="optionProperty">
+                                    <legend>Width</legend>
+                                    <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "width"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsImages", "width"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend>Width</legend>
+                                    <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "height"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsImages", "height"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Order</legend>
+                                    <input type="number" min="0" max="1" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsImages", "order"]'></input>
+                                </div>
+                            </div>
+                            <div class="onWindowOption">
+                                <legend>Show shortcuts titles</legend>
+                                <p>Show or hide the shortcuts titles</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsLegends", "displayOn"])}" data-category="appearance" data-specificonroute='["mainPageItems", "mainContent", "shortcutsLegends", "displayOn"]'  data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "display"]' data-activevalue="block" data-offValue="none">
+                                    <div class="option-toggle_circle" data-mode="toggle"></div>
+                                </div>
+                                <hr>
+                                <div class="optionProperty">
+                                    <legend>Margin</legend>
+                                    <input type="range" min="0" max="12" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsLegends", "margin"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "margin"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend>Font size</legend>
+                                    <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsLegends", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontSize"]'></input>
+                                </div>
+                                <div class="optionProperty">
+                                    <legend class="optionProperty-title">Font family</legend>
+                                    <select class="option-select">
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="Montserrat">Montserrat</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="DancingScript">Dancing script</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="LibreBaskerville">Libre Baskerville</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="Nixie One">Nixie One</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="OpenSans">OpenSans</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="Playfair">Playfair</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="Poppins">Poppins</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="Raleway">Raleway</option>
+                                        <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="RobotoMono">Roboto Mono</option>
+                                    </select>
+                                </div>
+                            </div>
                         `
                     }
                     this.menuInteractions["close-menu"]()

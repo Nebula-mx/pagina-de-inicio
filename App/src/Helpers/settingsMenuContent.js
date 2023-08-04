@@ -433,7 +433,7 @@ export function getSettingsMenuContent() {
                 <legend>${language.settings.appearance.theme.legend}</legend>
                 <p>${language.settings.appearance.theme.p}</p>
                 <select class="option-select">
-                    <option>--</option>
+                    <option>Current: ${sManager.getValue("appearance", ["theme"])}</option>
                     <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="light">${language.settings.appearance.theme.select.light}</option>
                     <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="dark">${language.settings.appearance.theme.select.dark}</option>
                     <option data-mode="set" data-category="appearance" data-keys='["theme"]' data-value="customTheme1">${language.settings.appearance.theme.select.custom1}</option>
@@ -458,7 +458,7 @@ export function getSettingsMenuContent() {
                         <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
                     </div>
                 </details>
-                <input id="setCustomBGurl" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" data-category="appearance" data-keys='["background"]' type="button" value="${language.settings.appearance.backgrounds.button}">
+                <input id="setCustomBGurl" data-mode="set" data-category="appearance" data-keys='["background"]' data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" type="button" value="${language.settings.appearance.backgrounds.button}">
             </div>
             <div class="option">
                 <legend>Background blur</legend>
@@ -478,10 +478,6 @@ export function getSettingsMenuContent() {
                     <input data-mode="set" data-category="appearance" data-keys='["shortcutsPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["shortcutsPopUpOpacity"])}">
                 </div>
                 <div class="option">
-                    <legend>${language.settings.appearance.relatedOptions.content.favouritesContent.legend}</legend>
-                    <p>${language.settings.appearance.relatedOptions.content.favouritesContent.p}</p>
-                    <input data-mode="set" data-category="appearance" data-keys='["mainContentBgOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["mainContentBgOpacity"])}">
-                </div><div class="option">
                     <legend>${language.settings.appearance.relatedOptions.content.weatherPopUp.legend}</legend>
                     <p>${language.settings.appearance.relatedOptions.content.weatherPopUp.p}</p>
                     <input data-mode="set" data-category="appearance" data-keys='["weatherPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["weatherPopUpOpacity"])}">
@@ -501,14 +497,14 @@ export function getSettingsMenuContent() {
             <div class="option">
                 <legend>${language.settings.appearance.highlightTopContentItems.legend}</legend>
                 <p>${language.settings.appearance.highlightTopContentItems.p}</p>
-                <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["top_itemsBg"])}" data-category="appearance" data-keys='["top_itemsBg"]' data-activevalue="true" data-offValue="false">
+                <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["top_itemsBg", "display"])}" data-category="appearance" data-specificonroute='["top_itemsBg", "display"]' data-keys='["top_itemsBg", "value"]' data-activevalue="rgba(0, 0, 0, 0.2)" data-offValue="transparent">
                     <div class="option-toggle_circle" data-mode="toggle"></div>
                 </div>
             </div>
             <div class="option">
                 <legend>${language.settings.appearance.invertFontColour.legend}</legend>
                 <p>${language.settings.appearance.invertFontColour.p}</p>
-                <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["invert_top_items_colour"])}" data-category="appearance" data-keys='["invert_top_items_colour"]' data-activevalue="true" data-offValue="false">
+                <div class="option-toggle" data-mode="toggle" data-active="${sManager.getValue("appearance", ["invert_top_items_colour", "display"])}" data-category="appearance" data-specificonroute='["invert_top_items_colour", "display"]' data-keys='["invert_top_items_colour", "value"]' data-activevalue="invert(100%)" data-offValue="none">
                     <div class="option-toggle_circle" data-mode="toggle"></div>
                 </div>
             </div>
@@ -530,23 +526,22 @@ export function getSettingsMenuContent() {
             <div class="option">
                 <legend>Weather info</legend>
                 <p>Show or hide weather info</p>
-                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weatherContainer", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "weatherContainer", "display"]' data-activevalue="flex" data-offValue="none">
-                    <div class="option-toggle_circle" data-mode="toggle"></div>
-                </div>
-                <button class="containerWithButton" data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "weatherContainer"]' data-windowContent="weatherContainerOptions">Display settings</button>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "weather"]' data-windowContent="weatherContainerOptions">Display settings</button>
             </div>
             <div class="option">
                 <legend>Settings buttons</legend>
-                <p>Show or hide the settings buttons</p>
-                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "displayOn"])}" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "display"]' data-activevalue="block" data-offValue="none">
-                    <div class="option-toggle_circle" data-mode="toggle"></div>
-                </div>
-                <button class="containerWithButton" data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "settingsOpener"]' data-windowContent="settingsOpenerOptions">Display settings</button>
+                <p>Show or hide the "settings" text</p>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "settingsOpener"]' data-windowContent="settingsOpenerOptions">Display settings</button>
             </div>
             <div class="option">
                 <legend>Hour and date</legend>
                 <p>Edit the conainer of these elements</p>
-                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "dateAndHour"]' data-windowContent="dateOptions">Display settings</button>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "dateAndHour"]' data-windowContent="dateAndHour">Display settings</button>
+            </div>
+            <div class="option">
+                <legend>Main content</legend>
+                <p>Edit the search bar and shortcuts</p>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "mainContent"]' data-windowContent="mainContentSettings">Display settings</button>
             </div>
         </div>
     </div>
