@@ -346,8 +346,8 @@ export default {
                 `
             },
             "appInfo": {
-                "legend": "Informacion de la pagina",
-                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
+                "legend": "App info",
+                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Made by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 in 🇲🇽 <br> Thanks to <a href="https://github.com/Fabrisdev">Fabri</a> by helping with the translations 💜`
             }
         }
     },
