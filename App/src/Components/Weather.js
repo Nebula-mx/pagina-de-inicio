@@ -1,14 +1,29 @@
 import { sManager } from "../../settingsManager.js"
 import { getContent } from "../Helpers/Loader.js"
 import { showNotification } from "../Helpers/showNotification.js"
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
-const $temp = document.querySelector("[data-weatherState]"),
-    $location = document.getElementById("weather-location");
+let $temp = document.querySelector("[data-weatherState]");
+let $location = document.getElementById("weather-location");
 
 export let weatherData;
 export async function getWeather(mode) {
+    if(sManager.getValue("appearance", ["mainPageItems", "weather", "activeModule"]) === "false") {
+        document.querySelector(".top-content_top").removeChild(document.getElementById("weather"));
+        return;
+    } else if(sManager.getValue("appearance", ["mainPageItems", "weather", "activeModule"]) === "true" && !document.getElementById("weather")){
+        let html = `
+            <div id="weather" data-containerBG>
+                <img class="weatherImg" id="openWeatherPopUp" src="">
+                <p id="openWeatherPopUp" data-weatherState></p><p id="weather-location"></p>
+            </div>
+        `;
+        document.querySelector(".top-content_top").insertAdjacentHTML("afterbegin", html);
+        
+        $temp = document.querySelector("[data-weatherState]");
+        $location = document.getElementById("weather-location");
+    }
     if(mode === "auto") {
         showNotification("This may take a few minutes...", "We use High accuracy mode to get your position.")
         navigator.geolocation.getCurrentPosition((async (pos) => {

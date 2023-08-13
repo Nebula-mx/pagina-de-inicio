@@ -1,23 +1,24 @@
 import { sManager } from "../../settingsManager.js"
 import { errorAnimShake } from "../Helpers/Animations.js";
 import { showNotification } from "../Helpers/showNotification.js";
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 class SHORTCUTS_MANAGER {
     constructor() {
         this.$root = document.getElementById("root")
         this.$dynamicStyle = document.getElementById("dynamic-style")
+        this.apliedShortcuts = false
         this.shortcuts = null
         this.shortcutsContainer = document.querySelector(".shortcutsContainer")
-        this.shortcutsLimit = sManager.getValue("general", "shortcuts_limit")
+        this.shortcutsLimit = sManager.getValue("general", ["shortcuts_limit"])
         this.shortcutsLenght = parseInt(localStorage.getItem("shortcutsNumber"))
         this.$shortcutTemplate = document.getElementById("shortcut-template").content        
     }
     testShortcutsLenght(){
         let newShortcutsArr = JSON.parse(localStorage.getItem("shortcuts"))
         if(newShortcutsArr === null) return
-        let sLimit = parseInt(sManager.getValue("general", "shortcuts_limit"))
+        let sLimit = parseInt(sManager.getValue("general", ["shortcuts_limit"]))
         let sLenght = newShortcutsArr.length
         
         if(sLenght > sLimit) {
@@ -32,7 +33,7 @@ class SHORTCUTS_MANAGER {
         }        
     }
     async loadShortcuts() {
-        if(this.shortcuts === null) return
+        if(this.shortcuts === null || this.apliedShortcuts) return
         try {
             const $fragment = document.createDocumentFragment()
             this.shortcuts.forEach((el, i) => {
@@ -49,6 +50,7 @@ class SHORTCUTS_MANAGER {
             this.shortcutsContainer.append($fragment)
             this.shortcutsLenght = this.shortcutsContainer.children.length -1
             localStorage.setItem("shortcutsNumber", this.shortcutsLenght)
+            this.apliedShortcuts = true
             if(this.shortcuts.length == sManager.config.general["shortcuts_limit"]) return document.getElementById("add-shortcut").style.display = "none"
         } catch (error) {
             if(error.message === "shortcutsLimitReached"){

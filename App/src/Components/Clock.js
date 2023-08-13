@@ -1,5 +1,5 @@
 import { sManager } from "../../settingsManager.js"
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 export function Clock(){
@@ -24,7 +24,9 @@ export function Clock(){
     setInterval( ()=> {
         let date = new Date()
         if(previousDate === staticDate.getDate()) return
-        $date.textContent = dateFormats[sManager.getValue("appearance", "dateFormat")]
+        $date.textContent = dateFormats[sManager.getValue("appearance", ["dateFormat"])]
         previousDate = date.getDate()
     }, 1000)
+    // if(sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "displayOn"]) !== false) {
+    // }
 }

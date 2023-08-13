@@ -14,7 +14,61 @@
             font-style: normal;
             font-weight: normal;
         }
-
+        @font-face {
+            font-family: "DancingScript";
+            src: url(./App/Assets/fonts/DancingScript-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "IBMPlexMono";
+            src: url(./App/Assets/fonts/IBMPlexMono-Regular.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "LibreBaskerville";
+            src: url(./App/Assets/fonts/LibreBaskerville-Regular.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "NixieOne";
+            src: url(./App/Assets/fonts/NixieOne-Regular.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "OpenSans";
+            src: url(./App/Assets/fonts/OpenSans-VariableFont_wdth,wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "Playfair";
+            src: url(./App/Assets/fonts/PlayfairDisplay-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "Poppins";
+            src: url(./App/Assets/fonts/Poppins-Light.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "Raleway";
+            src: url(./App/Assets/fonts/Raleway-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: "RobotoMono";
+            src: url(./App/Assets/fonts/RobotoMono-VariableFont_wght.ttf);
+            font-style: normal;
+            font-weight: normal;
+        }
+        
         /* width */
         ::-webkit-scrollbar {
         width: 7px;
@@ -37,6 +91,8 @@
         }
         
         body {
+            display: flex;
+            justify-content: center;
             /* reset styles */
             margin: 0;
             padding: 0;
@@ -49,13 +105,14 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-
-            /* formating grid */
-            display: grid;
-            grid-template-rows: 45vh 55vh;
+            backdrop-filter: blur(var(--body-backgroundBlur));
             
             /* extra */
             user-select: none;
+        }
+        main {
+            display: grid;
+            grid-template-rows: var(--body-gridValues);
         }
         .notification {
             display: flex;
@@ -188,8 +245,7 @@
             font-family: "Montserrat", sans-serif;
             background-color: var(--light-button-theme);
             border: solid 1px var(--light-button-border);
-            box-shadow: 0px 1px rgba(0, 0, 0, .10);
-            font-size: clamp(min(.4em), 3vw, max(.8em));
+            font-size: clamp(0px, 3vw, .8em);
             border-radius: 8px;
             padding: 0.5em .8em;
             width: fit-content;
@@ -211,6 +267,15 @@
             opacity: 40%;
             cursor: not-allowed;
         }
+        input[type="number"] {
+            background-color: var(--input-bgColour);
+            width: clamp(0px, 8vw, 64px);
+            padding: 0.8%;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: var(--global-border-radius);
+            font-size: clamp(0px, 2vw, 16px);
+            color: var(--light-button-fontColor);
+        }
         input[type="color"],
         .colourPicker-clickableSwatches {
             background: none;
@@ -230,7 +295,45 @@
             border-radius: 50%;
             border: 2px solid var(--inputs-colour_border_colour);
         }
-
+        input[type="number"]::-webkit-inner-spin-button {
+            background-color: aqua;
+        }
+        .window {
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            width: clamp(0px, 90vw, 400px);
+            max-height: 250px;
+            z-index: 9;
+        }
+        .window #window-titleBar{
+            display: flex;
+            background-color: var(--window-titleBar-bg);
+            justify-content: space-between;
+            padding: clamp(0px, 3%, 12px);
+            align-items: center;
+            border-radius: var(--global-border-radius) var(--global-border-radius) 0 0;
+            backdrop-filter: blur(var(--blur-strenght));
+            font-weight: 700;
+        }
+        .window #window-titleBar legend{
+            color: var(--window-titleBar-title);
+            font-size: clamp(0px, 2.4vw, 1rem);
+        }
+        .window #window-titleBar div {
+            display: flex;
+            align-items: center;
+        }
+        .window #window-content {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--window-content-bg);
+            padding: clamp(0px, 3%, 12px);
+            max-height: 200px;
+            border-radius: 0 0 var(--global-border-radius) var(--global-border-radius);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
         select {
             background-color: var(--settings-menu-light-selects);
             width: auto;
@@ -239,14 +342,14 @@
             padding: 4px;
             border-radius: var(--global-border-radius);
             border: 1px solid var(--settings-menu-light-selects);
-            color: var(--main-content-light-font);
+            color: var(--main-content-font);
             font-family: "Montserrat", sans-serif;
             font-weight: 600;
             font-size: clamp(3px, 3vw, 13px);
             cursor: pointer;
         }
         #top-content {
-            grid-row: 0;
+            grid-row: 0/2;
             width: 100%;
             height: 100%;
             display: flex;
@@ -270,7 +373,7 @@
             height: 33px;
         }
         .top-content_top #weather {
-            background-color: transparent;
+            background-color: var(--top-items-BG);
             grid-column: 1/2;
             padding: 10px;
             border-radius: var(--global-border-radius);
@@ -278,6 +381,7 @@
         }
         .top-content_top #weather > p {
             margin-left: 10px;
+            filter: var(--top-content-invert);
         }
         .top-content_top #weather:hover {
             text-decoration: underline;
@@ -288,6 +392,7 @@
             padding: 12px;
             top: 0;
             margin: 5.4rem 2rem;
+            max-width: 350px;
             backdrop-filter: blur(var(--blur-strenght));
                 -webkit-backdrop-filter: blur(var(--blur-strenght));
             background-color: var(--top-content-weather-PopUp-BG);
@@ -385,38 +490,51 @@
             margin: 0;
         }
         #top-content #settings {
-            background-color: transparent;
+            background-color: var(--top-items-BG);
             grid-column: 3/4;
             padding: 10px;
             border-radius: var(--global-border-radius);
             cursor: pointer;
         }
         #top-content #settings p {
-            margin-right: 10px;
+            margin: 0 10px;
+            filter: var(--top-content-invert);
+        }
+        #top-content #settings img {
+            filter: var(--top-content-invert);
         }
         #top-content #settings p:hover {
             text-decoration: underline;
         }
-        #top-content #date {
-            background-color: transparent;
+        #top-content #hourContainer {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        #top-content #hourContainer #date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--top-items-BG);
             position: relative;
-            place-self: center;
-            padding: 10px 20px;
-            margin-top: 10px;
             border-radius: var(--global-border-radius);
         }
-        #top-content #date h2 {
+        #top-content #hourContainer #date h2 {
             display: initial;
             width: fit-content;
             font-size: clamp(min(2.2rem), 7vw, max(4rem));
             text-align: center;
             margin: 0;
+            filter: var(--top-content-invert);
         }
-        #top-content #date p {
+        #top-content #hourContainer #date p {
             width: fit-content;
             font-size: clamp(min(.8rem), 6vw, max(1.3rem));
             margin: auto;
             text-align: center;
+            filter: var(--top-content-invert);
         }
 
         #main-content {
@@ -424,9 +542,10 @@
             /* justify-content: center; */
             flex-direction: column;
             align-items: center;
-            grid-row: 2;
-            width: 100%;
-            height: 55vh;
+            place-content: center;
+            grid-row: 2/3;
+            width: 100vw;
+            height: 100%;
             padding-top: 48px;
             color: var(--main-content-font);
             background-color: var(--main-content-light-bg);
@@ -442,7 +561,7 @@
         #main-content .search-form :first-child {
             background-color: var(--main-content-light-searchBox);
             padding: 21px;
-            height: 53px;
+            height: clamp(43px, 5vw, 53px);
             width: 100%;
             max-width: 500px;
             border-radius: var(--global-border-radius) 0px 0px var(--global-border-radius);
@@ -452,7 +571,9 @@
             color: var(--main-content-font);
         }
         #main-content .search-form :last-child {
-            padding: 5px 5px 5px 10px;
+            width: clamp(20px, 3vw, 33px);
+            height: 100%;
+            padding: 0 1%;
             background: var(--main-content-light-searchBtn);
             border-radius: 0px var(--global-border-radius) var(--global-border-radius) 0px;
         }
@@ -544,6 +665,7 @@
             opacity: 40%;
         }
         summary {
+            font-size: clamp(0px, 2.4vw, 1rem);
             cursor: pointer;
         }
         details {
@@ -581,7 +703,7 @@
             body {
                 grid-template-rows: 40vh 60vh;
             }
-            #top-content #date {
+            #top-content #hourContainer #date {
                 margin: auto 0 auto 0;
             }
             #main-content .search-form {
@@ -604,17 +726,19 @@
         <div id="top-content">
             <div class="top-content_top">
                 <div id="weather" data-containerBG>
-                    <img class="weatherImg" id="openWeatherPopUp" src="./App/Assets/Images/weather 1.svg" alt="weather-img">
-                    <p id="openWeatherPopUp" data-weatherState>Getting weather...</p><p id="weather-location"></p>
+                    <img class="weatherImg" id="openWeatherPopUp" src="">
+                    <p id="openWeatherPopUp" data-weatherState></p><p id="weather-location"></p>
                 </div>
                 <div id="settings" data-containerBG>
-                    <p id="settings-opener" ></p>
+                    <p id="settings-opener"></p>
                     <img  id="settings-opener" class="settings-button" src="./App/Assets/Images/General.svg" alt="Settings btn" title="open settings">
                 </div>
             </div>
-            <div id="date" data-containerBG>
-                <h2 data-hour>00:00</h2>
-                <p data-date>00/00/00</p>
+            <div id="hourContainer">
+                <div id="date" data-containerBG>
+                    <h2 data-hour></h2>
+                    <p data-date></p>
+                </div>
             </div>
         </div>
         <div id="main-content">

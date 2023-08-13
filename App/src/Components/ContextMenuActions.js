@@ -1,11 +1,11 @@
 import { sManager } from "../../settingsManager.js"
 
 export function deleteShortcut(target){
-    const $favourites = document.querySelector(".favourites"),
-        shortcutData = JSON.parse(localStorage.getItem("shortcuts"));
+    const $favourites = document.querySelector(".favourites");
+    const shortcutData = JSON.parse(localStorage.getItem("shortcuts"));
 
-    let position = parseInt(target.getAttribute("data-id")),
-        $element = $favourites.children[position+2];
+    let position = parseInt(target.getAttribute("data-id"));
+    let $element = $favourites.children[position+2];
     
     shortcutData.splice(position, 1 )
     $favourites.removeChild($element)

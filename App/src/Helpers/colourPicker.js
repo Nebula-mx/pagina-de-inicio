@@ -1,5 +1,5 @@
 import { sManager } from "../../settingsManager.js"
-const lang = sManager.getValue("general", "lang");
+const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
 
 class COLOUR_PICKER {
@@ -365,18 +365,18 @@ class COLOUR_PICKER {
                 `,
                 getValue: (value) => {
                     try {
-                        let [r, g, b, a] = this.formatsStyles.rgb.getValue(value)
+                        const [r, g, b, a] = this.formatsStyles.rgb.getValue(value)
         
-                        let Rhex = r.toString(16).padStart(2, 0);
-                        let Ghex = g.toString(16).padStart(2, 0);
-                        let Bhex = b.toString(16).padStart(2, 0);
-                        let Ahex = Math.round(a).toString(16).padStart(2, 0);
+                        const Rhex = r.toString(16).padStart(2, 0);
+                        const Ghex = g.toString(16).padStart(2, 0);
+                        const Bhex = b.toString(16).padStart(2, 0);
+                        const Ahex = Math.round(a).toString(16).padStart(2, 0);
                         
             
                         return [Rhex, Ghex, Bhex, Ahex]
                     } catch(err) {
-                        let newStr = value.replace("#", "")
-                        let values = [...newStr.match(/.{1,2}/g)]
+                        const newStr = value.replace("#", "")
+                        const values = [...newStr.match(/.{1,2}/g)]
                         return [values[0], values[1], values[2], values[3]]
                     }
                 },
@@ -404,6 +404,7 @@ class COLOUR_PICKER {
             },
             "save&exit": () => {
                 if(this.selectedColour === null) return
+                console.log(this.selectedColour)
                 this.selectedColours.push(this.selectedColour)
                 this.interactions.closeMenu()
                 return this.saveAndExitFunction({
@@ -421,19 +422,20 @@ class COLOUR_PICKER {
                 this.currentColourFormat = e.target.dataset.format
                 document.querySelector(".selectedFormat").classList.remove("selectedFormat")
                 document.querySelector(`[data-format="${this.currentColourFormat}"]`).classList.add("selectedFormat")                
-                let colour = this.formatsStyles[e.target.dataset.format].getValue(this.selectedColour)
+                const colour = this.formatsStyles[e.target.dataset.format].getValue(this.selectedColour)
                 
                 this.insertColourFormat(colour, {name: e.target.dataset.format})
             },
             "clickableswatch": (e) => {
-                let colour = e.target.dataset.colour
-                let format = this.getFormat(colour)
-                let colourValues = this.formatsStyles[format.name].getValue(colour)
-                this.interactions.changecolorformat({target: {dataset: {format: this.getFormat(colour).name}}})
-                this.updatePreviousAndCurrentColours(colourValues, format)
-                this.loadHueValues(colourValues, format)
-                this.loadAlphavalue(colourValues, format)
-                this.insertColourFormat(colourValues, format)
+                const colour = e.target.dataset.colour;
+                const format = this.getFormat(colour);
+                const colourValues = this.formatsStyles[format.name].getValue(colour);
+                this.selectedColour = colour;
+                this.interactions.changecolorformat({target: {dataset: {format: this.getFormat(colour).name}}});
+                this.updatePreviousAndCurrentColours(colourValues, format);
+                this.loadHueValues(colourValues, format);
+                this.loadAlphavalue(colourValues, format);
+                this.insertColourFormat(colourValues, format);
             }
         }
     }

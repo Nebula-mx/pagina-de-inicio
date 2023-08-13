@@ -165,7 +165,18 @@ export default {
             "title": "Appearance",
             "categories": {
                 "appearance": "Appearance",
-                "advancedOptions": "Advanced options"
+                "advancedOptions": {
+                    "title": "Advanced options",
+                    "editRootContent": "Edit main content"
+                }
+            },
+            "commonWords": {
+                "DisplayOptions": "Display options",
+                "editElement": "Edit element",
+                "activeModule": "Active module",
+                "fontSize": "Font size",
+                "fontFamily": "Font family",
+                "order": "Order"
             },
             "theme": {
                 "legend": "Theme",
@@ -181,6 +192,10 @@ export default {
                 "legend": "Background:",
                 "summary": "More backgrounds",
                 "button": "Set custom background URL"
+            },
+            "bgBlur": {
+              "legend": "Background blur",
+              "p": "Chose the intensity of the blur in your background"      
             },
             "blurStrenght": {
                 "legend": "Blur streght",
@@ -205,7 +220,7 @@ export default {
             },
             "dateFormat": {
                 "legend": "Date format",
-                "p": "Select your favourite format (requires reload)",
+                "p": "Select your favourite format.",
                 "select": {
                     "dmy": "D/M/Y",
                     "fulldate": "Day of week, day of month, month, year"
@@ -223,6 +238,93 @@ export default {
                 "legend": "Theme editor",
                 "p": "You can create your own colour theme. You can only create 2 themes.",
                 "button": "Let's go!"
+            },
+            "displayRatio": {
+                "legend": "Content display ratio",
+                "p": "Chose the ratio of the top and bottom content"
+            },
+            "weatherOptions": {
+                "title": "Weather information",
+                "desc": "Change the way the weather is shown.",
+                "activeModuleDesc": "By turning off this module the element will be removed.",
+                "icon": {
+                    "legend": "Show status icon",
+                    "p": "Show or hide the weather status icon."
+                },
+                "temp": {
+                    "legend": "Show temperature",
+                    "p": "Show or hide the current temperature."
+                },
+                "location": {
+                    "legend": "Show location",
+                    "p": "Show or hide the location you've set"
+                }
+            },
+            "sOpenerOptions": {
+                "title": "Settings acces buttons",
+                "desc": "Change the way they are shown.",
+                "settingsText": {
+                    "legend": 'Show the "Settings" string.',
+                    "p": 'Show or hide the "Settings" string.'
+                },
+                "settingsIcon": {
+                    "legend": "Show icon",
+                    "p": 'Show or hide the Settings icon. At least one element needs to be displayed necessarily ("Settings" string or Settings icon)',
+                    "size": "Size"
+                }
+            },
+            "dateAndHourOptions": {
+                "title": "Date & Hour",
+                "desc": "Change the way they are shown.",
+                "p": "By turning off the module, the elements will be removed.",
+                "general": {
+                    "legend": "Orientation",
+                    "p": "Chose between a vertical or horizontal orientation.",
+                    "itemsMargin": "Items margin",
+                    "alignItems": "Align items"
+                },
+                "hour": {
+                    "legend": "Display hour",
+                    "p": "Show or hide the hour."
+                },
+                "date": {
+                    "legend": "Display date",
+                    "p": "Show or hide the date."
+                }
+            },
+            "mainContent": {
+                "title": "Bottom content",
+                "desc": "Edit the content container, search bar and shortcuts.",
+                "container": {
+                    "catTitle": "Container",
+                    "legend": "Display container",
+                    "p": "Show or hide the container",
+                    "opacity": "Opacity",
+                    "paddingTop": "Padding top",
+                    "backdropBlur": "Background blur"
+                },
+                "searchBar": {
+                    "catTitle": "Search bar",
+                    "legend": "Show the search bar",
+                    "p": "By turning off this, the bar will be hidden",
+                    "barWidth": "Width",
+                    "barHeight": "Height",
+                    "barPadding": "Padding",
+                    "iconSize": "Icon size"
+                },
+                "shortcutsIcons": {
+                    "catTitle": "Shorcut icons",
+                    "legend": "Show shortcut icons",
+                    "p": "By this turning off, the icons (images) will be hidden",
+                    "iconWidth": "Width",
+                    "iconHeight": "Height",
+                },
+                "shortcutsTitles": {
+                    "catTitle": "Shortcuts names",
+                    "legend": "Show names",
+                    "p": "Show or hidde the shortcuts names",
+                    "margin": "Margin"
+                }
             }
         },
         "about": {
@@ -232,21 +334,20 @@ export default {
             },
             "missingFeatures": {
                 "legend": "Missing features",
-                "p": "This app still in development so features like Keyblinds and other features are not avalilable yet"
+                "p": "This app still in development so features like keybinds, a better personalization and other features are currently in development."
             },
             "whatsNew": {
-                "legend": "What's new?",
+                "legend": "Whats new?",
                 "list": `
-                    <li>Now Spanish language is available! Thanks to Fabri by helping to this 💜</li>
-                    <li>Recent colours are now working on the Colour picker</li>
+                    <li>Now there are more customization features!, you can blur your background, change the font family for some elements and much more!</li>
+                    <li>The app performance has been improved.</li>
+                    <li>The settings menu content has a better organization.</li>
+                    <li>Some behavior</li>
                 `
             },
-            "currentSettings": {
-                "legend": "Current settings:"
-            },
             "appInfo": {
-                "legend": "App info:",
-                "version": `Version: ${sManager.getValue("general", "version")} <br> Developed by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 from 🇲🇽  <br> Thanks to <a href="https://github.com/Fabrisdev">Fabri</a> by helping with the translation 💜`
+                "legend": "Informacion de la pagina",
+                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
             }
         }
     },

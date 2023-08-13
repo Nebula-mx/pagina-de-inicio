@@ -164,7 +164,18 @@ export default {
             "title": "Apariencia",
             "categories": {
                 "appearance": "Apariencia",
-                "advancedOptions": "Opciones avanzadas"
+                "advancedOptions": {
+                    "title": "Opciones avanzadas",
+                    "editRootContent": "Editar contenido principal"
+                }
+            },
+            "commonWords": {
+                "DisplayOptions": "Opciones de estilo",
+                "editElement": "Editar element",
+                "activeModule": "Modulo activo",
+                "fontSize": "Tamaño de fuente",
+                "fontFamily": "Tipo de fuente",
+                "order": "Order"
             },
             "theme": {
                 "legend": "Tema",
@@ -181,6 +192,10 @@ export default {
                 "summary": "Mas fondos",
                 "button": "Usar URL de fondo personalizada"
             },
+            "bgBlur": {
+              "legend": "Desenfoque del fondo",
+              "p": "Selecciona la intensidad del desenfoque del fondo de pantalla"      
+            },
             "blurStrenght": {
                 "legend": "Intensidad del difuminado",
                 "p": "Ajusta la intensidad a tu gusto"
@@ -190,7 +205,7 @@ export default {
                 "content": {
                     "contextMenu": {
                         "legend": "Opacidad del menu contextual",
-                        "p": "Haz mas o menos transparente el menu"
+                        "p": "Haz mas o menos transparente el menu contextual"
                     },
                     "favouritesContent": {
                         "legend": "Opacidad del contenido inferior",
@@ -204,7 +219,7 @@ export default {
             },
             "dateFormat": {
                 "legend": "Formato de fecha",
-                "p": "Selecciona el formato de fecha preferido (requiere recargar la pagina)",
+                "p": "Selecciona el formato de fecha preferido.",
                 "select": {
                     "dmy": "D/M/A",
                     "fulldate": "Dia de la semana, dia del mes, mes, año"
@@ -222,6 +237,93 @@ export default {
                 "legend": "Temas personalizados",
                 "p": "Crea tu propio tema personalizado",
                 "button": "¡Vamos!"
+            },
+            "displayRatio": {
+                "legend": "Proporcion del contenido",
+                "p": "Elige la proporcion que tendran el contenido superior e inferior."
+            },
+            "weatherOptions": {
+                "title": "Informacion del clima",
+                "desc": "Edita la forma en la que se muestra el clima.",
+                "activeModuleDesc": "Al desactivar el modulo el elemento entero sera removido",
+                "icon": {
+                    "legend": "Mostrar icono",
+                    "p": "Elige si mostrar u ocultar el icono del estado del clima"
+                },
+                "temp": {
+                    "legend": "Mostrar temperatura",
+                    "p": "Muestra u oculta la temperatura"
+                },
+                "location": {
+                    "legend": "Mostrar ubicacion",
+                    "p": "Muestra u oculta la ubicacion del clima"
+                }
+            },
+            "sOpenerOptions": {
+                "title": "Accesos a configuraciones",
+                "desc": "Edita la manera en la que estos son mostrados.",
+                "settingsText": {
+                    "legend": 'Mostrar el texto "Ajustes"',
+                    "p": 'Muestra u oculta el texto "Ajustes"'
+                },
+                "settingsIcon": {
+                    "legend": "Mostrar icono",
+                    "p": 'Muestra u oculta el icono de Ajustes. Forzosamente se debe de mostrar uno de los 2 elementos (El texto "Ajustes" o el icono).',
+                    "size": "Tamaño"
+                }
+            },
+            "dateAndHourOptions": {
+                "title": "Fecha y hora",
+                "desc": "Edita los el estilo de fecha y hora.",
+                "p": "Al apagar el modulo, la fecha y hora seran removidos.",
+                "general": {
+                    "legend": "Orientacion del contenido",
+                    "p": "Elige entre una orientacion vertical u horizontal.",
+                    "itemsMargin": "Separacion del contenido",
+                    "alignItems": "Alineacion del contenido"
+                },
+                "hour": {
+                    "legend": "Mostrar la hora",
+                    "p": "Muestra u oculta la hora."
+                },
+                "date": {
+                    "legend": "Mostrar la fecha",
+                    "p": "Muestra u oculta la fecha."
+                }
+            },
+            "mainContent": {
+                "title": "Contenido inferior",
+                "desc": "Edita la barra de busqueda, atajos, y el contenedor.",
+                "container": {
+                    "catTitle": "Contenedor",
+                    "legend": "Editar contenedor",
+                    "p": "Muestra u oculta el contenedor",
+                    "opacity": "Opacidad",
+                    "paddingTop": "Margen superior",
+                    "backdropBlur": "Difuminado de fondo"
+                },
+                "searchBar": {
+                    "catTitle": "Barra de busqueda",
+                    "legend": "Mostrar la barra",
+                    "p": "Al desactivar esta opcion la barra de busqueda sera ocultada",
+                    "barWidth": "Ancho",
+                    "barHeight": "Alto",
+                    "barPadding": "Relleno",
+                    "iconSize": "Tamaño del icono"
+                },
+                "shortcutsIcons": {
+                    "catTitle": "Iconos de atajos",
+                    "legend": "Mostrar iconos de atajos",
+                    "p": "Al desactivar esto, los iconos (imagenes) que aparecen en los atajos",
+                    "iconWidth": "Ancho",
+                    "iconHeight": "Alto",
+                },
+                "shortcutsTitles": {
+                    "catTitle": "Nombres de atajos",
+                    "legend": "Mostrar los nombres",
+                    "p": "Muestra u oculta los nombres de los atajos",
+                    "margin": "Separacion"
+                }
             }
         },
         "about": {
@@ -236,16 +338,15 @@ export default {
             "whatsNew": {
                 "legend": "¿Que hay de nuevo?",
                 "list": `
-                    <li>¡Ahora el Español esta disponible! Gracias a Fabri por ayudar en esto 💜</li>
-                    <li>Ahora se pueden seleccionar los colores recientes en el Selector de colores</li>
+                    <li>¡Mas opciones de personalizacion!, Ahora puedes difuminar el fondo, cambiar el tipo de fuente de algunos elementos ¡y mucho mas!</li>
+                    <li>El rendimiento ha sido mejorado.</li>
+                    <li>El contenido del menu de configuraciones ha sido re-organizado.</li>
+                    <li>Mejoras de comportamiento</li>
                 `
-            },
-            "currentSettings": {
-                "legend": "Configuraciones actuales:"
             },
             "appInfo": {
                 "legend": "Informacion de la pagina",
-                "version": `Version: ${sManager.getValue("general", "version")} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
+                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
             }
         }
     },
