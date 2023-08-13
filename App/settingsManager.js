@@ -19,6 +19,10 @@ class settingsManager {
                 for(let option in this.config[key]){
                     if(typeof(newSettings[key][option]) === "object"){
                         for(let prop in newSettings[key][option]){
+                            if(!this.config[key][option][prop]) {
+                                newSettings[key][option][prop] = this.defaultSettings[key][option][prop]
+                                continue;
+                            }
                             newSettings[key][option][prop] = this.config[key][option][prop]
                         }
                         continue;

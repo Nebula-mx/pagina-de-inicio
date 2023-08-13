@@ -69,6 +69,14 @@ class SETTINGS_MENU_MANAGER {
                                 <p id="selectedStyleStatus" style="margin: 0 0 0 5px;">${language.submenus.themeCreator.previewAdvisorDefault}</p>
                             </div>
                             <hr>
+                            <div class="option" style="display: flex;align-items: center;">
+                                <svg style="filter: invert(var(--settings-menu-invert));" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"></rect>
+                                    <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"></circle>
+                                    <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"></circle>
+                                </svg> 
+                                <p id="selectedStyleStatus" style="margin: 0 0 0 5px;">This feature still in a beta status! some bugs will be fixed in the next update, please, if you can see a bug while using this feature make a report on the <a href="https://github.com/Nebula-mx/pagina-de-inicio" target="_blank">project Github repo</a></p>
+                            </div>
                         </div>
                     </div>
                 `,
@@ -438,20 +446,20 @@ class SETTINGS_MENU_MANAGER {
                     `
                     const optionsHTML = {
                         "weatherContainerOptions": `
-                            <legend class="window-categoryTitle">Edit weather container</legend>
+                            <legend class="window-categoryTitle">${language.settings.appearance.weatherOptions.title}</legend>
                             <div class="onWindowOption">
-                                <legend>Active module</legend>
-                                <p>This will turn off Weather module and the element will be removed</p>
+                                <legend>${language.settings.appearance.commonWords.activeModule}</legend>
+                                <p>${language.settings.appearance.weatherOptions.activeModuleDesc}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "activeModule"])}" data-category="appearance" data-keys='["mainPageItems", "weather", "activeModule"]' data-activevalue="true" data-offValue="false">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font size</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontSize}</legend>
                                     <input type="range" min="0" max="32" value="value="${sManager.getValue("appearance", ["mainPageItems", "weather", "fontSize"])}"" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "weather", "fontSize"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font family</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontFamily}</legend>
                                     <select class="option-select">
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="Montserrat">Montserrat</option>
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "fontFamily"]' data-value="DancingScript">Dancing script</option>
@@ -468,56 +476,56 @@ class SETTINGS_MENU_MANAGER {
                             </div>
                             <hr>
                             <div class="onWindowOption">
-                                <legend>Display status icon</legend>
-                                <p>Show or hide the weather status icon</p>
+                                <legend>${language.settings.appearance.weatherOptions.icon.legend}</legend>
+                                <p>${language.settings.appearance.weatherOptions.icon.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "icon", "displayOn"])}" data-specificonroute='["mainPageItems", "weather", "icon", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "weather", "icon", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Order</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.order}</legend>
                                     <input type="number" min="0" max="2" value="${sManager.getValue("appearance", ["mainPageItems", "weather", "icon", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "icon", "order"]'></input>
                                 </div>
                             </div>
                             <div class="onWindowOption">
-                                <legend>Display temperature</legend>
-                                <p>Show or hide the temperature information</p>
+                                <legend>${language.settings.appearance.weatherOptions.temp.legend}</legend>
+                                <p>${language.settings.appearance.weatherOptions.temp.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "temp", "displayOn"])}" data-specificonroute='["mainPageItems", "weather", "temp", "displayOn"]' data-category="appearance" data-specificonroute='["mainPageItems", "weather", "temp", "displayOn"]' data-keys='["mainPageItems", "weather", "temp", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Order</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.order}</legend>
                                     <input type="number" min="0" max="1" value="value="${sManager.getValue("appearance", ["mainPageItems", "weather", "temp", "order"])}"" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "weather", "temp", "order"]'></input>
                                 </div>
                             </div>
                             <div class="onWindowOption">
-                                <legend>Display location</legend>
-                                <p>Show or hide the weather location</p>
+                                <legend>${language.settings.appearance.weatherOptions.location.legend}</legend>
+                                <p>${language.settings.appearance.weatherOptions.location.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "weather", "location", "displayOn"])}" data-specificonroute='["mainPageItems", "weather", "location", "displayOn"]' data-category="appearance" data-specificonroute='["mainPageItems", "weather", "location", "displayOn"]' data-keys='["mainPageItems", "weather", "location", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                             </div>
                         `,
                         "settingsOpenerOptions": `
-                            <legend class="window-categoryTitle">Edit settings menu openers</legend>
+                            <legend class="window-categoryTitle">${language.settings.appearance.sOpenerOptions.title}</legend>
                             <div class="onWindowOption">
-                                <legend>Display "settings"</legend>
-                                <p>Show or hide the "Settings" text</p>
+                                <legend>${language.settings.appearance.sOpenerOptions.settingsText.legend}</legend>
+                                <p>${language.settings.appearance.sOpenerOptions.settingsText.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "displayOn"])}" data-specificonroute='["mainPageItems", "settingsOpener", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "display"]' data-activevalue="block" data-offValue="none" data-roea='["mainPageItems", "settingsOpener", "icon", "display"]' data-roearv="block" data-roeavalue="false">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Order</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.order}</legend>
                                     <input type="number" min="0" max="1" value="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "order"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font size</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontSize}</legend>
                                     <input type="range" min="0" max="32" value="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "settingsOpener", "fontSize"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font family</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontFamily}</legend>
                                     <select class="option-select">
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="Montserrat">Montserrat</option>
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "settingsOpener", "fontFamily"]' data-value="DancingScript">Dancing script</option>
@@ -534,41 +542,41 @@ class SETTINGS_MENU_MANAGER {
                             </div>
                             <hr>
                             <div class="onWindowOption">
-                                <legend>Display icon</legend>
-                                <p>Show or hide the settings icon. you can only select one item to hide, if you hide this item, the "Settings" text will be displayed and vice versa</p>
+                                <legend>${language.settings.appearance.sOpenerOptions.settingsIcon.legend}</legend>
+                                <p>${language.settings.appearance.sOpenerOptions.settingsIcon.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "icon", "displayOn"])}" data-specificonroute='["mainPageItems", "settingsOpener", "icon", "displayOn"]' data-category="appearance" data-specificonvalue='["mainPageItems", "settingsOpener", "icon", "displayOn"]' data-keys='["mainPageItems", "settingsOpener", "icon", "display"]' data-activevalue="block" data-offValue="none" data-roea='["mainPageItems", "settingsOpener", "display"]' data-roearv="block" data-roeavalue="false">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Size</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.sOpenerOptions.settingsIcon.size}</legend>
                                     <input type="range" min="0" max="128" value="${sManager.getValue("appearance", ["mainPageItems", "settingsOpener", "icon", "width"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "settingsOpener", "icon", "width"]'></input>
                                 </div>
                             </div>
                         `,
                         "dateAndHour": `
-                            <legend class="window-categoryTitle">Edit date and hour</legend>
+                            <legend class="window-categoryTitle">${language.settings.appearance.dateAndHourOptions.title}</legend>
                             <div class="onWindowOption">
-                                <legend>Active module</legend>
-                                <p>By turning off this module the Date and hour element will be removed</p>
-                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "activeModule"])}" data-specificonroute='["mainPageItems", "dateAndHour", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "display"]' data-activevalue="block" data-offValue="none">
+                                <legend>${language.settings.appearance.commonWords.activeModule}</legend>
+                                <p>${language.settings.appearance.dateAndHourOptions.p}</p>
+                                <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "activeModule"])}" data-specificonroute='["mainPageItems", "dateAndHour", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "display"]' data-activevalue="flex" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                             </div>
                             <div class="onWindowOption">
-                                <legend>Content orientation</legend>
-                                <p>Chose between a vertical or horizontal orientation</p>
+                                <legend>${language.settings.appearance.dateAndHourOptions.general.legend}</legend>
+                                <p>${language.settings.appearance.dateAndHourOptions.general.p}</p>
                                 <select class="option-select">
                                     <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "flexDirection"]' data-value="column">Vertical</option>
                                     <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "flexDirection"]' data-value="row">Horizontal</option>
                                 </select>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend>Items margin</legend>
+                                    <legend>${language.settings.appearance.dateAndHourOptions.general.itemsMargin}</legend>
                                     <input type="range" min="0" max="32" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "date", "margin"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "dateAndHour", "date", "margin"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend>Align items</legend>
+                                    <legend>${language.settings.appearance.dateAndHourOptions.general.alignItems}</legend>
                                     <select class="option-select">
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "alignItems"]' data-value="flex-start">Start</option>
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "alignItems"]' data-value="center">Center</option>
@@ -577,18 +585,18 @@ class SETTINGS_MENU_MANAGER {
                                 </div>
                             </div>
                             <div class="onWindowOption">
-                                <legend>Display hour</legend>
-                                <p>By turning this off the hour will be hidden</p>
+                                <legend>${language.settings.appearance.dateAndHourOptions.hour.legend}</legend>
+                                <p>${language.settings.appearance.dateAndHourOptions.hour.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "hour", "displayOn"])}" data-specificonroute='["mainPageItems", "dateAndHour", "hour", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font size</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontSize}</legend>
                                     <input type="range" min="0" max="128" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "hour", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "dateAndHour", "hour", "fontSize"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font family</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontFamily}</legend>
                                     <select class="option-select">
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="Montserrat">Montserrat</option>
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "fontFamily"]' data-value="DancingScript">Dancing script</option>
@@ -603,23 +611,23 @@ class SETTINGS_MENU_MANAGER {
                                     </select>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Order</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.order}</legend>
                                     <input type="number" min="0" max="1" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "hour", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "hour", "order"]'></input>
                                 </div>
                             </div>
                             <div class="onWindowOption">
-                                <legend>Display date</legend>
-                                <p>By turning this off the date will be hidden</p>
+                                <legend>${language.settings.appearance.dateAndHourOptions.date.legend}</legend>
+                                <p>${language.settings.appearance.dateAndHourOptions.date.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "date", "displayOn"])}" data-specificonroute='["mainPageItems", "dateAndHour", "date", "displayOn"]' data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font size</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontSize}</legend>
                                     <input type="range" min="0" max="128" value="${sManager.getValue("appearance", ["mainPageItems", "dateAndHour", "date", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "dateAndHour", "date", "fontSize"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font family</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontFamily}</legend>
                                     <select class="option-select">
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="Montserrat">Montserrat</option>
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "dateAndHour", "date", "fontFamily"]' data-value="DancingScript">Dancing script</option>
@@ -636,58 +644,55 @@ class SETTINGS_MENU_MANAGER {
                             </div>
                         `,
                         mainContentSettings: `
-                            <legend class="window-categoryTitle">Container</legend>
+                            <legend class="window-categoryTitle">${language.settings.appearance.mainContent.container.catTitle}</legend>
                             <div class="onWindowOption">
-                                <legend>Display the container</legend>
-                                <p>Show or hide the main content</p>
+                                <legend>${language.settings.appearance.mainContent.container.legend}</legend>
+                                <p>${language.settings.appearance.mainContent.container.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "displayOn"])}" data-specificonroute='["mainPageItems", "mainContent", "searchBar", "activeModule"]' data-category="appearance" data-keys='["mainPageItems", "mainContent","container", "display"]' data-activevalue="flex" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend>Opacity</legend>
+                                    <legend>${language.settings.appearance.mainContent.container.opacity}</legend>
                                     <input type="range" min="0" max="100" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "containerOpacity"])}" data-mode="set" data-category="appearance" data-unit="%" data-keys='["mainPageItems", "mainContent", "container", "containerOpacity"]'></input>                                    
                                 </div>
                                 <div class="optionProperty">
-                                    <legend>Pagging top</legend>
+                                    <legend>${language.settings.appearance.mainContent.container.paddingTop}</legend>
                                     <input type="range" min="0" max="48px" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "paddingTop"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "container", "paddingTop"]'></input>                                    
                                 </div>
                                 <div class="optionProperty">
-                                    <legend>Backdrop blur</legend>
+                                    <legend>${language.settings.appearance.mainContent.container.backdropBlur}</legend>
                                     <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "blurActive"])}" data-category="appearance" data-specificonroute='["mainPageItems", "mainContent", "container", "blurActive"]' data-keys='["mainPageItems", "mainContent","container", "backdropFilter"]' data-activevalue="blur(var(--blur-strenght))" data-offValue="none">
                                         <div class="option-toggle_circle" data-mode="toggle"></div>
                                     </div>
                                 </div>
                             </div>
-                            <legend class="window-categoryTitle">Search bar</legend>
+                            <legend class="window-categoryTitle">${language.settings.appearance.mainContent.searchBar.catTitle}</legend>
                             <div class="onWindowOption">
-                                <legend>Display search bar</legend>
-                                <p>By turning this off the search bar will be hidden.</p>
+                                <legend>${language.settings.appearance.mainContent.searchBar.legend}</legend>
+                                <p>${language.settings.appearance.mainContent.searchBar.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchBar", "activeModule"])}" data-specificonroute='["mainPageItems", "mainContent", "searchBar", "activeModule"]' data-category="appearance" data-keys='["mainPageItems", "mainContent","searchBar", "display"]' data-activevalue="flex" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend>By modifying width and height values you are replacing responsive values by static values</legend>
-                                </div>
-                                <div class="optionProperty">
-                                    <legend class="optionProperty-title">Bar width</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.mainContent.searchBar.barWidth}</legend>
                                     <input type="range" min="0" max="100" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchBar", "width"])}" data-mode="set" data-category="appearance" data-unit="%" data-keys='["mainPageItems", "mainContent", "searchBar", "width"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Bar height</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.mainContent.searchBar.barHeight}</legend>
                                     <input type="range" min="27" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchForm", "height"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "searchForm", "height"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Bar padding</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.mainContent.searchBar.barPadding}</legend>
                                     <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchForm", "padding"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "searchForm", "padding"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Icon size</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.mainContent.searchBar.iconSize}</legend>
                                     <input type="range" min="0" max="48" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "searchButton", "width"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "searchButton", "width"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font family</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontFamily}</legend>
                                     <select class="option-select">
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="Montserrat">Montserrat</option>
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "searchForm", "fontFamily"]' data-value="DancingScript">Dancing script</option>
@@ -702,43 +707,45 @@ class SETTINGS_MENU_MANAGER {
                                     </select>
                                 </div>
                             </div>
+                            <legend class="window-categoryTitle">${language.settings.appearance.mainContent.shortcutsIcons.catTitle}</legend>
                             <div class="onWindowOption">
-                                <legend>Show shortcuts icons</legend>
-                                <p>Show or hide the shortcuts icons</p>
+                                <legend>${language.settings.appearance.mainContent.shortcutsIcons.legend}</legend>
+                                <p>${language.settings.appearance.mainContent.shortcutsIcons.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "displayOn"])}" data-specificonroute='["mainPageItems", "mainContent", "shortcutsImages", "displayOn"]' data-category="appearance"  data-keys='["mainPageItems", "mainContent", "shortcutsImages", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend>Width</legend>
+                                    <legend>${language.settings.appearance.mainContent.shortcutsIcons.iconWidth}</legend>
                                     <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "width"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsImages", "width"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend>Width</legend>
+                                    <legend>${language.settings.appearance.mainContent.shortcutsIcons.iconHeight}</legend>
                                     <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "height"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsImages", "height"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Order</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.order}</legend>
                                     <input type="number" min="0" max="1" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsImages", "order"])}" data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsImages", "order"]'></input>
                                 </div>
                             </div>
+                            <legend class="window-categoryTitle">${language.settings.appearance.mainContent.shortcutsTitles.catTitle}</legend>
                             <div class="onWindowOption">
-                                <legend>Show shortcuts titles</legend>
-                                <p>Show or hide the shortcuts titles</p>
+                                <legend>${language.settings.appearance.mainContent.shortcutsTitles.legend}</legend>
+                                <p>${language.settings.appearance.mainContent.shortcutsTitles.p}</p>
                                 <div class="option-toggle containerWithButton" data-mode="toggle" data-active="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsLegends", "displayOn"])}" data-category="appearance" data-specificonroute='["mainPageItems", "mainContent", "shortcutsLegends", "displayOn"]'  data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "display"]' data-activevalue="block" data-offValue="none">
                                     <div class="option-toggle_circle" data-mode="toggle"></div>
                                 </div>
                                 <hr>
                                 <div class="optionProperty">
-                                    <legend>Margin</legend>
+                                    <legend>${language.settings.appearance.mainContent.shortcutsTitles.margin}</legend>
                                     <input type="range" min="0" max="12" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsLegends", "margin"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "margin"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend>Font size</legend>
+                                    <legend>${language.settings.appearance.commonWords.fontSize}</legend>
                                     <input type="range" min="0" max="64" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "shortcutsLegends", "fontSize"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontSize"]'></input>
                                 </div>
                                 <div class="optionProperty">
-                                    <legend class="optionProperty-title">Font family</legend>
+                                    <legend class="optionProperty-title">${language.settings.appearance.commonWords.fontFamily}</legend>
                                     <select class="option-select">
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="Montserrat">Montserrat</option>
                                         <option data-mode="set" data-category="appearance" data-keys='["mainPageItems", "mainContent", "shortcutsLegends", "fontFamily"]' data-value="DancingScript">Dancing script</option>

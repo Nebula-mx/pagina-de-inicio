@@ -5,7 +5,7 @@ export let defaultSettings = {
         "open_search_in_newTab": "false",
         "weather_city": "Mexico-City",
         "lang": "en",
-        "version": "0.9.6"
+        "version": "0.9.7"
     },
     "appearance": {
         "theme": "light",

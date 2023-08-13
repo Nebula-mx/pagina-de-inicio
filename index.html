@@ -494,11 +494,14 @@
             grid-column: 3/4;
             padding: 10px;
             border-radius: var(--global-border-radius);
-            filter: var(--top-content-invert);
             cursor: pointer;
         }
         #top-content #settings p {
-            margin-right: 10px;
+            margin: 0 10px;
+            filter: var(--top-content-invert);
+        }
+        #top-content #settings img {
+            filter: var(--top-content-invert);
         }
         #top-content #settings p:hover {
             text-decoration: underline;
@@ -517,7 +520,6 @@
             background-color: var(--top-items-BG);
             position: relative;
             border-radius: var(--global-border-radius);
-            filter: var(--top-content-invert);
         }
         #top-content #hourContainer #date h2 {
             display: initial;
@@ -525,12 +527,14 @@
             font-size: clamp(min(2.2rem), 7vw, max(4rem));
             text-align: center;
             margin: 0;
+            filter: var(--top-content-invert);
         }
         #top-content #hourContainer #date p {
             width: fit-content;
             font-size: clamp(min(.8rem), 6vw, max(1.3rem));
             margin: auto;
             text-align: center;
+            filter: var(--top-content-invert);
         }
 
         #main-content {
@@ -722,7 +726,7 @@
         <div id="top-content">
             <div class="top-content_top">
                 <div id="weather" data-containerBG>
-                    <img class="weatherImg" id="openWeatherPopUp" src="" alt="weather-img">
+                    <img class="weatherImg" id="openWeatherPopUp" src="">
                     <p id="openWeatherPopUp" data-weatherState></p><p id="weather-location"></p>
                 </div>
                 <div id="settings" data-containerBG>

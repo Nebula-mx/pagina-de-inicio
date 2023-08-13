@@ -26,11 +26,11 @@ class THEME_MANAGER {
                             document.querySelectorAll(subProp.id).forEach(el => el.style[key] = subProp[key])
                             continue;
                         }               
-                        document.querySelector(subProp.id).style[key] = subProp[key]
+                        if(document.querySelector(subProp.id))document.querySelector(subProp.id).style[key] = subProp[key]
                     }
                     continue;
                 }
-                document.querySelector(currentObj.id).style[prop] = currentObj[prop]
+                if(document.querySelector(currentObj.id))document.querySelector(currentObj.id).style[prop] = currentObj[prop]
             }
         }
         mpiObj = null;

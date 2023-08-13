@@ -127,10 +127,9 @@ export function getSettingsMenuContent() {
             margin: 0 0 0 2px;
             opacity: 60%;
             font-size: clamp(0px, 3vw, 15px);
-            text-align: justify;
         }
         .settings-menu .settings-menu_content .settings-menu_category-content .option .full-space {
-            font-size: clamp(0px, 3vw, 18px);
+            font-size: clamp(0px, 3vw, 15px);
             grid-column: 1/3;
         }
         .settings-menu .settings-menu_content .settings-menu_category-content .option button {
@@ -339,14 +338,12 @@ export function getSettingsMenuContent() {
         </div>
         <div class="settings-menu_category-content">
             <div class="option">
-                <legend>${language.settings.general.shortcutsLimit.legend}</legend>
-                <p>${language.settings.general.shortcutsLimit.p}</p>
-                <select class="option-select" name="shortcuts" id="">
+                <legend>${language.settings.general.appLanguage.legend}</legend>
+                <p>${language.settings.general.appLanguage.p}</p>
+                <select class="option-select" name="app-lang" id="">
                     <option>--</option>
-                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="8">${language.commonWords.default} (8)</option>
-                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="6">6</option>
-                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="3">3</option>
-                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="0">${language.commonWords.clean} (0)</option>
+                    <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="en">${language.commonWords.default} (English)</option>
+                    <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="es">Spanish (Español)</option>
                 </select>
             </div>
             <hr>
@@ -370,21 +367,24 @@ export function getSettingsMenuContent() {
             </div>
             <hr>
             <div class="option">
+                <legend>${language.settings.general.shortcutsLimit.legend}</legend>
+                <p>${language.settings.general.shortcutsLimit.p}</p>
+                <select class="option-select" name="shortcuts" id="">
+                    <option>--</option>
+                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="8">${language.commonWords.default} (8)</option>
+                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="6">6</option>
+                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="3">3</option>
+                    <option data-mode="set" data-category="general" data-keys='["shortcuts_limit"]' data-value="0">${language.commonWords.clean} (0)</option>
+                </select>
+            </div>
+            <hr>
+            <div class="option">
                 <legend>${language.settings.general.weatherCity.legend}</legend>
                 <p class="full-space">${language.settings.general.weatherCity.p}</p>
                 <div class="option-buttons">
                     <input type="button" data-mode="set" data-promt="true" data-promtTitle="${language.prompts.weather.title}" data-promtDesc="${language.prompts.weather.desc}" data-category="general" data-keys='["weather_city"]' value="${language.settings.general.weatherCity.manualSetButton}">
                     <input type="button" data-mode="set" data-category="general" data-keys='["autoSet-weather_city"]' value="${language.settings.general.weatherCity.autoSetButton}">
                 </div>
-            </div>
-            <div class="option">
-                <legend>${language.settings.general.appLanguage.legend}</legend>
-                <p>${language.settings.general.appLanguage.p}</p>
-                <select class="option-select" name="app-lang" id="">
-                    <option>--</option>
-                    <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="en">${language.commonWords.default} (English)</option>
-                    <option data-category="general" data-mode="set" data-keys='["lang"]' data-value="es">Spanish (Español)</option>
-                </select>
             </div>
             <legend class="subtitle">${language.settings.general.categories.extra}</legend>
             <hr>
@@ -461,28 +461,10 @@ export function getSettingsMenuContent() {
                 <input id="setCustomBGurl" data-mode="set" data-category="appearance" data-keys='["background"]' data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" type="button" value="${language.settings.appearance.backgrounds.button}">
             </div>
             <div class="option">
-                <legend>Background blur</legend>
-                <p>Chose the intensity of the blur in your background</p>
+                <legend>${language.settings.appearance.bgBlur.legend}</legend>
+                <p>${language.settings.appearance.bgBlur.p}</p>
                 <input data-mode="set" data-category="appearance" data-keys='["backgroundBlur"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["backgroundBlur"])}">
             </div>
-            <div class="option">
-                <legend>${language.settings.appearance.blurStrenght.legend}</legend>
-                <p>${language.settings.appearance.blurStrenght.p}</p>
-                <input data-mode="set" data-category="appearance" data-keys='["blur"]' id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", ["blur"])}">
-            </div>
-            <details>
-                <summary>${language.settings.appearance.relatedOptions.summary}</summary>
-                <div class="option">
-                    <legend>${language.settings.appearance.relatedOptions.content.contextMenu.legend}</legend>
-                    <p>${language.settings.appearance.relatedOptions.content.contextMenu.p}</p>
-                    <input data-mode="set" data-category="appearance" data-keys='["shortcutsPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["shortcutsPopUpOpacity"])}">
-                </div>
-                <div class="option">
-                    <legend>${language.settings.appearance.relatedOptions.content.weatherPopUp.legend}</legend>
-                    <p>${language.settings.appearance.relatedOptions.content.weatherPopUp.p}</p>
-                    <input data-mode="set" data-category="appearance" data-keys='["weatherPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["weatherPopUpOpacity"])}">
-                </div>
-            </details>
             <hr>
             <div class="option">
                 <legend>${language.settings.appearance.dateFormat.legend}</legend>
@@ -494,6 +476,11 @@ export function getSettingsMenuContent() {
                 </select>
             </div>
             <hr>
+            <div class="option">
+                <legend>${language.settings.appearance.blurStrenght.legend}</legend>
+                <p>${language.settings.appearance.blurStrenght.p}</p>
+                <input data-mode="set" data-category="appearance" data-keys='["blur"]' id="blur-range" type="range" min="0" max="32" value="${sManager.getValue("appearance", ["blur"])}">
+            </div>
             <div class="option">
                 <legend>${language.settings.appearance.highlightTopContentItems.legend}</legend>
                 <p>${language.settings.appearance.highlightTopContentItems.p}</p>
@@ -508,6 +495,19 @@ export function getSettingsMenuContent() {
                     <div class="option-toggle_circle" data-mode="toggle"></div>
                 </div>
             </div>
+            <details>
+                <summary>${language.settings.appearance.relatedOptions.summary}</summary>
+                <div class="option">
+                    <legend>${language.settings.appearance.relatedOptions.content.contextMenu.legend}</legend>
+                    <p>${language.settings.appearance.relatedOptions.content.contextMenu.p}</p>
+                    <input data-mode="set" data-category="appearance" data-keys='["shortcutsPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["shortcutsPopUpOpacity"])}">
+                </div>
+                <div class="option">
+                    <legend>${language.settings.appearance.relatedOptions.content.weatherPopUp.legend}</legend>
+                    <p>${language.settings.appearance.relatedOptions.content.weatherPopUp.p}</p>
+                    <input data-mode="set" data-category="appearance" data-keys='["weatherPopUpOpacity"]' id="blur-range" type="range" min="0" max="100" value="${sManager.getValue("appearance", ["weatherPopUpOpacity"])}">
+                </div>
+            </details>
             <legend class="subtitle">${language.settings.appearance.categories.advancedOptions.title}</legend>
             <hr>
             <div class="option">
@@ -518,30 +518,30 @@ export function getSettingsMenuContent() {
             <legend class="subtitle">${language.settings.appearance.categories.advancedOptions.editRootContent}</legend>
             <hr>                    
             <div class="option">
-                <legend>Content display ratio</legend>
-                <p>Chose the ratio of the content. more space for top content or more space for bottom content</p>
+                <legend>${language.settings.appearance.displayRatio.legend}</legend>
+                <p>${language.settings.appearance.displayRatio.p}</p>
                 <input data-mode="set" data-category="appearance" data-keys='["mainPageItems", "contentRatio", "topPercentaje"]' id="blur-range" type="range" min="30" max="70" value="${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}">
             </div>
             <hr>
             <div class="option">
-                <legend>Weather info</legend>
-                <p>Show or hide weather info</p>
-                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "weather"]' data-windowContent="weatherContainerOptions">Display settings</button>
+                <legend>${language.settings.appearance.weatherOptions.title}</legend>
+                <p>${language.settings.appearance.weatherOptions.desc}</p>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "weather"]' data-windowContent="weatherContainerOptions">${language.settings.appearance.commonWords.DisplayOptions}</button>
             </div>
             <div class="option">
-                <legend>Settings buttons</legend>
-                <p>Show or hide the "settings" text</p>
-                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "settingsOpener"]' data-windowContent="settingsOpenerOptions">Display settings</button>
+                <legend>${language.settings.appearance.sOpenerOptions.title}</legend>
+                <p>${language.settings.appearance.sOpenerOptions.desc}</p>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "settingsOpener"]' data-windowContent="settingsOpenerOptions">${language.settings.appearance.commonWords.DisplayOptions}</button>
             </div>
             <div class="option">
-                <legend>Hour and date</legend>
-                <p>Edit the conainer of these elements</p>
-                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "dateAndHour"]' data-windowContent="dateAndHour">Display settings</button>
+                <legend>${language.settings.appearance.dateAndHourOptions.title}</legend>
+                <p>${language.settings.appearance.dateAndHourOptions.desc}</p>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "dateAndHour"]' data-windowContent="dateAndHour">${language.settings.appearance.commonWords.DisplayOptions}</button>
             </div>
             <div class="option">
-                <legend>Main content</legend>
-                <p>Edit the search bar and shortcuts</p>
-                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "mainContent"]' data-windowContent="mainContentSettings">Display settings</button>
+                <legend>${language.settings.appearance.mainContent.title}</legend>
+                <p>${language.settings.appearance.mainContent.desc}</p>
+                <button data-mode="openWindow" data-contentType="options" data-category="appearance" data-keys='["mainPageItems", "mainContent"]' data-windowContent="mainContentSettings">${language.settings.appearance.commonWords.DisplayOptions}</button>
             </div>
         </div>
     </div>
@@ -592,10 +592,6 @@ export function getSettingsMenuContent() {
                 <ul class="full-space">
                     ${language.settings.about.whatsNew.list}                           
                 </ul>
-            </div>
-            <div class="option">
-                <legend>${language.settings.about.currentSettings.legend}</legend>
-                <code class="full-space settingsMenu_code">${JSON.stringify(sManager.getFullSettings().general)}\n${JSON.stringify(sManager.getFullSettings().appearance)}</code>
             </div>
             <div class="option">
                 <legend>${language.settings.about.appInfo.legend}</legend>
