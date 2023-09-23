@@ -1,7 +1,7 @@
 import { sManager } from "../../settingsManager.js"
 import { themeManager } from "./loadTheme.js"
 import { Router } from "./Router.js"
-import { mainView } from "./mainView.js"
+import { mainView } from "../Views/mainView.js"
 
 export function refreshModules() {
     themeManager.startModule()

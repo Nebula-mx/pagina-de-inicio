@@ -7,9 +7,13 @@ class THEME_MANAGER {
         this.$favicon = document.getElementById("favicon")
         this.themes = null
         this.favicons = {
-            "Firefox": "App/Assets/Images/Firefox.png",
-            "Edg": "App/Assets/Images/Edge.png",
-            "Chrome": "App/Assets/Images/Chrome.png"
+            "Firefox": "App/Assets/Images/Firefox.webp",
+            "Edg": "App/Assets/Images/Edge.webp",
+            "Chrome": "App/Assets/Images/Chrome.webp"
+        },
+        this.bgTypes = {
+            "backgroundImage": (value) => `url(${value})`,
+            "backgroundColor": (value) => value
         }
     }
     aplyMainPageItemsValues(){
@@ -36,10 +40,12 @@ class THEME_MANAGER {
         mpiObj = null;
     }
     aplyTheme(){
+        let bgObj = sManager.getValue("appearance", ["background"])
+        this.$root.style[bgObj.type] = this.bgTypes[bgObj.type](bgObj.value)
         this.$cssvariables.innerHTML = this.themes[sManager.getValue("appearance", ["theme"])];
-        this.$root.style.backgroundImage = `url(${sManager.getValue("appearance", ["background"])})`;
         this.aplyMainPageItemsValues()
         this.themes = null;
+        bgObj = null;
         if(localStorage.getItem("browser")) {
             this.$favicon.href = this.favicons[localStorage.getItem("browser")]
         } else {
@@ -52,13 +58,11 @@ class THEME_MANAGER {
         }
     }
     startModule(){
-        //This method exist just because the dynamic values need to be updated with every change the user makes
         this.themes = {
             light: `
                 :root{
-                    --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
-                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}dvh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}dvh;
                     --blur-strenght: ${sManager.getValue("appearance", ["blur"])}px;
                     --global-border-radius: 5px;
                     --top-items-BG: ${sManager.getValue("appearance", ["top_itemsBg", "value"])};
@@ -136,12 +140,12 @@ class THEME_MANAGER {
                     --settings-menu-option-toggleCircle: #fff;
                     --settings-menu-invert: 0%;
                     --settings-menu_code: rgba(223, 223, 223, 1);
+                    --settings-menu-indicator: #cecece;
             }`,
             dark: `
                 :root {
-                    --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
-                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}dvh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}dvh;
                     --blur-strenght: ${sManager.getValue("appearance", ["blur"])}px;
                     --global-border-radius: 5px;
                     --important-text-colour: rgba(236, 110, 110, 1);
@@ -214,12 +218,12 @@ class THEME_MANAGER {
                     --settings-menu-option-toggleCircle: #fff;
                     --settings-menu-invert: 100%;
                     --settings-menu_code: rgba(0, 0, 0, 1);
+                    --settings-menu-indicator: #3e3e3e;
             } `,
             "customTheme1": `
                 :root {
-                    --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
-                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}dvh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}dvh;
                     --blur-strenght: ${sManager.getValue("customThemes", ["customTheme1", "Blur strenght"])}px;
                     --important-text-colour: ${sManager.getValue("customThemes", ["customTheme1", "Important text colour"])};
                     --global-border-radius: ${sManager.getValue("customThemes", ["customTheme1", "Global border radius"])}px;
@@ -291,12 +295,12 @@ class THEME_MANAGER {
                     --settings-menu-option-toggleCircle: ${sManager.getValue("customThemes", ["customTheme1", "Settings menu toggle circle Bg colour"])};
                     --settings-menu-invert: ${sManager.getValue("customThemes", ["customTheme1", "Settings menu invert icons colour intensity"])};
                     --settings-menu_code: ${sManager.getValue("customThemes", ["customTheme1", "Settings menu code Bg colour"])};
+                    --settings-menu-indicator: #3e3e3e;
             } `,
             "customTheme2": `
                 :root {
-                    --body-backgroundImage: url(${sManager.getValue("appearance", ["background"])});
                     --body-backgroundBlur: ${sManager.getValue("appearance", ["backgroundBlur"])}px;
-                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}vh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}vh;
+                    --body-gridValues: ${sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"])}dvh ${100 - parseInt(sManager.getValue("appearance", ["mainPageItems", "contentRatio", "topPercentaje"]))}dvh;
                     --blur-strenght: ${sManager.getValue("customThemes", ["customTheme2", "Blur strenght"])}px;
                     --global-border-radius: ${sManager.getValue("customThemes", ["customTheme2", "Global border radius"])}px;
                     --important-text-colour: ${sManager.getValue("customThemes", ["customTheme2", "Important text colour"])};                    
@@ -368,9 +372,10 @@ class THEME_MANAGER {
                     --settings-menu-option-toggleCircle: ${sManager.getValue("customThemes", ["customTheme2", "Settings menu toggle circle Bg colour"])};
                     --settings-menu-invert: ${sManager.getValue("customThemes", ["customTheme2", "Settings menu invert icons colour intensity"])};
                     --settings-menu_code: ${sManager.getValue("customThemes", ["customTheme2", "Settings menu code Bg colour"])};
+                    --settings-menu-indicator: #3e3e3e;
             } `
         }
-        this.aplyTheme()
+        this.aplyTheme();
     }
 }
 export let themeManager = new THEME_MANAGER()

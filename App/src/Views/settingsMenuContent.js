@@ -14,7 +14,7 @@ export function getSettingsMenuContent() {
             position: absolute;
             place-self: center;
             width: 80%;
-            height: clamp(0px, 60vh, 450px);
+            height: clamp(0px, 70vh, 1000px);
             z-index: 500;
             filter: drop-shadow(6px 6px 5px rgba(0, 0, 0, 0.2));
             color: var(--main-content-font);
@@ -25,8 +25,8 @@ export function getSettingsMenuContent() {
             padding: clamp(min(10px), 3vw, max(26px));
             border: var(--settings-menu-list-border);
             border-radius: var(--global-border-radius) 0 0 var(--global-border-radius);
-            width: clamp(min(42px), 30%, max(258px));
-            height: 100%;
+            width: clamp(120px, 30vw, 300px);
+            overflow: hidden auto;
         }
         .settings-menu .settings-menu_list #closeSettingsBtn {
             display: flex;
@@ -70,10 +70,9 @@ export function getSettingsMenuContent() {
             display: flex;
             flex-flow: column;
             background-color: var(--settings-menu-light-content);
-            width: clamp(min(196px), 100vw, max(720px));
-            padding: clamp(min(10px), 3vw, max(26px));
+            width: clamp(180px, 100vw, 1024px);
+            padding: clamp(10px, 3vw, 26px);
             border-radius: 0 var(--global-border-radius) var(--global-border-radius) 0;
-            height: 100%;
             overflow-y: auto;
             overflow-x: hidden;
         }
@@ -85,6 +84,10 @@ export function getSettingsMenuContent() {
         .settings-menu .settings-menu_content .settings-menu_content-top hr{
             opacity: 20%;
         }
+        .settings-menu .settings-menu_content .settings-menu_category-content {
+            display: flex;
+            flex-direction: column;
+        }
         .settings-menu .settings-menu_content .settings-menu_category-content p,
         .settings-menu .settings-menu_content .settings-menu_category-content legend {
             font-size: clamp(.5rem, 3vw, 1.2rem);
@@ -95,6 +98,12 @@ export function getSettingsMenuContent() {
         }
         .settings-menu .settings-menu_content .settings-menu_category-content ol>li::marker {
             font-size: clamp(.5rem, 3vw, 1.2rem);
+        }
+        .settings-menu .settings-menu_content .settings-menu_category-content #currentUserBg {
+            height: clamp(40px, 20vh, 150px);
+            width: auto;
+            border-radius: var(--global-border-radius);
+            place-self: center;
         }
         .settings-menu .settings-menu_content img {
             width: clamp(10px, 80%, 500px);
@@ -111,6 +120,7 @@ export function getSettingsMenuContent() {
             margin: 1rem 0;
             border-radius: var(--global-border-radius);
         }
+        .settings-menu .settings-menu_content .settings-menu_category-content .option:last-child {margin: 1rem 0 0 0;}
         .settings-menu .settings-menu_content .settings-menu_category-content .option-select {
             grid-row: 1/3;
             grid-column: 2/3;
@@ -220,21 +230,21 @@ export function getSettingsMenuContent() {
             grid-column: 1/3;
             margin-top: 1em;
         }
+        .settings-menu .settings-menu_content .settings-menu_category-content .option div > .selectableBg {
+            height: clamp(40px, 20vw, 150px);
+            width: auto;
+            margin: 0 1rem 0 0;
+            border-radius: var(--global-border-radius);
+            cursor: pointer;
+        }
+        .settings-menu .settings-menu_content .settings-menu_category-content .option div > .selectableBg:last-child {
+            margin: 0;
+        }
         .settings-menu .settings-menu_content .settings-menu_content-top #submenus-backButon {
             position: relative;
             width: clamp(11px, 4vw, 20px);
             height: clamp(12px, 4vw, 21px);
             cursor: pointer;
-        }
-        .settings-menu .settings-menu_content .settings-menu_category-content .option #user-currentBG {
-            grid-column: 1/3;
-            grid-row: 2/3;
-            width: 40%;
-            margin: 12px;
-            height: fit-content;
-            place-self: center;
-            align-self: center;
-            border-radius: var(--global-border-radius);
         }
         .settings-menu .settings-menu_content .settings-menu_category-content .option #backgroundsSummary {
             grid-column: 1/3;
@@ -246,10 +256,6 @@ export function getSettingsMenuContent() {
             flex-wrap: wrap;
             justify-content: center;
             padding: 10px 0;
-        }
-        .settings-menu .settings-menu_content .settings-menu_category-content .option #setCustomBGurl {
-            grid-column: 1/2;
-            grid-row: 4/5;
         }
         .settings-menu .settings-menu_content .settings-menu_category-content .option .backgrounds-container .settings_background-img{
             border-radius: var(--global-border-radius);
@@ -285,7 +291,10 @@ export function getSettingsMenuContent() {
     main: `
     <div class="settings-menu">
         <div class="settings-menu_list">
-            <img data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" id="closeSettingsBtn" src="App/Assets/Images/Close btn.svg" data-mode="close-menu" alt="close menu" title="Close menu" width="25px" height="25px">
+            <svg id="closeSettingsBtn" data-mode="close-menu" data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="17.7886" y="5.28851" width="2.71964" height="17.6777" rx="1.35982" transform="rotate(45 17.7886 5.28851)" fill="black"/>
+                <rect x="19.7117" y="17.7885" width="2.71964" height="17.6777" rx="1.35982" transform="rotate(135 19.7117 17.7885)" fill="black"/>
+            </svg>
             <h4>${language.settings.title}</h4>
             <ul id="settings-list" >
                 <li data-alert="false" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" data-mode="change-menu" data-category="general" id="settings_general"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -355,7 +364,7 @@ export function getSettingsMenuContent() {
                     <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://www.google.com/search?q=">${language.commonWords.default} (Google)</option>
                     <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://www.bing.com/search?q=">Bing</option>
                     <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://duckduckgo.com/?q=">Duck Duck Go</option>
-                    <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://you.com/search?q=">You search engine</option>
+                    <option data-mode="set" data-category="general" data-keys='["search_engine"]' data-value="https://you.com/search?q=">You AI</option>
                 </select>
             </div>
             <div class="option">
@@ -442,23 +451,8 @@ export function getSettingsMenuContent() {
             </div>
             <div class="option">
                 <legend>${language.settings.appearance.backgrounds.legend}</legend>
-                <img id="user-currentBG" src="${sManager.getValue("appearance", ["background"])}">
-                <details id="backgroundsSummary">
-                    <summary>${language.settings.appearance.backgrounds.summary}</summary>
-                    <div class="backgrounds-container">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/1.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/1.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/2.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/2.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/3.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/3.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/4.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/4.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/5.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/5.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/6.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/6.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/7.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/7.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/8.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/8.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/9.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/9.webp">
-                        <img data-mode="set" data-category="appearance" data-keys='["background"]' data-value="App/Assets/Images/Backgrounds/10.webp" class="settings_background-img" src="App/Assets/Images/Backgrounds/10.webp">
-                    </div>
-                </details>
-                <input id="setCustomBGurl" data-mode="set" data-category="appearance" data-keys='["background"]' data-promt="true" data-promtTitle="${language.prompts.background.title}" data-promtDesc="${language.prompts.background.desc}" type="button" value="${language.settings.appearance.backgrounds.button}">
+                <p>${language.settings.appearance.backgrounds.p}</p>
+                <button data-mode="createSubMenu" data-typeOfMenu="backgroundOptions" data-parentMenu="appearance">${language.settings.appearance.backgrounds.button}</button>
             </div>
             <div class="option">
                 <legend>${language.settings.appearance.bgBlur.legend}</legend>
@@ -513,7 +507,7 @@ export function getSettingsMenuContent() {
             <div class="option">
                 <legend>${language.settings.appearance.customTheme.legend}</legend>
                 <p>${language.settings.appearance.customTheme.p}</p>
-                <button data-mode="createSubMenu" data-typeOfMenu="customizeTheme" data-parentMenu="appearance">${language.settings.appearance.customTheme.button}</button>
+                <button data-mode="createSubMenu" data-typeOfMenu="themeEditor" data-parentMenu="appearance">${language.settings.appearance.customTheme.button}</button>
             </div>
             <legend class="subtitle">${language.settings.appearance.categories.advancedOptions.editRootContent}</legend>
             <hr>                    

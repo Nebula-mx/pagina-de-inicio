@@ -1,3 +1,7 @@
+import { sManager } from "../../settingsManager.js";
+const lang = sManager.getValue("general", ["lang"]);
+const language = (await import(`../lang/${lang}.js`)).default;
+
 class WINDOW_MANAGER {
     constructor(clickManager, windowMoveMouseDown){
         this.customStyle = document.getElementById("dynamic-style");
@@ -23,7 +27,7 @@ class WINDOW_MANAGER {
                 <div id="window-titleBar">
                     <legend>${Windowtitle}</legend>
                     <div>
-                        <button data-mode="closeMenu">Close</button>
+                        <button data-mode="closeMenu">${language.commonWords.close}</button>
                     </div>
                 </div>
                 <div id="window-content">
