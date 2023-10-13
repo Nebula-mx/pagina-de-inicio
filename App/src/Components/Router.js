@@ -1,4 +1,4 @@
-import { settingsMenuManager } from "./SettingsMenu.js"
+import { settingsMenuManager } from "../Views/SettingsMenu.js"
 
 const routes = {
     "#/settings/general": () => {
@@ -20,7 +20,12 @@ const routes = {
     "#/settings/appearance/theme-editor": () => {
         settingsMenuManager.showMenu()
         settingsMenuManager.showCategory("appearance")
-        document.querySelector("[data-typeofmenu]").click()
+        document.querySelector("[data-typeofmenu='themeEditor']").click()
+    },
+    "#/settings/appearance/backgrounds": () => {
+        settingsMenuManager.showMenu()
+        settingsMenuManager.showCategory("appearance")
+        document.querySelector("[data-typeofmenu='backgroundOptions']").click()
     }
 }
 class ROUTER {

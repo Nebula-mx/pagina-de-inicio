@@ -5,7 +5,9 @@ export default {
         "default": "Por defecto",
         "clean": "Limpio",
         "of": "de",
-        "at": "En"
+        "at": "En",
+        "editElement": "Editar elemento",
+        "close": "Cerrar"
     },
     "daysOfWeek": {
         0: "Domingo",
@@ -118,12 +120,12 @@ export default {
                 "p": "Cambia el motor de búsqueda."
             },
             "searchInNewTab": {
-                "legend": "Abrir búsqueda en una nueva pestaña",
+                "legend": "Abrir búsquedas en una nueva pestaña",
                 "p": "Haz que cada búsqueda que hagas se abra en una nueva pestaña."
             },
             "weatherCity": {
-                "legend": "Configurar ciudad del clima",
-                "p": "Cambia a la ciudad que prefieras saber el clima.",
+                "legend": "Configurar locación clima",
+                "p": "Configura la locación para mostrar el clima.",
                 "manualSetButton": "Ajustar manualmente",
                 "autoSetButton": "Ajustar automáticamente"
             },
@@ -179,7 +181,7 @@ export default {
             },
             "theme": {
                 "legend": "Tema",
-                "p": "Elige tu tema preferido",
+                "p": "Elige tu tema preferido.",
                 "select": {
                     "light": "Claro",
                     "dark": "Oscuro",
@@ -188,32 +190,39 @@ export default {
                 }
             },
             "backgrounds": {
-                "legend": "Fondo de pantalla:",
-                "summary": "Mas fondos",
-                "button": "Usar URL de fondo personalizada"
+                "legend": "Fondo de pantalla",
+                "p": "Cambia el fondo de pantalla.",
+                "button": "Abrir opciones",
+                "submenu": {
+                    "title": "Fondo de pantalla",
+                    "bgImages": "Imágenes",
+                    "bgImagesButton": "Usar URL personalizada",
+                    "bgColours": "Colores",
+                    "bgColoursButton": "Usar color personalizado"
+                }
             },
             "bgBlur": {
-              "legend": "Desenfoque del fondo",
-              "p": "Selecciona la intensidad del desenfoque del fondo de pantalla"      
+              "legend": "Desenfoque del fondo de pantalla",
+              "p": "Selecciona la intensidad del desenfoque del fondo de pantalla.",
             },
             "blurStrenght": {
-                "legend": "Intensidad del difuminado",
-                "p": "Ajusta la intensidad a tu gusto"
+                "legend": "Intensidad del difuminado de los elementos",
+                "p": "Ajusta la intensidad a tu gusto."
             },
             "relatedOptions": {
                 "summary": "Opciones relacionadas",
                 "content": {
                     "contextMenu": {
                         "legend": "Opacidad del menu contextual",
-                        "p": "Haz mas o menos transparente el menu contextual"
+                        "p": "Ajusta la transparencia del menu contextual."
                     },
                     "favouritesContent": {
                         "legend": "Opacidad del contenido inferior",
-                        "p": "Ajusta la opacidad del contenido de favoritos (Solo afecta al contenedor)"
+                        "p": "Ajusta la opacidad del contenido de favoritos (Solo afecta al contenedor)."
                     },
                     "weatherPopUp": {
                         "legend": "Opacidad del contenedor del clima",
-                        "p": "Ajusta la opacidad del contenedor de la vendana del clima"
+                        "p": "Ajusta la opacidad del contenedor de la vendana del clima."
                     }
                 }
             },
@@ -243,7 +252,7 @@ export default {
                 "p": "Elige la proporcion que tendran el contenido superior e inferior."
             },
             "weatherOptions": {
-                "title": "Informacion del clima",
+                "title": "Información del clima",
                 "desc": "Edita la forma en la que se muestra el clima.",
                 "activeModuleDesc": "Al desactivar el modulo el elemento entero sera removido",
                 "icon": {
@@ -255,12 +264,12 @@ export default {
                     "p": "Muestra u oculta la temperatura"
                 },
                 "location": {
-                    "legend": "Mostrar ubicacion",
-                    "p": "Muestra u oculta la ubicacion del clima"
+                    "legend": "Mostrar ubicacioó",
+                    "p": "Muestra u oculta la ubicación del clima"
                 }
             },
             "sOpenerOptions": {
-                "title": "Accesos a configuraciones",
+                "title": "Accesos a los ajustes",
                 "desc": "Edita la manera en la que estos son mostrados.",
                 "settingsText": {
                     "legend": 'Mostrar el texto "Ajustes"',
@@ -277,10 +286,10 @@ export default {
                 "desc": "Edita los el estilo de fecha y hora.",
                 "p": "Al apagar el modulo, la fecha y hora seran removidos.",
                 "general": {
-                    "legend": "Orientacion del contenido",
-                    "p": "Elige entre una orientacion vertical u horizontal.",
-                    "itemsMargin": "Separacion del contenido",
-                    "alignItems": "Alineacion del contenido"
+                    "legend": "Orientación del contenido",
+                    "p": "Elige entre una orientación vertical u horizontal.",
+                    "itemsMargin": "Separación del contenido",
+                    "alignItems": "Alineación del contenido"
                 },
                 "hour": {
                     "legend": "Mostrar la hora",
@@ -322,7 +331,7 @@ export default {
                     "catTitle": "Nombres de atajos",
                     "legend": "Mostrar los nombres",
                     "p": "Muestra u oculta los nombres de los atajos",
-                    "margin": "Separacion"
+                    "margin": "Separación"
                 }
             }
         },
@@ -333,20 +342,19 @@ export default {
             },
             "missingFeatures": {
                 "legend": "En desarrollo continuo",
-                "p": "Esta pagina sigue en desarrollo asi que caracteristicas como una mejor personalizacion, atajos de teclado y otras caracteristicas aun no estan disponibles."
+                "p": "Esta página sigue en desarrollo asi que características como una mejor personalización, atajos de teclado y otras características aún no estan disponibles."
             },
             "whatsNew": {
-                "legend": "¿Que hay de nuevo?",
+                "legend": `¿Qué hay de nuevo? v.${sManager.getValue("general", ["version"])}`,
                 "list": `
-                    <li>¡Mas opciones de personalizacion!, Ahora puedes difuminar el fondo, cambiar el tipo de fuente de algunos elementos ¡y mucho mas!</li>
+                    <li>Ahora hay una nueva sección para poder elegir distintos fondos de pantalla.</li>
+                    <li>Se corrigieron detalles en el selector de colores (por el momento no funciona en navegadores moviles)</li>
                     <li>El rendimiento ha sido mejorado.</li>
-                    <li>El contenido del menu de configuraciones ha sido re-organizado.</li>
-                    <li>Mejoras de comportamiento</li>
                 `
             },
             "appInfo": {
-                "legend": "Informacion de la pagina",
-                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
+                "legend": "Información de la pagina",
+                "version": `Versión: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
             }
         }
     },
@@ -366,7 +374,8 @@ export default {
                 }
             },
             "previewAdvisorDefault": "Puedes usar la vista previa en vivo para ver que tan bonito es tu tema",
-            "previewAdvisorActive": "¡La vista previa esta activa!. Tu tema anterior ha sido guardado en caso de que desees restaurar el anterior"
+            "previewAdvisorActive": "¡La vista previa esta activa!. Tu tema anterior ha sido guardado en caso de que desees restaurar el anterior",
+            "betaStatusAlert": '¡Esta función sigue en pruebas¡, si percibes algun error mientras usas esta característica puedes reportarlo en el repositorio de <a href="https://github.com/Nebula-mx/pagina-de-inicio" target="_blank">Github</a>'
         }
     },
     "colourPicker": {

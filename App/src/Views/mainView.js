@@ -2,11 +2,11 @@ import { sManager } from "../../settingsManager.js"
 import { popUpsManager } from "../Helpers/popUpsManager.js";
 import { showAlert } from "../Helpers/showAlert.js";
 import { closePromt } from "../Helpers/showPrompt.js";
-import { Clock } from "./Clock.js";
-import { getWeather } from "./Weather.js";
-import { Search } from "./Search.js";
+import { Clock } from "../Components/Clock.js";
+import { getWeather } from "../Components/Weather.js";
+import { Search } from "../Components/Search.js";
 import { settingsMenuManager } from "./SettingsMenu.js"
-import { shortcuts_manager } from "./ShortcutsManager.js"
+import { shortcuts_manager } from "../Helpers/ShortcutsManager.js"
 import { createWindow } from "../Helpers/windowsManager.js";
 const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
@@ -14,8 +14,8 @@ const language = (await import(`../lang/${lang}.js`)).default;
 export function mainView(){
     Clock()
     getWeather()
-    shortcuts_manager.testShortcutsStatus()
     document.getElementById("settings").children[0].textContent = language.settings.title
+    shortcuts_manager.testShortcutsStatus()
 }
 const MainClickableElements = {
     "shortcut-icon": (ref) => {

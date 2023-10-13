@@ -404,7 +404,6 @@ class COLOUR_PICKER {
             },
             "save&exit": () => {
                 if(this.selectedColour === null) return
-                console.log(this.selectedColour)
                 this.selectedColours.push(this.selectedColour)
                 this.interactions.closeMenu()
                 return this.saveAndExitFunction({
@@ -543,7 +542,7 @@ class COLOUR_PICKER {
             if(i+1 > document.querySelectorAll(".ColoursSwatches").length) return
             document.getElementById("recentColoursSwatches").children[i+1].style.backgroundColor = c
             document.getElementById("recentColoursSwatches").children[i+1].setAttribute("data-mode", "clickableswatch")
-            document.getElementById("recentColoursSwatches").children[i+1].setAttribute("data-colour", `${c}}`)
+            document.getElementById("recentColoursSwatches").children[i+1].setAttribute("data-colour", `${c}`)
         })
         document.querySelectorAll("#colourPicker_main-selectorsContainer > div canvas").forEach(node => node.addEventListener("mousedown", this.mouseDownSelectorsHandler))
         document.querySelector(`[data-format="${this.currentColourFormat}"]`).classList.add("selectedFormat")
@@ -592,6 +591,7 @@ function colourPickerSelectorsMouseMove(e) {
         button.style.top = `${e.layerY - (button.offsetHeight*1.5)}px`
         button.style.backgroundColor = colourPicker.selectedColour
         if(e.target.id === "colourPicker-hue") {
+            if(formatValues.join("") === "0000" || formatValues.join("") === "300100%0%0%" || formatValues.join("") === "00000000") return
             colourPicker.loadSaturationValues(formatValues, formatData)
             colourPickerSelectorsMouseMove({
                 target: document.getElementById("colourPicker-spectrum"),

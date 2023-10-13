@@ -5,11 +5,14 @@ export let defaultSettings = {
         "open_search_in_newTab": "false",
         "weather_city": "Mexico-City",
         "lang": "en",
-        "version": "0.9.7"
+        "version": "0.9.7.1"
     },
     "appearance": {
         "theme": "light",
-        "background": "App/Assets/Images/Backgrounds/1.webp",
+        "background": {
+          type: "backgroundImage",
+          value: "https://raw.githubusercontent.com/Nebula-mx/start-page_backgrounds/main/default-backgrounds/1.webp"
+        },
         "backgroundBlur": 0,
         "blur": 8,
         "shortcutsPopUpOpacity": 89,

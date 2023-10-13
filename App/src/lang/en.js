@@ -5,7 +5,9 @@ export default {
         "default": "Default",
         "clean": "Clean",
         "of": "of",
-        "at": "AT"
+        "at": "AT",
+        "editElement": "Edit element",
+        "close": "Close"
     },
     "daysOfWeek": {
         0: "Sunday",
@@ -189,9 +191,16 @@ export default {
                 }
             },
             "backgrounds": {
-                "legend": "Background:",
-                "summary": "More backgrounds",
-                "button": "Set custom background URL"
+                "legend": "Background settings",
+                "p": "Change the background",
+                "button": "Options",
+                "submenu": {
+                    "title": "Background",
+                    "bgImages": "Images",
+                    "bgImagesButton": "Use custom URL",
+                    "bgColours": "Colours",
+                    "bgColoursButton": "Use custom colour"
+                }
             },
             "bgBlur": {
               "legend": "Background blur",
@@ -337,17 +346,16 @@ export default {
                 "p": "This app still in development so features like keybinds, a better personalization and other features are currently in development."
             },
             "whatsNew": {
-                "legend": "Whats new?",
+                "legend": `What's new? v.${sManager.getValue("general", ["version"])}`,
                 "list": `
-                    <li>Now there are more customization features!, you can blur your background, change the font family for some elements and much more!</li>
+                    <li>Now there is a new Backgrounds section to have a better customization.</li>
+                    <li>Some fixes to the colour selector (it doesn't works on mobile, it will be fixed soon.)</li>
                     <li>The app performance has been improved.</li>
-                    <li>The settings menu content has a better organization.</li>
-                    <li>Some behavior</li>
                 `
             },
             "appInfo": {
-                "legend": "Informacion de la pagina",
-                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Hecho con 💜 en 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
+                "legend": "App info",
+                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Made by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 in 🇲🇽 <br> Thanks to <a href="https://github.com/Fabrisdev">Fabri</a> by helping with the translations 💜`
             }
         }
     },
@@ -367,7 +375,8 @@ export default {
                 }
             },
             "previewAdvisorDefault": "You can use Live preview to see how beautiful is your theme!",
-            "previewAdvisorActive": "Live preview is enabled!, your previous theme will be saved in case of you wan to restore your previous theme."
+            "previewAdvisorActive": "Live preview is enabled!, your previous theme will be saved in case of you wan to restore your previous theme.",
+            "betaStatusAlert": 'This feature still in a beta status! some bugs will be fixed in the next update, please, if you can see a bug while using this feature make a report on the <a href="https://github.com/Nebula-mx/pagina-de-inicio" target="_blank">project Github repo</a>'
         }
     },
     "colourPicker": {

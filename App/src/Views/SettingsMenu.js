@@ -1,14 +1,15 @@
 import { sManager } from "../../settingsManager.js";
-import { refreshModules } from "./App.js";
+import { refreshModules } from "../Components/App.js";
 import { showAlert } from "../Helpers/showAlert.js";
 import { showNotification } from "../Helpers/showNotification.js";
 import { showPromt } from "../Helpers/showPrompt.js";
-import { getWeather } from "./Weather.js";
-import { colourPicker } from "../Helpers/colourPicker.js";
+import { getWeather } from "../Components/Weather.js";
 import { createWindow } from "../Helpers/windowsManager.js"
-import { getSettingsMenuContent } from "../Helpers/settingsMenuContent.js"
+import { getSettingsMenuContent } from "./settingsMenuContent.js"
+import { getSubMenus } from "./settingsMenu-subMenus.js";
 const lang = sManager.getValue("general", ["lang"]);
 const language = (await import(`../lang/${lang}.js`)).default;
+let mouseUplistenerAdded = false
 
 export let openedMenu; //this variable is used to validate if a menu is opened, its useful when prompts or alerts are required
 
@@ -21,188 +22,6 @@ class SETTINGS_MENU_MANAGER {
         this.dynamicStyle = document.getElementById("dynamic-style")
         this.apliedMenuStatus = false
         this.menuContent = getSettingsMenuContent()
-        this.subMenus = {
-            "customizeTheme": {
-                "dynamicContent": true, //this property indicates if the sub-menu requires an advanced content load
-                "parentMenu": "appearance",
-                "themeBackup": JSON.parse(JSON.stringify(this.config.customThemes.customTheme1)),
-                "previousTheme": null,
-                "editedTheme": "customTheme1",
-                "previewEnabled": "false",
-                "html": `
-                    <div>
-                        <div class="settings-menu_content-top">
-                            <div title="Back to appearance category">
-                                <svg id="submenus-backButon" data-alert="false" data-mode="change-menu" data-category="appearance" data-alerttitle="${language.alerts.themeEditorAlerts.title}" data-alertdesc="${language.alerts.themeEditorAlerts.desc}" width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="6.28918" y="0.642029" width="2" height="7" rx="1" transform="rotate(60 6.28918 0.642029)" fill="#CFCFCF"/>
-                                    <rect x="7.28918" y="6.62592" width="2" height="7" rx="1" transform="rotate(120 7.28918 6.62592)" fill="#CFCFCF"/>
-                                </svg>
-                            </div>
-                            <h5 id="category-name">${language.submenus.themeCreator.title}</h5>
-                            <hr>
-                        </div>
-                        <div class="settings-menu_category-content">
-                            <div style="display: none;" class="option">
-                                <legend>Want to know more about this feature?</legend>
-                                <button data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="openGuide">View tutorials</button>
-                            </div>
-                            <div class="option theme-editor_actions">
-                                <div id="theme-editor_selectedTheme">
-                                    <p>${language.submenus.themeCreator.editorActions.p}</p>
-                                    <select class="option-select">
-                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme1">${language.submenus.themeCreator.editorActions.select.customTheme1}</option>
-                                        <option data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showThemeValue" data-value="customTheme2">${language.submenus.themeCreator.editorActions.select.customTheme2}</option>
-                                    </select>
-                                </div>
-                                <div id="theme-editor_actions">
-                                    <button id="themeEditorActions_preview" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="livePreview" data-active="false">${language.submenus.themeCreator.editorActions.buttons.preview}</button>
-                                    <button disabled="true" id="themeEditorActions_saveTheme" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="saveTheme">${language.submenus.themeCreator.editorActions.buttons.save}</button>
-                                    <button disabled="true" id="themeEditorActions_cancel" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="restoreTheme">${language.submenus.themeCreator.editorActions.buttons.cancel}</button>
-                                </div>
-                            </div>
-                            <div class="option" style="display: flex;align-items: center;">
-                                <svg style="filter: invert(var(--settings-menu-invert));" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"></rect>
-                                    <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"></circle>
-                                    <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"></circle>
-                                </svg> 
-                                <p id="selectedStyleStatus" style="margin: 0 0 0 5px;">${language.submenus.themeCreator.previewAdvisorDefault}</p>
-                            </div>
-                            <hr>
-                            <div class="option" style="display: flex;align-items: center;">
-                                <svg style="filter: invert(var(--settings-menu-invert));" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="12" y="6" width="3" height="11" rx="1.5" fill="#222222"></rect>
-                                    <circle cx="13.5" cy="19.5" r="1.5" fill="#222222"></circle>
-                                    <circle cx="13.5" cy="13.5" r="12.25" stroke="#2F2F2F" stroke-width="2.5"></circle>
-                                </svg> 
-                                <p id="selectedStyleStatus" style="margin: 0 0 0 5px;">This feature still in a beta status! some bugs will be fixed in the next update, please, if you can see a bug while using this feature make a report on the <a href="https://github.com/Nebula-mx/pagina-de-inicio" target="_blank">project Github repo</a></p>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                "insertContent": async (theme = "customTheme1") => {
-                    let $container = document.querySelector(".settings-menu_category-content"),
-                        $fragment = document.createDocumentFragment(),
-                        $contentContainer = document.createElement("div"),
-                        inputRangeValues = { //if the input type is range, there are their max values
-                            "Global border radius": 10,
-                            "Blur strenght": 40,
-                            "Settings menu invert icons colour intensity": 100,
-                        };
-                    location.hash = "#/settings/appearance/theme-editor"
-                    $container.scroll(0, 0)
-                    $contentContainer.classList.add("customizeThemeContent")
-                    this.subMenus.customizeTheme.editedTheme = theme
-                    for(let key in this.config.customThemes[theme]) { //creating sub-menu content
-                        let $optionContainer = document.createElement("div"),
-                            $optionTitle = document.createElement("legend"),
-                            $optionDesc = document.createElement("p"),
-                            $input = null;
-        
-                            $optionContainer.classList.add("option")
-                            $optionTitle.textContent = key
-                            $optionDesc.textContent = `Current value: ${sManager.getValue("customThemes", [theme, key])}`
-                            $optionContainer.appendChild($optionTitle)
-                            $optionContainer.appendChild($optionDesc)
-                            
-                            if(/(rgb(a?)|hsl(a?)|#)/.test(sManager.getValue("customThemes", [theme, key]))) { //this "if" validates the data type to use certain input type
-                                $input = `<div class="colourPicker-clickableSwatches" data-category="customThemes" data-keys='["${theme}", "${key}"]' value="${sManager.getValue("customThemes", [theme, key])}" style="background-color: ${sManager.getValue('customThemes', [theme, key])};" data-mode="subMenuInteraction" data-menu="customizeTheme" data-action="showColourPicker" data-value="${sManager.getValue("customThemes", [theme, key])}"></div>`
-                            } else {$input = `<input type="range" data-subSetting="true" data-mode="set" data-category="customThemes" data-keys='["${theme}", "${key}"]' min="0" max="${inputRangeValues[key]}" value="${sManager.getValue("customThemes", [theme, key])}">`}
-                            $optionContainer.insertAdjacentHTML("beforeend", $input)
-                            $fragment.appendChild($optionContainer)
-                    }
-                    $contentContainer.appendChild($fragment)
-                    $container.appendChild($contentContainer)
-                    this.subMenus.customizeTheme.previousTheme = sManager.getValue("appearance", ["theme"])
-                    if(this.subMenus.customizeTheme.previewEnabled === "true" || sManager.getValue("appearance", ["theme"]).includes("customTheme")) {
-                        this.subMenus.customizeTheme.previewEnabled = "false"
-                        this.subMenus.customizeTheme.submenuInteractions.livePreview()
-                    }
-                },
-                "submenuInteractions": {
-                    "livePreview": () => {
-                        if(this.subMenus.customizeTheme.previewEnabled === "false") {
-                            if(document.querySelectorAll("#theme-editor_actions button[disabled]")) document.querySelectorAll("#theme-editor_actions button[disabled]").forEach(node => node.removeAttribute("disabled"))
-                            document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "true"))
-                            this.subMenus.customizeTheme.previewEnabled = "true"
-                            
-                            document.getElementById("selectedStyleStatus").textContent = `${language.submenus.themeCreator.previewAdvisorActive}`
-                            document.getElementById("selectedStyleStatus").style.color = "var(--important-text-colour)"
-                            
-                            sManager.saveSettings("appearance", ["theme"], this.subMenus.customizeTheme.editedTheme)
-                            return refreshModules()
-                        } else if(this.subMenus.customizeTheme.previewEnabled === "true"){
-                            document.querySelectorAll("[data-alert]").forEach(node => node.setAttribute("data-alert", "false"))
-                            this.subMenus.customizeTheme.previewEnabled = "false"
-                            
-                            document.getElementById("selectedStyleStatus").textContent = `${language.submenus.themeCreator.previewAdvisorDefault}`
-                            document.getElementById("selectedStyleStatus").style.color = "var(--main-content-font)"
-                            document.getElementById("themeEditorActions_preview").setAttribute("data-active", "false")
-                            
-                            sManager.saveSettings("appearance", ["theme"], this.subMenus.customizeTheme.previousTheme)
-                            refreshModules()
-                        }
-                    },
-                    "showThemeValue": (target) => {
-                        document.querySelector(".settings-menu_category-content").removeChild(document.querySelector(".customizeThemeContent"))
-                        document.getElementById("themeEditorActions_preview").setAttribute("data-active", "true")
-                        this.subMenus.customizeTheme.submenuInteractions.livePreview(document.getElementById("themeEditorActions_preview"))
-                        this.subMenus.customizeTheme.insertContent(target.dataset.value)
-                    },
-                    "saveTheme": () => {
-                        showAlert(language.alerts.saveTheme.title, language.alerts.saveTheme.desc)
-                            .then(() => {
-                                this.subMenus.customizeTheme.themeBackup = null
-                            })
-                            .catch((err) => {return})
-                    },
-                    "restoreTheme": () => {
-                        showAlert(language.alerts.restoreTheme.title, language.alerts.restoreTheme.desc)
-                            .then(() => {
-                                showNotification("The theme was restored", "You wont be able to restore your changes")
-                                sManager.saveSettings("customThemes", [sManager.getValue("appearance", ["theme"])], this.subMenus.customizeTheme.themeBackup)
-                                sManager.saveSettings("appearance", ["theme", this.subMenus.customizeTheme.previousTheme])
-                            }) .catch((err) => {return})
-                    },
-                    "useColour": (obj)=> {
-                        const target = obj[1]
-                        console.log(target.dataset)
-                        target.style.backgroundColor = obj[0]
-                        target.previousElementSibling.textContent = `Current value: ${obj[0]}`
-                        target.dataset.value = obj[0]
-                        sManager.saveSettings(target.dataset.category, JSON.parse(target.dataset.keys), obj[0])
-                        refreshModules()
-                    },
-                    "showColourPicker": (target) => {
-                        colourPicker.openMenu(target, this.subMenus.customizeTheme.submenuInteractions.useColour)
-                    },
-                    "openGuide": () => {
-                        const $container = document.querySelector(".settings-menu_content");
-                        const $content = `
-                                <div>
-                                    <div class="settings-menu_content-top">
-                                        <h5 id="category-name">How to use the Theme editor</h5>
-                                        <hr>
-                                    </div>
-                                    <div class="settings-menu_category-content">
-                                        <legend class="subtitle">Understanding properties name</legend>
-                                        <p>Every property name starts with prefixes like "Main content", they bring you information of wich part of the app you'll modify</p>
-                                        <ol>
-                                            <li>
-                                                <p><b>Top content</b></p>
-                                                <legend>In the top content you can see the Hour, the weather and finally the settings trigger. Here you can change the font colour and the opacity of the Weather PopUp.</legend>
-                                                <img src="App/Assets/Images/Examples/top_content.webp">
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            `
-                        $container.innerHTML = ''
-                        $container.innerHTML = $content
-                    }
-                }
-            }
-        }
         this.menuInteractions = {
             "close-menu": async () => {
                 if(document.getElementById("closeSettingsBtn").getAttribute("data-alert") === "true") {
@@ -292,12 +111,10 @@ class SETTINGS_MENU_MANAGER {
                 }
             },
             "createSubMenu": (target) => {
-                let $contentContainer = document.querySelector(".settings-menu_content")
-                $contentContainer.innerHTML = this.subMenus[target.dataset.typeofmenu].html
-                if(this.subMenus[target.dataset.typeofmenu].dynamicContent === true) this.subMenus[target.dataset.typeofmenu].insertContent()
+                getSubMenus.insertMenu(target.dataset.typeofmenu)
             },
             "subMenuInteraction": (target) => {
-                if(this.subMenus[target.dataset.menu]["submenuInteractions"].hasOwnProperty(target.dataset.action)) return this.subMenus[target.dataset.menu]["submenuInteractions"][target.dataset.action](target)
+                getSubMenus.menuInteractions(target.dataset.menu, target.dataset.action, target)
             },
             "openWindow": (target) => {
                 if(target.dataset.contenttype === "options"){
@@ -658,7 +475,7 @@ class SETTINGS_MENU_MANAGER {
                                 </div>
                                 <div class="optionProperty">
                                     <legend>${language.settings.appearance.mainContent.container.paddingTop}</legend>
-                                    <input type="range" min="0" max="48px" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "paddingTop"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "container", "paddingTop"]'></input>                                    
+                                    <input type="range" min="0" max="48" value="${sManager.getValue("appearance", ["mainPageItems", "mainContent", "container", "paddingTop"])}" data-mode="set" data-category="appearance" data-unit="px" data-keys='["mainPageItems", "mainContent", "container", "paddingTop"]'></input>                                    
                                 </div>
                                 <div class="optionProperty">
                                     <legend>${language.settings.appearance.mainContent.container.backdropBlur}</legend>
@@ -762,7 +579,7 @@ class SETTINGS_MENU_MANAGER {
                         `
                     }
                     this.menuInteractions["close-menu"]()
-                    createWindow.openWindow("Edit element", optionsHTML[target.dataset.windowcontent], style)
+                    createWindow.openWindow(language.commonWords.editElement, optionsHTML[target.dataset.windowcontent], style)
                     document.querySelector(".window #window-content").addEventListener("click", this.ClickHandler)
                     document.querySelector(".window #window-content").addEventListener("input", this.SelectHandler)
                 }
@@ -805,9 +622,11 @@ class SETTINGS_MENU_MANAGER {
 }
 function settingsMenuInteractionsHandler(e) {
     if(settingsMenuManager.menuInteractions[e.target.dataset.mode]){
+        if(e.target.dataset.dosubmenuinteractionfirst) settingsMenuManager.menuInteractions.subMenuInteraction(e.target)
         settingsMenuManager.menuInteractions[e.target.dataset.mode](e.target)
     }
 }
+let previousTargetElement = null;
 function settingsMenuSelectsHandler(e){
     if(e.target.tagName === "SELECT"){
         if(settingsMenuManager.menuInteractions[e.target.children[e.target.selectedIndex].dataset.mode]){
@@ -816,7 +635,34 @@ function settingsMenuSelectsHandler(e){
     }
     if(e.target.type === "range"){
         if(settingsMenuManager.menuInteractions[e.target.dataset.mode]){
-           settingsMenuManager.menuInteractions[e.target.dataset.mode](e.target) 
+            if(!document.getElementById("rangeValueIndicator")){
+                console.log(e.target.offsetWidth)
+                console.log(e.target.offsetWidth/2)
+                console.info(e.target.offsetLeft + e.target.offsetWidth/2)
+                const $parentNode = e.target.parentNode;
+                let $indicator = `
+                    <span id="rangeValueIndicator" style="position: absolute;background-color: var(--settings-menu-indicator);padding: 6px 8px;border-radius: var(--global-border-radius);color: var(--main-content-font);font-size: 14px;top: ${e.target.offsetTop - (e.target.offsetHeight*1.6)}px;">${e.target.value} ${(!e.target.dataset.unit) ? "" : e.target.dataset.unit}</span>
+                `;
+                $parentNode.insertAdjacentHTML("afterBegin", $indicator)
+                previousTargetElement = document.getElementById("rangeValueIndicator").parentElement
+                document.getElementById("rangeValueIndicator").style.left = `${(e.target.offsetLeft + e.target.offsetWidth/2)- document.getElementById("rangeValueIndicator").offsetWidth/2}px`
+            }else {
+                if(previousTargetElement != e.target.parentNode && document.getElementById("rangeValueIndicator")){
+                    previousTargetElement.removeChild(document.getElementById("rangeValueIndicator"))
+                    return;                    
+                }
+                document.getElementById("rangeValueIndicator").textContent = `${e.target.value} ${(!e.target.dataset.unit) ? "" : e.target.dataset.unit}`
+            }
+            const mouseUp = (e) =>{
+                e.target.parentNode.removeChild(document.getElementById("rangeValueIndicator"))
+                e.target.removeEventListener("mouseup", mouseUp)
+                mouseUplistenerAdded = false
+            }
+            if(mouseUplistenerAdded === false){
+                mouseUplistenerAdded = true
+                e.target.addEventListener("mouseup", mouseUp)
+            }
+            settingsMenuManager.menuInteractions[e.target.dataset.mode](e.target) 
         }
     }
 }

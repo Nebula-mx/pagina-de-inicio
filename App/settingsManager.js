@@ -32,7 +32,7 @@ class settingsManager {
             }
             newSettings.general.version = this.defaultSettings.general.version
             localStorage.setItem("settings", JSON.stringify(newSettings))
-            localStorage.setItem("updated_settings", "false")
+            localStorage.setItem("updated_settings", "true")
             this.config = newSettings
         }
         return

@@ -1,4 +1,4 @@
-import { openedMenu } from "../Components/SettingsMenu.js"
+import { openedMenu } from "../Views/SettingsMenu.js"
 
 function closeAlert(hideTopBg){
     if(hideTopBg === true) document.querySelector(".top-bg").style.display = "none"
