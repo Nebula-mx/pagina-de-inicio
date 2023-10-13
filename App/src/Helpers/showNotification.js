@@ -5,6 +5,7 @@ export function showNotification(title, desc) {
     if(apliedContent === true) {
         $root.removeChild($root.querySelector(".notification"))
         apliedContent = false
+        return showNotification(title, desc)
     }
     let html = `
         <span class="notification">
@@ -17,5 +18,5 @@ export function showNotification(title, desc) {
     setTimeout(() => {
         $root.removeChild($root.querySelector(".notification"))
         apliedContent = false        
-    }, 5000)
+    }, 5300)
 }
