@@ -1,10 +1,60 @@
-import { sManager } from "../../settingsManager.js"
-import { errorAnimShake } from "./Animations.js";
-import { showNotification } from "./showNotification.js";
-const lang = sManager.getValue("general", ["lang"]);
-const language = (await import(`../lang/${lang}.js`)).default;
+import { showNotification } from "../../helpers/showNotification.js";
 
 class SHORTCUTS_MANAGER {
+    constructor(){
+        this.shortcuts = null;
+        this.shortcutsLenght = null;
+        this.apliedShortcuts = false;
+        this.lang = null;
+    }
+    loadShortcuts(){
+        let $fragment = document.createDocumentFragment();
+        this.shortcuts.forEach(el => {
+            console.log(el);
+            let $container = document.createElement("li");
+            let $div = document.createElement("div");
+            let $img = document.createElement("img");
+            let $legend = document.createElement("legend");
+
+            $div.classList.add("shortcutBody");
+            $img.setAttribute("src", `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${el.url}`);
+            $legend.textContent = `${el.title}`
+            $div.append($img);
+            $div.append($legend);
+            $container.append($div);
+
+            $fragment.append($container);
+        })
+        document.getElementById("shortcutsList").append($fragment)
+    };
+    testShortcutsStatus({shortcutsObj , shortcutsLenght, lang}){
+        this.shortcuts = shortcutsObj;
+        this.shortcutsLenght = shortcutsLenght;
+        this.lang = lang;
+        console.log(shortcutsObj);
+
+        if(!this.shortcuts) {
+            localStorage.setItem("shortcuts", "[]")
+            this.shortcuts = [];
+        }
+        try {
+            console.log("hola")
+            if(localStorage.getItem("shortcuts") === "null" || !JSON.parse(localStorage.getItem("shortcuts")) instanceof Array) throw new Error("The shortcuts object format is not valid")
+            this.shortcuts = JSON.parse(localStorage.getItem("shortcuts"))
+            this.loadShortcuts();
+        } catch(error) {
+            console.log(error)
+            if(error === "The shortcuts object format is not valid"){
+                showNotification(lang.notifications.errors.corruptShortcuts.title, lang.notifications.errors.corruptShortcuts.desc)
+                localStorage.setItem("shortcuts", "[]")
+                this.shortcuts = [];
+            }
+        }
+    };
+}
+
+export const shortcuts_manager = new SHORTCUTS_MANAGER()
+class si {
     constructor() {
         this.$root = document.getElementById("root")
         this.$dynamicStyle = document.getElementById("dynamic-style")
@@ -22,7 +72,6 @@ class SHORTCUTS_MANAGER {
         let sLenght = newShortcutsArr.length
         
         if(sLenght > sLimit) {
-            console.log("holis")
             while(sLenght > sLimit){
                 sLenght--
                 newShortcutsArr.pop()
@@ -30,9 +79,11 @@ class SHORTCUTS_MANAGER {
             this.shortcuts = newShortcutsArr
             localStorage.shortcuts = JSON.stringify(newShortcutsArr)
             localStorage.shortcutsNumber = newShortcutsArr.length
-        }        
+        } else if(sLenght === sLimit) {
+            document.getElementById("add-shortcut").style.display = "none"
+        }     
     }
-    async loadShortcuts() {
+    loadShortcuts() {
         if(this.shortcuts === null || this.apliedShortcuts) return
         try {
             const $fragment = document.createDocumentFragment()
@@ -54,7 +105,7 @@ class SHORTCUTS_MANAGER {
             if(this.shortcuts.length == sManager.config.general["shortcuts_limit"]) return document.getElementById("add-shortcut").style.display = "none"
         } catch (error) {
             if(error.message === "shortcutsLimitReached"){
-                return //document.getElementById("add-shortcut").style.display = "none"
+                return document.getElementById("add-shortcut").style.display = "none"
             }
             console.log(error)
             localStorage.setItem("shortcuts", "null")
@@ -156,8 +207,8 @@ class SHORTCUTS_MANAGER {
             document.getElementById("formNameInput").value = mode[1]
         }
         
-        let saveBtn = document.getElementById("saveSFBtn"),
-            closeBtn = document.getElementById("closeSFBtn");
+        const saveBtn = document.getElementById("saveSFBtn")
+        const closeBtn = document.getElementById("closeSFBtn");
             
         return new Promise((resolve, reject) => {
             saveBtn.addEventListener("click", (e) => {
@@ -196,8 +247,9 @@ class SHORTCUTS_MANAGER {
                 this.shortcuts.push({id: pos , title: data.name, url: data.url})
                 localStorage.setItem("shortcuts", JSON.stringify(this.shortcuts))
                 localStorage.setItem("shortcutsNumber", pos +1)
-
-                if(this.shortcutsLenght === this.shortcutsLimit) document.getElementById("add-shortcut").style.display = "none"
+                
+                refreshModules()
+                if(this.shortcutsLenght == this.shortcutsLimit) this.testShortcutsLenght()
             })
             .catch(err => err)
     }
@@ -213,7 +265,8 @@ class SHORTCUTS_MANAGER {
                 target.children[1].setAttribute("data-url", data.url)
                 target.children[1].children[0].src = `https://s2.googleusercontent.com/s2/favicons?sz=64&domain_url=${data.url}`
                 target.children[1].children[1].textContent = data.name
-
+                
+                refreshModules()
                 localStorage.setItem("shortcuts", JSON.stringify(this.shortcuts))
             })
             .catch(err => err)
@@ -230,7 +283,7 @@ class SHORTCUTS_MANAGER {
         
         localStorage.setItem("shortcuts", JSON.stringify(this.shortcuts))
         localStorage.setItem("shortcutsNumber", this.shortcutsLenght)
+        refreshModules()
         if(document.getElementById("add-shortcut").getAttribute("style") === "display: none;" && this.shortcutsLenght < this.shortcutsLimit) document.getElementById("add-shortcut").style.display = "block"
     }
 }
-export const shortcuts_manager = new SHORTCUTS_MANAGER()

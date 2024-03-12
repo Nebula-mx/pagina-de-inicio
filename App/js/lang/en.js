@@ -1,4 +1,4 @@
-import { sManager } from "../../settingsManager.js"
+import { settingsManager } from "../settingsManager.js"
 
 export default {
     "commonWords": {
@@ -50,16 +50,36 @@ export default {
             "corruptShortcuts": {
                 "title": "Your shortcuts object was restored",
                 "desc": "an error was ocurred while trying to get required values, check browser console to get more info"
+            },
+            "cannotGetWeather": {
+                "title": "Can't get weather info",
+                "desc": "there was a problem while trying to get the weather."
+            },
+            "cannotGetPosition": {
+                "title": "Cannot get your position",
+                "desc": "There was a problem while trying to get your position, use manual set instead"
             }
         },
         "info": {
             "livePreviewOn": {
                 "title": "Live theme preview is enabled!",
                 "desc": "if you refresh the app your changes will be lost!"
+            },
+            "gettingLocation": {
+                "title": "Getting your current location",
+                "desc": "This may take some minutes."
+            },
+            "newLocationSet": {
+                "title": "Your new location has set",
+                "desc": "The new weather location has set succesfully."
             }
         }
     },
     "alerts": {
+        "deleteShortcuts": {
+            "title": "Want to delete this shortcut?",
+            "desc": "This action can not be undone"
+        },
         "themeEditorAlerts": {
             "title": "You have unsaved changes!",
             "desc": "If you close this menu, preview mode will be enabled, if you refresh the app the theme will be lost!"
@@ -346,7 +366,7 @@ export default {
                 "p": "This app still in development so features like keybinds, a better personalization and other features are currently in development."
             },
             "whatsNew": {
-                "legend": `What's new? v.${sManager.getValue("general", ["version"])}`,
+                "legend": `What's new? v.${settingsManager.getValue("general", ["version"])}`,
                 "list": `
                     <li>Now there is a new Backgrounds section to have a better customization.</li>
                     <li>Some fixes to the colour selector (it doesn't works on mobile, it will be fixed soon.)</li>
@@ -355,7 +375,7 @@ export default {
             },
             "appInfo": {
                 "legend": "App info",
-                "version": `Version: ${sManager.getValue("general", ["version"])} <br> Made by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 in 🇲🇽 <br> Thanks to <a href="https://github.com/Fabrisdev">Fabri</a> by helping with the translations 💜`
+                "version": `Version: ${settingsManager.getValue("general", ["version"])} <br> Made by: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> <br> Made with 💜 in 🇲🇽 <br> Thanks to <a href="https://github.com/Fabrisdev">Fabri</a> by helping with the translations 💜`
             }
         }
     },

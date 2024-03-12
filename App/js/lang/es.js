@@ -1,4 +1,4 @@
-import { sManager } from "../../settingsManager.js"
+import { settingsManager } from "../settingsManager.js"
 
 export default {
     "commonWords": {
@@ -50,16 +50,36 @@ export default {
             "corruptShortcuts": {
                 "title": "El objeto de Shortcuts ha sido restablecido",
                 "desc": "Ha sucedido un error al momento de la carga, revise la consola del navegador para obtener mas detalles."
+            },
+            "cannotGetWeather": {
+                "title": "No se pudo obtener la información del clima",
+                "desc": "Hubo un problema al intentar obtener la información del clima."
+            },
+            "cannotGetPosition": {
+                "title": "Ubicación no disponible",
+                "desc": "Hubo un problema al intentar obtener la ubicación, intente poner su ubicación manualmente."
             }
         },
         "info": {
             "livePreviewOn": {
                 "title": "¡La vista previa en vivo esta activa!",
                 "desc": "Si recargas o cierras la pagina se perderan los cambios."
+            },
+            "gettingLocation": {
+                "title": "Getting your current location",
+                "desc": "This may take some minutes."
+            },
+            "newLocationSet": {
+                "title": "Your new location has set",
+                "desc": "The new weather location has set succesfully."
             }
         }
     },
     "alerts": {
+        "deleteShortcuts": {
+            "title": "¿Deseas eliminar este acceso?",
+            "desc": "Esta acción no se puede deshacer."
+        },
         "themeEditorAlerts": {
             "title": "¡Tienes cambios sin guardar!",
             "desc": "Si cierras este menú la vista previa en vivo será activada, si recargas la aplicación el tema se perderá."
@@ -345,7 +365,7 @@ export default {
                 "p": "Esta página sigue en desarrollo asi que características como una mejor personalización, atajos de teclado y otras características aún no estan disponibles."
             },
             "whatsNew": {
-                "legend": `¿Qué hay de nuevo? v.${sManager.getValue("general", ["version"])}`,
+                "legend": `¿Qué hay de nuevo? v.${settingsManager.getValue("general", ["version"])}`,
                 "list": `
                     <li>Ahora hay una nueva sección para poder elegir distintos fondos de pantalla.</li>
                     <li>Se corrigieron detalles en el selector de colores (por el momento no funciona en navegadores moviles)</li>
@@ -354,7 +374,7 @@ export default {
             },
             "appInfo": {
                 "legend": "Información de la pagina",
-                "version": `Versión: ${sManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
+                "version": `Versión: ${settingsManager.getValue("general", ["version"])} <br> Hecho por: <a href="https://github.com/Nebula-mx/" >Nebula_mx</a> 🇲🇽 <br> Gracias a <a href="https://github.com/Fabrisdev">Fabri</a> por ayudar con las traducciones 💜`
             }
         }
     },

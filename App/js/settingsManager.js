@@ -1,11 +1,11 @@
-import { defaultSettings } from "./Assets/data/defaultSettings.js"
+import { defaultSettings } from "./mainComponents/defaultSettings.js";
 
 if(!localStorage.getItem("updated_settings")){
     localStorage.setItem("updated_settings", "false")
 }
-class settingsManager {
-    constructor(){
-        this.config = null;
+class SETTINGS_MANAGER {
+    constructor(defaultSettings, currentSettings){
+        this.config = currentSettings;
         this.defaultSettings = defaultSettings;
     }
     updateSettings(mode){
@@ -40,11 +40,14 @@ class settingsManager {
     testSettingsStatus(){
         if(!localStorage.getItem("settings")){
             localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
-            this.config = this.defaultSettings
+            this.config = this.defaultSettings;
         } else {
             try {
                 this.config = JSON.parse(localStorage.getItem("settings"))
-                if(localStorage.getItem("updated_settings") === "false" || !this.config.general.version || this.config.general.version !== this.defaultSettings.general.version) return this.updateSettings("start")
+                if(localStorage.getItem("updated_settings") === "false" || !this.config.general.version || this.config.general.version !== this.defaultSettings.general.version) {
+                    console.log("holis")
+                    return this.updateSettings("start")
+                }
             } catch (err) {
                 console.log(err)
                 this.config = this.defaultSettings
@@ -53,12 +56,6 @@ class settingsManager {
             }
         }
     }
-    loadConfig(){
-        this.testSettingsStatus()
-    }
-
-    //settings managment
-
     getValue(category, keys = []){
         if(!this.config) this.loadConfig()
         try {
@@ -79,10 +76,10 @@ class settingsManager {
     }
     getFullSettings(){
         try {
-            this.loadConfig()
-            return JSON.parse(localStorage.getItem("settings"))
+            this.testSettingsStatus();
+            return this.config;
         } catch {
-            return this.defaultSettings
+            return this.defaultSettings;
         }
     }
     saveSettings(category, keys = [], value){
@@ -115,5 +112,4 @@ class settingsManager {
         setTimeout(() => location.reload(), 3100)
     }
 }
-export let sManager = new settingsManager()
-window.SettingsManager = new settingsManager()
+export const settingsManager = new SETTINGS_MANAGER(defaultSettings, JSON.parse(localStorage.getItem("settings")))

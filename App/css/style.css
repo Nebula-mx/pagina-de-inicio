@@ -1,0 +1,151 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../Assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+}
+#root {
+    all: unset;
+    display: grid;
+    background-position: center;
+    background-size: cover;
+    place-content: center;
+    grid-template-rows: var(--root-grid-values);
+    font-family: var(--mainFontFamily);
+    color: var(--mainFontColour);
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+#topContent {
+    min-width: 100vw;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+#topContent #weatherAndSettings {
+    grid-row: 1/2;
+    display: flex;
+    width: 100dvw;
+    justify-content: space-between;
+    font-size: var(--weatherAndSettings-fontSize);
+    font-weight: var(--weatherAndSettings-fontWeight);
+}
+#topContent #weatherAndSettings label {cursor: pointer;}
+#topContent #weatherAndSettings label:hover {
+    text-decoration: underline;
+}
+#topContent #weatherAndSettings label {
+    display: flex;
+    align-items: center;
+    padding: var(--weatherAndSettings-padding);
+}
+#topContent #dateAndHour {
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    place-self: center;
+}
+#topContent #dateAndHour #hour {
+    font-size: var(--dateAndHour-hourFontSize);
+    font-weight: var(--dateAndHour-hourFontWeight);
+}
+#topContent #dateAndHour #date {
+    font-size: var(--dateAndHour-dateFontSize);
+    font-weight: var(--dateAndHour-dateFontWeight);
+}
+#bottomContent {
+    background-color: var(--bottomContent-bg);
+    display: grid;
+    padding: clamp(12px, 5vw, 64px) 0;
+    min-width: 100vw;
+    grid-template-rows: auto auto;
+    place-content: center;
+    align-items: center;
+    z-index: 1;
+    backdrop-filter: blur(var(--globalBlurValue));
+    -webkit-backdrop-filter: blur(var(--globalBlurValue));
+}
+#bottomContent #searchBox {
+    grid-row: 1/2;
+    display: flex;
+    place-content: center;
+    height: fit-content;
+}
+#bottomContent #searchBox input[type = "text"] {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--searchBox-bgColour);
+    width: var(--searchBox-width);
+    height: var(--searchBox-height);
+    padding: var(--searchBox-padding);
+    border-radius: var(--globalBorderRadius) 0px 0px var(--globalBorderRadius);
+    border: none;
+    outline: 0;
+    font-family: var(--mainFontFamily);
+    color: var(--mainFontColour);
+}
+#bottomContent #searchBox #searchBtn {
+    background-color: var(--searchBtn-bgColour);
+    width: clamp(40px, 15vw, 64px);
+    height: auto;
+    border-radius: 0 var(--globalBorderRadius) var(--globalBorderRadius) 0;
+    border: none;
+    cursor: pointer;
+}
+#bottomContent #searchBox #searchBtn img {
+    max-width: 40%;
+}
+#bottomContent #shortcuts {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    place-self: center;
+    width: clamp(32px, 72vw, 1024px);
+    height: 100%;
+    overflow-y: auto;
+}
+#bottomContent #shortcuts #shortcutsList {
+    grid-row: 2/3;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 2rem 0;
+    padding: 0;
+    list-style: none;
+}
+#bottomContent #shortcuts #shortcutsList > li {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 10px 15px;
+    text-align: center;
+    font-size: var(--shortcuts-nameSize);
+    cursor: pointer;
+}
+#bottomContent #shortcuts #shortcutsList > li .shortcutBody img,
+#bottomContent #shortcuts #shortcutsList > li .shortcutBody svg {
+    background-color: var(--shortcuts-BgColour);
+    width: var(--shortcuts-size);
+    height: var(--shortcuts-size);
+    padding: clamp(8px, 4vw, 16px);
+    margin-bottom: var(--shortcuts-nameMargin);
+    border-radius: var(--globalBorderRadius);
+}
+#bottomContent #shortcuts #shortcutsList > li .shortcutBody legend {margin: 0 auto;}
+#bottomContent #shortcuts #shortcutsList .editShorttcutBtn {
+    display: none;
+    position: absolute;
+    height: clamp(4px, 3vw, 8px);
+    padding: 8px;
+    transform: translateX(-20px);
+    cursor: pointer;
+}
+#bottomContent #shortcuts #shortcutsList .editShorttcutBtn svg {
+    height: clamp(12px, 3vw, 18px);
+}
+#bottomContent #shortcuts #shortcutsList > li:hover .editShorttcutBtn {
+    display: block;
+}

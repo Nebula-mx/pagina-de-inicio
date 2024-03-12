@@ -1,0 +1,4 @@
+[☑] - shortcuts module
+[x] - search module
+[x] - settings menu module
+[/] - optimize the way the content loads
