@@ -15,6 +15,12 @@
     user-select: none;
     -webkit-user-select: none;
 }
+.translucidButton {
+    background-color: transparent;
+    font-family: var(--mainFontFamily);
+    color: var(--mainFontColour);
+    border: none;
+}
 #topContent {
     min-width: 100vw;
     height: 100%;
@@ -67,6 +73,7 @@
     z-index: 1;
     backdrop-filter: blur(var(--globalBlurValue));
     -webkit-backdrop-filter: blur(var(--globalBlurValue));
+    color: var(--bottomContent-fontColour);
 }
 #bottomContent #searchBox {
     grid-row: 1/2;
@@ -85,7 +92,7 @@
     border: none;
     outline: 0;
     font-family: var(--mainFontFamily);
-    color: var(--mainFontColour);
+    color: var(--bottomContent-fontColour);
 }
 #bottomContent #searchBox #searchBtn {
     background-color: var(--searchBtn-bgColour);
@@ -103,7 +110,7 @@
     display: flex;
     justify-content: center;
     place-self: center;
-    width: clamp(32px, 72vw, 1024px);
+    width: clamp(32px, 82vw, 1126px);
     height: 100%;
     overflow-y: auto;
 }
@@ -119,11 +126,27 @@
 }
 #bottomContent #shortcuts #shortcutsList > li {
     display: flex;
+    position: relative;
     flex-direction: column;
     padding: 0 15px 10px 15px;
     text-align: center;
     font-size: var(--shortcuts-nameSize);
     cursor: pointer;
+    max-width: min-content;
+}
+#bottomContent #shortcuts #shortcutsList > li .contextMenuContainer{
+    display: block;
+    position: absolute;
+}
+#bottomContent #shortcuts #shortcutsList > li .contextMenuContainer input[type="image"] {
+    display: none;
+    filter: invert(var(--shortcuts-contextMenuBtn-invert));
+    transform: translate(-15px, 10px);
+    cursor: context-menu;
+    z-index: 1;
+    padding: 5px;
+    width: clamp(1px, 6vw, 4px);
+    height: clamp(6px, 10vw, 18px);
 }
 #bottomContent #shortcuts #shortcutsList > li .shortcutBody img,
 #bottomContent #shortcuts #shortcutsList > li .shortcutBody svg {
@@ -134,18 +157,13 @@
     margin-bottom: var(--shortcuts-nameMargin);
     border-radius: var(--globalBorderRadius);
 }
-#bottomContent #shortcuts #shortcutsList > li .shortcutBody legend {margin: 0 auto;}
-#bottomContent #shortcuts #shortcutsList .editShorttcutBtn {
-    display: none;
-    position: absolute;
-    height: clamp(4px, 3vw, 8px);
-    padding: 8px;
-    transform: translateX(-20px);
-    cursor: pointer;
+#bottomContent #shortcuts #shortcutsList > li .shortcutBody legend {
+    margin: 0 auto;
+    color: var(--bottomContent-fontColour);
+    max-width: clamp(46px, 20vw, 96px);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-#bottomContent #shortcuts #shortcutsList .editShorttcutBtn svg {
-    height: clamp(12px, 3vw, 18px);
-}
-#bottomContent #shortcuts #shortcutsList > li:hover .editShorttcutBtn {
-    display: block;
+#bottomContent #shortcuts #shortcutsList > li:hover .contextMenuContainer input[type="image"] {
+    display: flex;
 }

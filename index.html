@@ -6,21 +6,22 @@
     <link id="favicon" rel="icon" type="image/x-icon">
     <style id="themeVariables"></style>
     <link rel="stylesheet" href="./App/css/style.css">
+    <script type="module" src="./App/src/Index.js"></script>
     <title>New Tab</title>
 </head>
 <body id="root">
     <section id="topContent">
         <div id="weatherAndSettings">
-            <div id="weather" style="width: fit-content;">
+            <button id="weather" class="translucidButton" style="width: fit-content;" data-action="OWPUP">
                 <label>
                     <img src="" id="weatherImg" style="display: block;width: var(--weatherAndSettings-weatherIconSize);height: var(--weatherAndSettings-weatherIconSize);order: 0;">
                     <legend style="display: flex;"><legend id="currentTemp"></legend> <legend id="currentLocation"></legend></legend>
                 </label>
-            </div>
+            </button>
             <div id="settings">
                 <label>
                     <legend>Settings</legend>
-                    <img src="./App/Assets/Images/icons/generalSettings.svg" alt="" srcset="" style="margin-left: 1vw; display: block;width: var(--weatherAndSettings-weatherIconSize);height: var(--weatherAndSettings-weatherIconSize);order: 0">
+                    <img src="./App/Assets/Images/icons/generalSettings.svg" alt="" srcset="" style="margin-left: 1vw; display: block;width: var(--weatherAndSettings-weatherIconSize);height: var(--weatherAndSettings-weatherIconSize);order: 0; filter: invert(var(--intemsInvert));">
                 </label>
             </div>
         </div>
@@ -31,22 +32,21 @@
     </section>
     <section id="bottomContent">
         <form id="searchBox">
-            <input type="text" autofocus name="searchBox" placeholder="Type to search">
-            <button id="searchBtn">
-                <img src="./App/Assets/Images/icons/search.svg"></img>
+            <input type="text" autofocus name="searchBox" placeholder="Type to search" autocomplete="off">
+            <button id="searchBtn" data-action="4">
+                <img src="./App/Assets/Images/icons/search.svg" data-action="4"></img>
             </button>
         </form>
         <div id="shortcuts">
             <ul id="shortcutsList">
-                <li title="Create shortcut">
+                <li title="Add shortcut" id="addShortcut">
                     <div class="shortcutBody">
-                        <img src="./App/Assets/Images/icons/addShortcut.svg" alt="" sizes="" srcset="">
-                        <legend>Create shortcut</legend>
+                        <img src="./App/Assets/Images/icons/addShortcut.svg" alt="" sizes="" srcset="" data-action="3">
+                        <legend data-action="3">Add shortcut</legend>
                     </div>
                 </li>
             </ol>
         </div>
     </section>
-    <script type="module" src="./App/js/Index.js"></script>
 </body>
 </html>

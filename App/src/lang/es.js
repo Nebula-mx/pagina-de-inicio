@@ -76,6 +76,10 @@ export default {
         }
     },
     "alerts": {
+        "buttons": {
+            "cancel": "Cancelar",
+            "okay": "Aceptar"
+        },
         "deleteShortcuts": {
             "title": "¿Deseas eliminar este acceso?",
             "desc": "Esta acción no se puede deshacer."

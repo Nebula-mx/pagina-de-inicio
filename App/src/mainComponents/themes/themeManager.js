@@ -7,9 +7,9 @@ class THEME_MANAGER {
         this.$root = document.getElementById("root");
         this.$favicon = document.getElementById("favicon");
         this.favicons = {
-            "Firefox": "App/Assets/Images/Firefox.webp",
-            "Edg": "App/Assets/Images/Edge.webp",
-            "Chrome": "App/Assets/Images/Chrome.webp"
+            "Firefox": "App/Assets/Images/icons/Firefox.webp",
+            "Edg": "App/Assets/Images/icons/Edge.webp",
+            "Chrome": "App/Assets/Images/icons/Chrome.webp"
         };
         this.bgTypes = {
             "backgroundImage": (value) => `url(${value})`,
@@ -36,7 +36,7 @@ class THEME_MANAGER {
     }
     startModule(config){
         this.config = config;
-        this.theme = themeVariables()
+        this.theme = themeVariables(this.config.appearance.theme)
         this.aplyTheme();
     }
 }

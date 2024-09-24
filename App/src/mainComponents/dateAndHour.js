@@ -1,25 +1,3 @@
-// let previousHour,
-//     previousDate,
-//     staticDate = new Date;
-
-// const dateFormats = 
-// const $clock = document.querySelector("[data-hour]"),
-//     $date = document.querySelector("[data-date]");
-// const cock = () => {
-//     const hour = new Date()
-//     if(hour.getMinutes() === previousHour) return
-//     $clock.textContent = `${hour.getHours()}:${(hour.getMinutes().toString().length !== 1) ? hour.getMinutes()  : "0".concat(hour.getMinutes()) }`
-//     previousHour = hour.getMinutes()
-// }
-
-// setInterval(clock, 1000)
-// setInterval( ()=> {
-//     let date = new Date()
-//     if(previousDate === staticDate.getDate()) return
-//     $date.textContent = dateFormats[sManager.getValue("appearance", ["dateFormat"])]
-//     previousDate = date.getDate()
-// }, 1000)
-
 class CLOCK {
     constructor() {
         this.language = null;

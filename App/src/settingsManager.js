@@ -1,11 +1,12 @@
+import { showNotification } from "./helpers/showNotification.js";
 import { defaultSettings } from "./mainComponents/defaultSettings.js";
 
 if(!localStorage.getItem("updated_settings")){
     localStorage.setItem("updated_settings", "false")
 }
 class SETTINGS_MANAGER {
-    constructor(defaultSettings, currentSettings){
-        this.config = currentSettings;
+    constructor(defaultSettings){
+        this.config = null;
         this.defaultSettings = defaultSettings;
     }
     updateSettings(mode){
@@ -38,26 +39,29 @@ class SETTINGS_MANAGER {
         return
     }
     testSettingsStatus(){
-        if(!localStorage.getItem("settings")){
+        if(!localStorage.getItem("settings") ||localStorage.getItem("settings") === null){
             localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
             this.config = this.defaultSettings;
         } else {
             try {
                 this.config = JSON.parse(localStorage.getItem("settings"))
+                if(this.config.general.firstStart === 1 || this.config.general.firstStart === null) {
+                    throw new Error("settings need to be reset");
+                }
                 if(localStorage.getItem("updated_settings") === "false" || !this.config.general.version || this.config.general.version !== this.defaultSettings.general.version) {
-                    console.log("holis")
-                    return this.updateSettings("start")
+                    return this.updateSettings("start");
                 }
             } catch (err) {
                 console.log(err)
                 this.config = this.defaultSettings
+                this.config.general.firstStart = 0;
                 localStorage.setItem("settings", JSON.stringify(this.defaultSettings))
-                return {title:"Your settings have been restored", description:"The settings object was corrut"}
+                return showNotification("Your settings have been restored", "The settings object was corrupt")
             }
         }
     }
     getValue(category, keys = []){
-        if(!this.config) this.loadConfig()
+        if(!this.config) this.testSettingsStatus()
         try {
             let value = this.config[category]
             keys.forEach((item => {
@@ -112,4 +116,4 @@ class SETTINGS_MANAGER {
         setTimeout(() => location.reload(), 3100)
     }
 }
-export const settingsManager = new SETTINGS_MANAGER(defaultSettings, JSON.parse(localStorage.getItem("settings")))
+export const settingsManager = new SETTINGS_MANAGER(defaultSettings)
