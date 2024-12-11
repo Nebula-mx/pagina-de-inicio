@@ -1,5 +1,5 @@
-import { getContent } from "../helpers/Loader.js"
-import { showNotification } from "../helpers/showNotification.js"
+import { getContent } from "../helpers/Loader.js";
+import { showNotification } from "../helpers/showNotification.js";
 
 class WEATHER {
     constructor(){
@@ -47,4 +47,4 @@ class WEATHER {
         this.getWeather(config.getValue("general", ["weather_city"]), lang)
     }
 }
-export const weather = new WEATHER()
+export const weather = new WEATHER();

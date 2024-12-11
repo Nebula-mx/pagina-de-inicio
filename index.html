@@ -12,16 +12,16 @@
 <body id="root">
     <section id="topContent">
         <div id="weatherAndSettings">
-            <button id="weather" class="translucidButton" style="width: fit-content;" data-action="OWPUP">
+            <button id="weather" class="translucidButton" style="width: fit-content;">
                 <label>
-                    <img src="" id="weatherImg" style="display: block;width: var(--weatherAndSettings-weatherIconSize);height: var(--weatherAndSettings-weatherIconSize);order: 0;">
-                    <legend style="display: flex;"><legend id="currentTemp"></legend> <legend id="currentLocation"></legend></legend>
+                    <img src="" id="weatherImg" data-action="5" style="display: block;width: var(--weatherAndSettings-weatherIconSize);height: var(--weatherAndSettings-weatherIconSize);order: 0;">
+                    <legend style="display: flex;"><legend id="currentTemp"></legend> <legend id="currentLocation" data-action="5"></legend></legend>
                 </label>
             </button>
             <div id="settings">
                 <label>
-                    <legend>Settings</legend>
-                    <img src="./App/Assets/Images/icons/generalSettings.svg" alt="" srcset="" style="margin-left: 1vw; display: block;width: var(--weatherAndSettings-weatherIconSize);height: var(--weatherAndSettings-weatherIconSize);order: 0; filter: invert(var(--intemsInvert));">
+                    <legend data-action="6">Settings</legend>
+                    <img data-action="6" src="./App/Assets/Images/icons/generalSettings.svg" alt="" srcset="" style="margin-left: 1vw; display: block;width: var(--weatherAndSettings-weatherIconSize);height: var(--weatherAndSettings-weatherIconSize);order: 0; filter: invert(var(--intemsInvert));">
                 </label>
             </div>
         </div>

@@ -62,8 +62,8 @@ class SHORTCUT_PROMPT{
                         <input type="text" id="SF_Top-name" placeholder="${NamePlaceholder}" autocomplete="off" tab-index="2" value="${(mode===0) ? "" : NamePlaceholder}">
                     </div>
                     <div id="SF_Bottom">
-                        <input type="button" data-action="closeMenu" value="${lang.prompts.shortcuts.cancel}">
-                        <input type="button" data-action="SaveChanges" value="${lang.prompts.shortcuts.save}">
+                        <input type="button" class="button" style="width:49%" data-action="closeMenu" value="${lang.prompts.shortcuts.cancel}">
+                        <input type="button" class="button" style="width:49%" data-action="SaveChanges" value="${lang.prompts.shortcuts.save}">
                     </div>
                 </form>
             </div>`;
@@ -119,19 +119,6 @@ class SHORTCUT_PROMPT{
                     outline: var(--shortcuts-shortcutPromptInputFocusOutline);
                     border: var(--shortcuts-shortcutPromptInputFocusBorder);
                 }
-                #SF_Top-url::after {
-                    content: "Formato inválido";
-                    color: red;
-                    font-size: 12px;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    background: #fff;
-                    padding: 2px 5px;
-                    border: 1px solid red;
-                    border-radius: 3px;
-                    white-space: nowrap;
-                }
                 #SF_Bottom {
                     display: flex;
                     flex-wrap: nowrap;
@@ -139,25 +126,6 @@ class SHORTCUT_PROMPT{
                     background-color: var(--seccondaryUIColor);
                     padding: clamp(4px, 2vw, 12px);
                     border-radius: 0 0 var(--globalBorderRadius) var(--globalBorderRadius);
-                }
-                #SF_Bottom input[type="button"] {
-                    width: 49%;
-                    padding: clamp(1px, 1vw, 8px);
-                    border-radius: var(--globalBorderRadius);
-                    font-family: var(--mainFontFamily);
-                    font-weight: 600;
-                    background-color: var(--mainUIColor);
-                    border: var(--shortcuts-shortcutPromptButtonsBorder);
-                    cursor: pointer;
-                    color: var(--bottomContent-fontColour);
-                    font-size: clamp(0px, 2vw, 12px);
-                }
-                #SF_Bottom input[type="button"]:hover {
-                    background-color: var(--shortcuts-shortcutPromptButtonsHoverBg);
-                }
-                #SF_Bottom input[type="button"]:active {
-                    background-color: var(--shortcuts-shortcutPromptButtonsActiveBg);
-                    border: var(--shortcuts-shortcutPromptButtonsActiveBorder);
                 }
             </style>
         `;

@@ -6,14 +6,17 @@ export function themeVariables(theme) {
                 --globalBorderRadius: 5px;
                 --globalBlurValue: 5px;
                 --mainUIColor: rgba(255, 255, 255, 1);
-                --seccondaryUIColor: rgba(255, 255, 255, 0.7);
+                --seccondaryUIColor: rgba(255, 255, 255, 0.6);
                 --mainFontFamily: "Montserrat", sans-serif;
                 --mainFontColour: rgba(255, 255, 255, 1);
+                --button-bg-colour: rgba(243, 243, 243, 1);
+                --weatherPopUp-Bg: rgba(255, 255, 255, 1);
+                --weatherPopUp-border: 1px solid rgba(175, 175, 175, 1);
                 --notification-Border: 2px solid #AFAFAF;
                 --notification-Padding: clamp(1px, 2vw, 16px) clamp(2px, 3vw, 30px);
                 --notification-legendFontSize: clamp(1px, 3vw, 24px);
                 --notification-pFontSize: clamp(1px, 3vw, 18px);
-                --intemsInvert: 100%;
+                --itemsInvert: 0%;
                 --weatherAndSettings-padding: 16px;
                 --weatherAndSettings-fontSize: clamp(8px, 5vw, 16px);
                 --weatherAndSettings-fontWeight: 450;
@@ -47,6 +50,9 @@ export function themeVariables(theme) {
                 --shortcuts-shortcutPromptButtonsHoverBg: rgba(231, 231, 231, 1);
                 --shortcuts-shortcutPromptButtonsActiveBg: rgba(195, 195, 195, 1);
                 --shortcuts-shortcutPromptButtonsActiveBorder: 1px solid rgba(144, 144, 144, 1);
+                --settingsMenu-categorySeparator: 0 1px rgba(0, 0, 0, 0.7);
+                --settingsMenu-optionBgColor: rgba(236, 236, 236, 1);
+                --settingsMenu-optionBorder: 1px solid rgba(199, 199, 199, 1);
             }
         `,
         "dark": `
@@ -55,14 +61,17 @@ export function themeVariables(theme) {
                 --globalBorderRadius: 5px;
                 --globalBlurValue: 5px;
                 --mainUIColor: rgba(0, 0, 0, 1);
-                --seccondaryUIColor: rgba(0, 0, 0, 0.7);
+                --seccondaryUIColor: rgba(27, 27, 27, 0.6);
                 --mainFontFamily: "Montserrat", sans-serif;
                 --mainFontColour: rgba(255, 255, 255, 1);
+                --button-bg-colour: rgba(0, 0, 0, 1);
+                --weatherPopUp-Bg: rgba(27, 27, 27, 1);
+                --weatherPopUp-border: rgba(73, 73, 73, 1);
                 --notification-Border: 2px solid #494949;
                 --notification-Padding: clamp(1px, 2vw, 16px) clamp(2px, 3vw, 30px);
                 --notification-legendFontSize: clamp(1px, 3vw, 24px);
                 --notification-pFontSize: clamp(1px, 3vw, 18px);
-                --itemsInvert: 0%;
+                --itemsInvert: 100%;
                 --weatherAndSettings-padding: 16px;
                 --weatherAndSettings-fontSize: clamp(8px, 5vw, 16px);
                 --weatherAndSettings-fontWeight: 450;
@@ -92,10 +101,13 @@ export function themeVariables(theme) {
                 --shortcuts-shortcutPromptInputHoverBorder: 1px solid rgba(120, 120, 120, 1);
                 --shortcuts-shortcutPromptInputFocusOutline: 1px solid rgba(2, 138, 255, 1);
                 --shortcuts-shortcutPromptInputFocusBorder: solid 1px transparent;
-                --shortcuts-shortcutPromptButtonsBorder: 1px solid rgba(47, 47, 47, 1);
+                --shortcuts-shortcutPromptButtonsBorder: 1px solid  rgba(47, 47, 47, 1);
                 --shortcuts-shortcutPromptButtonsHoverBg: rgba(50, 50, 50, 1);
                 --shortcuts-shortcutPromptButtonsActiveBg: rgba(30, 30, 30, 1);
                 --shortcuts-shortcutPromptButtonsActiveBorder: 1px solid rgba(144, 144, 144, 1);
+                --settingsMenu-categorySeparator: 0 1px rgba(193, 193, 193, 0.7);
+                --settingsMenu-optionBgColor: rgba(33, 33, 33, 1);
+                --settingsMenu-optionBorder: 1px solid rgba(67, 67, 67, 1);
             }
         `
     }

@@ -21,6 +21,26 @@
     color: var(--mainFontColour);
     border: none;
 }
+.button{
+    padding: clamp(1px, 3vw, 8px) clamp(2px, 3.5vw, 14px);
+    border-radius: var(--globalBorderRadius);
+    font-family: var(--mainFontFamily);
+    font-weight: 600;
+    background-color: var(--button-bg-colour);
+    border: var(--shortcuts-shortcutPromptButtonsBorder);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    color: var(--bottomContent-fontColour);
+    font-size: clamp(0px, 2.5vw, 12px);
+}
+.button:hover {
+    background-color: var(--shortcuts-shortcutPromptButtonsHoverBg);
+}
+.button:active{
+    background-color: var(--shortcuts-shortcutPromptButtonsActiveBg);
+    border: var(--shortcuts-shortcutPromptButtonsActiveBorder);
+}
 #topContent {
     min-width: 100vw;
     height: 100%;

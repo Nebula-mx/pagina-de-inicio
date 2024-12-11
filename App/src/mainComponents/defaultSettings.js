@@ -5,7 +5,7 @@ export const defaultSettings = {
       name: "Google",
       baseURL: 'https://www.google.com/search?q='
     },
-    "open_search_in_newTab": "false",
+    "open_search_in_newTab": false,
     "weather_city": "Mexico-City",
     "lang": "en",
     "version": "0.9.8A",
